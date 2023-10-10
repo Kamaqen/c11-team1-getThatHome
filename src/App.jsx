@@ -1,9 +1,9 @@
-import Footer from "./components/footer";
+import TeamCard from "./components/TeamCard";
 
 function App() {
     return (
         <>
-            <Footer page="other" />
+            <TeamCard photo="src/assets/team1.jpg" name="Lionel Messi" />
         </>
     );
 }
