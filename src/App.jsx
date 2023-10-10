@@ -1,35 +1,97 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import Button from "../Button";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <React.Fragment>
+      <h1
+        style={{ textAlign: "center", fontSize: "17px", marginBottom: "2rem" }}
+      >
+        Buttons
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "5px",
+          flexDirection: "column",
+        }}
+      >
+        <Button size="def" variant="primary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="def" variant="secondary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="def" variant="disabled">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="def" variant="ghost">
+          {" "}
+          BUTTON
+        </Button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "5px",
+          flexDirection: "column",
+        }}
+      >
+        <Button size="lg" variant="primary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="lg" variant="secondary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="lg" variant="disabled">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="lg" variant="ghost">
+          {" "}
+          BUTTON
+        </Button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "5px",
+          flexDirection: "column",
+        }}
+      >
+        <Button size="sm" variant="primary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="sm" variant="secondary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="sm" variant="disabled">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="sm" variant="ghost">
+          {" "}
+          BUTTON
+        </Button>
+      </div>
+    </React.Fragment>
+  );
+};
 
-export default App
+export default App;
