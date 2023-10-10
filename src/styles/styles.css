@@ -1,3 +1,9 @@
 @import url("./reset.css");
 @import url("./utils.css");
 @import url("./layout.css");
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    background: tan;
+}
