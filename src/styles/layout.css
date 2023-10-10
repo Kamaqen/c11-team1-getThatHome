@@ -1,0 +1,40 @@
+.section {
+    padding: 64px 0;
+}
+.container {
+    max-width: 1440px;
+    margin: auto;
+}
+.flex {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.j-center {
+    justify-content: center;
+}
+.j-start {
+    justify-content: flex-start;
+}
+.j-end {
+    justify-content: flex-end;
+}
+.j-between {
+    justify-content: space-between;
+}
+.j-around {
+    justify-content: space-around;
+}
+.a-center {
+    align-items: center;
+}
+.a-end {
+    align-items: flex-end;
+}
+.a-start {
+    align-items: flex-start;
+}
+.a-stretch {
+    align-items: stretch;
+}
