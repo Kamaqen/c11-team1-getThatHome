@@ -11,6 +11,9 @@
 .flex-column {
     flex-direction: column;
 }
+.flex-wrap {
+    flex-wrap: wrap;
+}
 .j-center {
     justify-content: center;
 }
@@ -26,6 +29,9 @@
 .j-around {
     justify-content: space-around;
 }
+.j-evenly {
+    justify-content: space-evenly;
+}
 .a-center {
     align-items: center;
 }
@@ -37,4 +43,13 @@
 }
 .a-stretch {
     align-items: stretch;
+}
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
 }
