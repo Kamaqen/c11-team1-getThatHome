@@ -10,6 +10,9 @@ const reactIcon = <DiReact />;
 const ghIcon = <AiFillGithub />;
 
 const FooterWrapper = styled.footer`
+    border-top: 2px solid #bf5f82;
+    padding: 16px 0px;
+    width: 100%;
     justify-content: center;
     height: ${(props) => (props.page === "home" ? "73px" : "124px")};
     background: #f5f5f6;
@@ -72,11 +75,11 @@ const Footer = ({ page }) => {
                     </StyledDiv>
                 </FooterContainer>
             ) : (
-                <FooterContainer>
+                <FooterContainer className="flex container">
                     <p>© 2023 - Find That Home</p>
                     <StyledDiv className="flex flex-column a-center">
                         <p>Source Code</p>
-                        <StyledDiv className="flex flex-column">
+                        <StyledDiv className="flex flex-row">
                             <IconLabel
                                 icon={rubyIcon}
                                 label="Ruby on Rails REST API"

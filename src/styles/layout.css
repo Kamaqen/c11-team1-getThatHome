@@ -11,6 +11,9 @@
 .flex-column {
     flex-direction: column;
 }
+.flex-row {
+    flex-direction: row;
+}
 .flex-wrap {
     flex-wrap: wrap;
 }
@@ -59,6 +62,12 @@
 .gap-md {
     gap: 16px;
 }
+.gap-xl {
+    gap: 48px;
+}
 .margin-md {
     margin: 0 16px;
+}
+.mb-md {
+    margin-bottom: 16px;
 }
