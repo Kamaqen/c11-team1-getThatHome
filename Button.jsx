@@ -84,24 +84,28 @@ export const Blayout = styled.div`
         : "#000000"};
   }
 `;
-export const Button = ({
-  type,
-  variant,
-  className,
-  id,
-  onClick,
-  size,
-  children,
-}) => {
+
+const Button = ({ type, children, ...props }) => {
+  let SelectedButton;
+  switch (type) {
+    case "Primary":
+      SelectedButton = Primary;
+      break;
+    case "Secundary":
+      SelectedButton = Secundary;
+      break;
+    case "Disabled":
+      SelectedButton = Disabled;
+      break;
+    case "Ghost":
+      SelectedButton = Ghost;
+      break;
+    default:
+      SelectedButton = Primary;
+  }
+
   return (
-    <Blayout
-      type={type ? type : "button"}
-      variant={variant}
-      className={className ? `btn-component ${className}` : "btn-component"}
-      id={id}
-      onClick={onClick}
-      size={size}
-    >
+    <Blayout>
       <Icon>
         <RiUserLine />
       </Icon>
