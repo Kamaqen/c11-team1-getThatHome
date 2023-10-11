@@ -1,16 +1,15 @@
 import styled from "@emotion/styled";
 
-const StyledDiv = styled.div`
-    display: flex;
-    gap: 8px;
-    margin: 4px 10px;
+const IconContainer = styled.div`
+    font-size: 24px;
+    margin-right: 8px;
 `;
 const IconLabel = ({ icon, label }) => {
     return (
-        <StyledDiv>
-            {icon}
+        <div className="flex a-center">
+            <IconContainer>{icon}</IconContainer>
             <p>{label}</p>
-        </StyledDiv>
+        </div>
     );
 };
 

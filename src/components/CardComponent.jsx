@@ -25,10 +25,11 @@ const CardContainer = styled.div`
     background: white;
     color: #373737;
     width: 300px;
-    height: 360px;
+    height: 337px;
     position: relative;
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const CardImgObject = styled.div`
@@ -41,8 +42,14 @@ const CardImg = styled.img`
     height: 100%;
     object-fit: cover;
 `;
-const CardPrice = styled.p`
-    font-size: 24px;
+
+const IconTextContainer = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: ${(props) => (props.text ? props.text : "16px")};
+    & svg {
+        margin-right: 8px;
+    }
 `;
 
 const CardTag = styled.div`
@@ -55,9 +62,7 @@ const CardTag = styled.div`
     right: 0;
     font-size: 14px;
 `;
-const StyledDet = styled.p`
-    color: #616161;
-`;
+
 const CardFooter = styled.div`
     display: flex;
     justify-content: space-around;
@@ -98,25 +103,27 @@ const CardComponent = ({
                 {coinIcon}For {operation}
             </CardTag>
             <div className="flex j-between margin-md">
-                <CardPrice>
-                    {moneyIcon} {price}
-                </CardPrice>
-                <StyledDet>
+                <IconTextContainer
+                    className="flex j-center a-center"
+                    text="24px">
+                    {moneyIcon} {price.toLocaleString()}
+                </IconTextContainer>
+                <IconTextContainer className="flex j-center a-center">
                     {buildingIcon} {type}
-                </StyledDet>
+                </IconTextContainer>
             </div>
-            <p className="margin-md">{address}</p>
+            <p className="margin-md mb-md">{address}</p>
             <div className="flex gap-md margin-md">
-                <StyledDet>
+                <IconTextContainer>
                     {bedIcon} {bed}
-                </StyledDet>
-                <StyledDet>
+                </IconTextContainer>
+                <IconTextContainer>
                     {bathIcon} {bath}
-                </StyledDet>
-                <StyledDet>
+                </IconTextContainer>
+                <IconTextContainer>
                     {areaIcon} {area}
-                </StyledDet>
-                <StyledDet>{pet && petIcon}</StyledDet>
+                </IconTextContainer>
+                <IconTextContainer>{pet && petIcon}</IconTextContainer>
             </div>
             <CardFooter footer={footer}>
                 {footer && (
