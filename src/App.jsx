@@ -1,109 +1,21 @@
-import React from "react";
-import Button, { Blayout, Icon, IconBell } from "../Button";
-import { RiNotification2Fill, RiNotification2Line } from "react-icons/ri";
+// import CardComponent from "./components/CardComponent";
+// const pro = {
+//     img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1980&q=80",
+//     price: 100000,
+//     operation: "rent",
+//     type: "apartment",
+//     address: "Calle 123",
+//     bed: 3,
+//     bath: 2,
+//     area: 200,
+//     pet: true,
+//     footer: false,
+// };
 
-const App = () => {
-  return (
-    <React.Fragment>
-      <h1
-        style={{ textAlign: "center", fontSize: "17px", marginBottom: "2rem" }}
-      >
-        Buttons
-      </h1>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "5px",
-          flexDirection: "column",
-        }}
-      >
-        <Button size="def" variant="Primary">
-          {" "}
-          <span>BUTTON</span>
-        </Button>
-        <Button size="def" variant="Secundary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="def" variant="Disabled">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="def" variant="Ghost">
-          {" "}
-          BUTTON
-        </Button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "5px",
-          flexDirection: "column",
-        }}
-      >
-        <Button size="lg" variant="Primary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="lg" variant="Secundary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="lg" variant="Disabled">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="lg" variant="Ghost">
-          {" "}
-          BUTTON
-        </Button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "5px",
-          flexDirection: "column",
-        }}
-      >
-        <Button size="sm" variant="Primary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="sm" variant="Secundary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="sm" variant="Disabled">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="sm" variant="Ghost">
-          {" "}
-          BUTTON
-        </Button>
-      </div>
-      <div>
-        <IconBell>
-          <RiNotification2Line />
-        </IconBell>
+import LandingPage from "./pages/LandingPage";
 
-        <IconBell>
-          <RiNotification2Fill />
-        </IconBell>
-      </div>
-    </React.Fragment>
-  );
-};
-
-//onClick={() => handleToggle(id)}
+function App() {
+  return <LandingPage />;
+}
 
 export default App;
