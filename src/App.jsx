@@ -1,5 +1,6 @@
 import React from "react";
-import Button from "../Button";
+import Button, { Blayout, Icon, IconBell } from "../Button";
+import { RiNotification2Fill, RiNotification2Line } from "react-icons/ri";
 
 const App = () => {
   return (
@@ -19,46 +20,19 @@ const App = () => {
           flexDirection: "column",
         }}
       >
-        <Button size="def" variant="primary">
+        <Button size="def" variant="Primary">
+          {" "}
+          <span>BUTTON</span>
+        </Button>
+        <Button size="def" variant="Secundary">
           {" "}
           BUTTON
         </Button>
-        <Button size="def" variant="secondary">
+        <Button size="def" variant="Disabled">
           {" "}
           BUTTON
         </Button>
-        <Button size="def" variant="disabled">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="def" variant="ghost">
-          {" "}
-          BUTTON
-        </Button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "5px",
-          flexDirection: "column",
-        }}
-      >
-        <Button size="lg" variant="primary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="lg" variant="secondary">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="lg" variant="disabled">
-          {" "}
-          BUTTON
-        </Button>
-        <Button size="lg" variant="ghost">
+        <Button size="def" variant="Ghost">
           {" "}
           BUTTON
         </Button>
@@ -73,25 +47,63 @@ const App = () => {
           flexDirection: "column",
         }}
       >
-        <Button size="sm" variant="primary">
+        <Button size="lg" variant="Primary">
           {" "}
           BUTTON
         </Button>
-        <Button size="sm" variant="secondary">
+        <Button size="lg" variant="Secundary">
           {" "}
           BUTTON
         </Button>
-        <Button size="sm" variant="disabled">
+        <Button size="lg" variant="Disabled">
           {" "}
           BUTTON
         </Button>
-        <Button size="sm" variant="ghost">
+        <Button size="lg" variant="Ghost">
           {" "}
           BUTTON
         </Button>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "5px",
+          flexDirection: "column",
+        }}
+      >
+        <Button size="sm" variant="Primary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="sm" variant="Secundary">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="sm" variant="Disabled">
+          {" "}
+          BUTTON
+        </Button>
+        <Button size="sm" variant="Ghost">
+          {" "}
+          BUTTON
+        </Button>
+      </div>
+      <div>
+        <IconBell>
+          <RiNotification2Line />
+        </IconBell>
+
+        <IconBell>
+          <RiNotification2Fill />
+        </IconBell>
       </div>
     </React.Fragment>
   );
 };
+
+//onClick={() => handleToggle(id)}
 
 export default App;
