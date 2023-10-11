@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+* {
+    --font-primary: 'Montserrat','Open Sans', sans-serif;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+*{
+    --font-secondary: 'Inter','Open Sans', sans-serif;
+}
+
+headline1,
+headline2,
+headline3,
+headline4,
+headline5,
+headline6,
+subtitle1,
+subtitle2{
+font-family: var(--font-primary);
+}
+
+body1,
+body2,
+button,
+caption,
+overline{
+    font-family: var(--font-secondary);
+}
+
+headline1{
+  font-size: 96px;
+  font-weight: 300;
+  line-height: 128px;
+  color: #373737;
+}
+
+headline2{
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 88px;
+    color: #373737;
+  }
+
+  headline3{
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 64px;
+    color: #373737;
+  }
+
+  headline4{
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 48px;
+    color: #373737;
+  }
+
+  headline5{
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    color: #373737;
+  }
+
+  headline6{
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    color: #373737;
+  }
+
+  subtitle1{
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #373737;
+  }
+
+  subtitle2{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #373737;
+  }
+
+  body1{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #373737;
+  }
+
+  body2{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #373737;
+  }
+
+  button{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: uppercase;
+    letter-spacing:  1.25px;
+    color: #373737;
+
+  }
+
+  caption{ 
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #373737;
+
+  }
+  overline{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: uppercase;
+    letter-spacing:  1.5px;
+    color: #373737;
+
+  }
