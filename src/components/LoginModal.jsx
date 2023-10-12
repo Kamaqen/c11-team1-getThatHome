@@ -9,17 +9,30 @@ const StyledModal = styled.div`
     border-radius: 8px;
     box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
     position: absolute;
-    top: 50%;
+    top: 300px;
     right: 50%;
     transform: translate(50%, -50%);
-    background: red;
+    background: white;
     padding: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `;
 
-const LoginModal = () => {
+const BGModal = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+`;
+const StyledForm = styled.form`
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+`;
+
+const LoginModal = ({ onClose }) => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -27,7 +40,10 @@ const LoginModal = () => {
     function handleLogin(credentials) {
         console.log(credentials);
         login(credentials)
-            .then((u) => setFormData(u))
+            .then((u) => {
+                setFormData(u);
+                onClose();
+            })
             .catch((error) => console.log(error));
     }
 
@@ -42,29 +58,32 @@ const LoginModal = () => {
     };
 
     return (
-        <StyledModal>
-            <form onSubmit={handleSubmit}>
-                <Input
-                    label="Email"
-                    id="email"
-                    name="email"
-                    placeholder="example@mail.com"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                <Input
-                    label="Password"
-                    id="password"
-                    name="password"
-                    placeholder="**"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                <button type="submit">Login</button>
-            </form>
-        </StyledModal>
+        <>
+            <BGModal />
+            <StyledModal>
+                <StyledForm onSubmit={handleSubmit}>
+                    <Input
+                        label="Email"
+                        id="email"
+                        name="email"
+                        placeholder="example@mail.com"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    <Input
+                        label="Password"
+                        id="password"
+                        name="password"
+                        placeholder="**"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Login</button>
+                </StyledForm>
+            </StyledModal>
+        </>
     );
 };
 

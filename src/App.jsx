@@ -1,7 +1,6 @@
-import PropertyDetailsPage from "./pages/PropertyDetailsPage";
-
+import LandingPage from "./pages/LandingPage";
 function App() {
-    return <PropertyDetailsPage />;
+    return <LandingPage />;
 }
 
 export default App;
