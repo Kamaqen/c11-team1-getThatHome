@@ -9,6 +9,8 @@ import Maps from "../components/Maps";
 import AbsoluteCard from "../components/AbsoluteCard";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "../components/ErrorFallback";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -66,20 +68,18 @@ const ParrDetails = styled.p`
 const PropertyDetailsPage = () => {
     const [data, setData] = useState([]);
 
+    useEffect(() => {
+        getProperties().then((res) => {
+            setData(res);
+            console.log(res);
+            localStorage.setItem("propertiesData", JSON.stringify(res));
+        });
+    }, []);
+
     // Esta constante "id" se usa para probar la pagina
     const id = 5;
-    const dataLocal = JSON.parse(localStorage.getItem("propertiesData"));
-    const {
-        address,
-        area,
-        bathrooms,
-        bedrooms,
-        description,
-        image,
-        maintenance_price,
-        pet_friendly,
-        rent_value,
-    } = dataLocal[id - 1];
+    const property = data.find((property) => property.id === id);
+    const address = property?.address;
 
     // Se divide la address para mostrarla en dos lineas (HTML)
     // Se envia a la API de mapas solo la "addressPrimary"
@@ -90,69 +90,72 @@ const PropertyDetailsPage = () => {
 
     // Esta variable "images" es provisional, se debe revisar en la API
     // que se envie un array para mapearlo en el carrusel
-    const images = [image];
-
-    useEffect(() => {
-        getProperties().then((res) => {
-            setData(res);
-            console.log(res);
-            localStorage.setItem("propertiesData", JSON.stringify(res));
-        });
-    }, []);
+    const images = [property?.image];
 
     return (
         <div className="flex flex-column a-center">
             <NavBarProv />
-            <Section>
-                <ImagesCarrousell images={images} />
-                <DivRow>
-                    <div className="flex flex-column">
-                        <ProTitle>{addressPrimary}</ProTitle>
-                        <p>{addressSecundaty}</p>
-                    </div>
-                    <div className="flex flex-column a-end gap-sm">
-                        <ProPrice>
-                            <RiMoneyDollarCircleLine />
-                            {rent_value.toLocaleString()}
-                        </ProPrice>
-                        <ProDetails>+ {maintenance_price}</ProDetails>
-                    </div>
-                </DivRow>
-                <DivDetails>
-                    <div className="flex a-center j-center">
-                        <ProDetails2>
-                            <BiBed style={{ fontSize: "32px" }} /> {bedrooms}{" "}
-                            bedrooms
-                        </ProDetails2>
-                    </div>
-                    <div className="flex">
-                        <ProDetails2>
-                            <BiBath style={{ fontSize: "32px" }} /> {bathrooms}{" "}
-                            bathrooms
-                        </ProDetails2>
-                    </div>
-                    <div className="flex">
-                        <ProDetails2>
-                            <BiArea style={{ fontSize: "32px" }} /> {area} m2
-                        </ProDetails2>
-                    </div>
-                    <div className="flex">
-                        <ProDetails2>
-                            <MdPets style={{ fontSize: "32px" }} />{" "}
-                            {pet_friendly ? "Pets allowed" : "No pets allowed"}
-                        </ProDetails2>
-                    </div>
-                </DivDetails>
-                <DivCol>
-                    <ProDetails3>About this property</ProDetails3>
-                    <ParrDetails>{description}</ParrDetails>
-                </DivCol>
-                <DivCol>
-                    <ProDetails3>Location</ProDetails3>
-                    <Maps address={addressPrimary} />
-                </DivCol>
-                <AbsoluteCard login="false" />
-            </Section>
+            <ErrorBoundary
+                FallbackComponent={ErrorFallback}
+                onReset={() => {
+                    console.log("hello");
+                }}>
+                <Section>
+                    <ImagesCarrousell images={images} />
+                    <DivRow>
+                        <div className="flex flex-column">
+                            <ProTitle>{addressPrimary}</ProTitle>
+                            <p>{addressSecundaty}</p>
+                        </div>
+                        <div className="flex flex-column a-end gap-sm">
+                            <ProPrice>
+                                <RiMoneyDollarCircleLine />
+                                {property?.rent_value.toLocaleString()}
+                            </ProPrice>
+                            <ProDetails>
+                                + {property?.maintenance_price}
+                            </ProDetails>
+                        </div>
+                    </DivRow>
+                    <DivDetails>
+                        <div className="flex a-center j-center">
+                            <ProDetails2>
+                                <BiBed style={{ fontSize: "32px" }} />{" "}
+                                {property?.bedrooms} bedrooms
+                            </ProDetails2>
+                        </div>
+                        <div className="flex">
+                            <ProDetails2>
+                                <BiBath style={{ fontSize: "32px" }} />{" "}
+                                {property?.bathrooms} bathrooms
+                            </ProDetails2>
+                        </div>
+                        <div className="flex">
+                            <ProDetails2>
+                                <BiArea style={{ fontSize: "32px" }} />{" "}
+                                {property?.area} m2
+                            </ProDetails2>
+                        </div>
+                        <div className="flex">
+                            <ProDetails2>
+                                <MdPets style={{ fontSize: "32px" }} />{" "}
+                                {property?.pet_friendly
+                                    ? "Pets allowed"
+                                    : "No pets allowed"}
+                            </ProDetails2>
+                        </div>
+                    </DivDetails>
+                    <DivCol>
+                        <ProDetails3>About this property</ProDetails3>
+                        <ParrDetails>{property?.description}</ParrDetails>
+                    </DivCol>
+                    <DivCol>
+                        <ProDetails3>Location</ProDetails3>
+                        <Maps address={addressPrimary} />
+                    </DivCol>
+                    <AbsoluteCard login="false" />
+                </Section>
+            </ErrorBoundary>
             <Footer page="other" />
         </div>
     );
