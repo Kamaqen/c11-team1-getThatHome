@@ -29,6 +29,15 @@ const CardContainer = styled.div`
 const ListViesPage = () => {
     const localData = JSON.parse(localStorage.getItem("propertiesData"));
     const [data, setData] = useState(localData);
+    const [filter, setFilter] = useState({
+        price: { priceMin: "", priceMax: "" },
+        type: "all",
+        bedrooms: "any",
+        bathrooms: "any",
+        pet_friendly: true,
+        area: { areaMin: "", areaMax: "" },
+        operation_type: "all",
+    });
 
     return (
         <div className="flex flex-column a-center">
