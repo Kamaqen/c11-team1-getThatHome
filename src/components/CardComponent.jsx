@@ -141,35 +141,3 @@ CardComponent.propTypes = {
 };
 
 export default CardComponent;
-
-<Button icon="<BiArea />" type="Ghost">
-    Dame click
-</Button>;
-
-const Button = ({ type, children, icon, ...props }) => {
-    let SelectedButton;
-    switch (type) {
-        case "Primary":
-            SelectedButton = Primary;
-            break;
-        case "Secundary":
-            SelectedButton = Secundary;
-            break;
-        case "Disabled":
-            SelectedButton = Disabled;
-            break;
-        case "Ghost":
-            SelectedButton = Ghost;
-            break;
-        default:
-            SelectedButton = Primary;
-    }
-    return (
-        <Btypography>
-            <SelectedButton {...props}>
-                <Bicon>{icon}</Bicon>
-                {children}
-            </SelectedButton>
-        </Btypography>
-    );
-};

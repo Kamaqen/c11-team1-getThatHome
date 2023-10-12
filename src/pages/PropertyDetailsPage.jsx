@@ -2,27 +2,13 @@ import styled from "@emotion/styled";
 import Footer from "../components/Footer";
 import Section from "../components/Section";
 import ImagesCarrousell from "../components/ImagesCarrousell";
-import { singleProperty } from "../STORE";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BiBath, BiArea, BiBed } from "react-icons/bi";
 import { MdPets } from "react-icons/md";
 import Maps from "../components/Maps";
 import AbsoluteCard from "../components/AbsoluteCard";
-
-const {
-    price,
-    operation,
-    type,
-    mantenimiento,
-    address,
-    bed,
-    bath,
-    area,
-    pet,
-    footer,
-} = singleProperty;
-const address1 = address.split(",")[0];
-const address2 = address.split(",")[1];
+import { useEffect, useState } from "react";
+import { getProperties } from "../services/property-services";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -73,35 +59,75 @@ const ParrDetails = styled.p`
     letter-spacing: 0.5px;
 `;
 
+// Esta constante se usara una vez que funcione la navegacion
+// asi se obtiene el id de la propiedad
+// const id= window.location.pathname.split("/")[2];
+
 const PropertyDetailsPage = () => {
+    const [data, setData] = useState([]);
+
+    // Esta constante "id" se usa para probar la pagina
+    const id = 5;
+    const dataLocal = JSON.parse(localStorage.getItem("propertiesData"));
+    const {
+        address,
+        area,
+        bathrooms,
+        bedrooms,
+        description,
+        image,
+        maintenance_price,
+        pet_friendly,
+        rent_value,
+    } = dataLocal[id - 1];
+
+    // Se divide la address para mostrarla en dos lineas (HTML)
+    // Se envia a la API de mapas solo la "addressPrimary"
+    const [addressPrimary = "", address1 = "", address2 = ""] = (
+        address || ""
+    ).split(",");
+    const addressSecundaty = `${address1.trim()}, ${address2.trim()}`;
+
+    // Esta variable "images" es provisional, se debe revisar en la API
+    // que se envie un array para mapearlo en el carrusel
+    const images = [image];
+
+    useEffect(() => {
+        getProperties().then((res) => {
+            setData(res);
+            console.log(res);
+            localStorage.setItem("propertiesData", JSON.stringify(res));
+        });
+    }, []);
+
     return (
         <div className="flex flex-column a-center">
             <NavBarProv />
             <Section>
-                <ImagesCarrousell images={singleProperty.img} />
+                <ImagesCarrousell images={images} />
                 <DivRow>
                     <div className="flex flex-column">
-                        <ProTitle>{address1}</ProTitle>
-                        <p>{address2}</p>
+                        <ProTitle>{addressPrimary}</ProTitle>
+                        <p>{addressSecundaty}</p>
                     </div>
                     <div className="flex flex-column a-end gap-sm">
                         <ProPrice>
                             <RiMoneyDollarCircleLine />
-                            {singleProperty.price.toLocaleString()}
+                            {rent_value.toLocaleString()}
                         </ProPrice>
-                        <ProDetails>+ {mantenimiento}</ProDetails>
+                        <ProDetails>+ {maintenance_price}</ProDetails>
                     </div>
                 </DivRow>
                 <DivDetails>
                     <div className="flex a-center j-center">
                         <ProDetails2>
-                            <BiBed style={{ fontSize: "32px" }} /> {bed}{" "}
+                            <BiBed style={{ fontSize: "32px" }} /> {bedrooms}{" "}
                             bedrooms
                         </ProDetails2>
                     </div>
                     <div className="flex">
                         <ProDetails2>
-                            <BiBath style={{ fontSize: "32px" }} /> {bath}{" "}
+                            <BiBath style={{ fontSize: "32px" }} /> {bathrooms}{" "}
                             bathrooms
                         </ProDetails2>
                     </div>
@@ -113,24 +139,17 @@ const PropertyDetailsPage = () => {
                     <div className="flex">
                         <ProDetails2>
                             <MdPets style={{ fontSize: "32px" }} />{" "}
-                            {pet ? "Pets allowed" : "No pets allowed"}
+                            {pet_friendly ? "Pets allowed" : "No pets allowed"}
                         </ProDetails2>
                     </div>
                 </DivDetails>
                 <DivCol>
                     <ProDetails3>About this property</ProDetails3>
-                    <ParrDetails>
-                        3 Bedroom/2 Bathroom apartment available for ASAP
-                        move-in! Apartment features hardwood floors throughout,
-                        virtual doorman, Central AC/heat, dishwasher and a
-                        microwave. The kitchen has custom cabinetry and the
-                        living room is big enough to fit a dinner table, a couch
-                        and a tv set up.
-                    </ParrDetails>
+                    <ParrDetails>{description}</ParrDetails>
                 </DivCol>
                 <DivCol>
                     <ProDetails3>Location</ProDetails3>
-                    <Maps address={address1} />
+                    <Maps address={addressPrimary} />
                 </DivCol>
                 <AbsoluteCard login="false" />
             </Section>

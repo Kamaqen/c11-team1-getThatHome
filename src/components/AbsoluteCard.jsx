@@ -32,7 +32,7 @@ const AbsoluteCard = ({ login }) => {
 };
 
 AbsoluteCard.propTypes = {
-    login: PropTypes.bool,
+    login: PropTypes.string,
 };
 
 export default AbsoluteCard;
