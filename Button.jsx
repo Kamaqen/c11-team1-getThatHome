@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import { RiArrowDownSLine, RiUserLine } from "react-icons/ri";
 
+const arrowdownIcon = <RiArrowDownSLine />;
+const userlineIcon = <RiUserLine />;
+
 export const Icon = styled.div`
   display: flex;
   font-size: 24px;
@@ -106,13 +109,9 @@ const Button = ({ type, children, ...props }) => {
 
   return (
     <Blayout>
-      <Icon>
-        <RiUserLine />
-      </Icon>
+      <Icon>{userlineIcon}</Icon>
       {children}
-      <Icon>
-        <RiArrowDownSLine />
-      </Icon>
+      <Icon>{arrowdownIcon}</Icon>
     </Blayout>
   );
 };

@@ -12,11 +12,25 @@
 //     footer: false,
 // };
 
-import LandingPage from "./pages/LandingPage";
+import { useState } from "react";
+import CheckboxCategory from "./components/InputCategory";
 
 function App() {
+  const [isChecked, setIsChecked] = useState(false);
 
-    return <LandingPage />;
+  const handleCheckboxChange = (newState) => {
+    setIsChecked(newState);
+  };
+
+  return (
+    <div>
+      <CheckboxCategory
+        name="Category one"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+    </div>
+  );
 }
 
 export default App;
