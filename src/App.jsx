@@ -1,7 +1,15 @@
-import PropertyDetailsPage from "./pages/PropertyDetailsPage";
+import React from "react";
+import  "../src/components/Select";
 
-function App() {
-    return <PropertyDetailsPage />;
-}
+const App = () => {
+  return (
+    <React.Fragment>
+      <h1 className="headline3">
+        Selects
+      </h1>
+      
+    </React.Fragment>
+  );
+};
 
 export default App;
