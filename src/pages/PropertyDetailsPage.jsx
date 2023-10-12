@@ -3,8 +3,7 @@ import Footer from "../components/Footer";
 import Section from "../components/Section";
 import ImagesCarrousell from "../components/ImagesCarrousell";
 import { singleProperty } from "../STORE";
-import { RiMoneyDollarCircleLine, RiCoinsLine } from "react-icons/ri";
-import { PiBuildings } from "react-icons/pi";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BiBath, BiArea, BiBed } from "react-icons/bi";
 import { MdPets } from "react-icons/md";
 import Maps from "../components/Maps";
@@ -22,7 +21,6 @@ const {
     pet,
     footer,
 } = singleProperty;
-
 const address1 = address.split(",")[0];
 const address2 = address.split(",")[1];
 
@@ -68,7 +66,6 @@ const DivDetails = styled(DivRow)`
     border-top: 1px solid #bf5f82;
     border-bottom: 1px solid #bf5f82;
 `;
-
 const ParrDetails = styled.p`
     padding: 8px 0;
     text-align-last: start;

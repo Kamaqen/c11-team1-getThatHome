@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { PiBuildings } from "react-icons/pi";
 import { BiBed } from "react-icons/bi";
@@ -8,16 +9,6 @@ import { MdPets } from "react-icons/md";
 import { RiCoinsLine } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-
-const buildingIcon = <PiBuildings />;
-const moneyIcon = <RiMoneyDollarCircleLine />;
-const bedIcon = <BiBed />;
-const bathIcon = <BiBath />;
-const areaIcon = <BiArea />;
-const petIcon = <MdPets />;
-const coinIcon = <RiCoinsLine />;
-const editIcon = <BiEdit />;
-const closeIcon = <AiOutlineCloseCircle />;
 
 const CardContainer = styled.div`
     border-radius: 10px;
@@ -31,7 +22,6 @@ const CardContainer = styled.div`
     flex-direction: column;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
-
 const CardImgObject = styled.div`
     width: 300px;
     height: 200px;
@@ -42,7 +32,6 @@ const CardImg = styled.img`
     height: 100%;
     object-fit: cover;
 `;
-
 const IconTextContainer = styled.div`
     display: flex;
     align-items: center;
@@ -51,7 +40,6 @@ const IconTextContainer = styled.div`
         margin-right: 8px;
     }
 `;
-
 const CardTag = styled.div`
     width: 120px;
     height: 28px;
@@ -62,7 +50,6 @@ const CardTag = styled.div`
     right: 0;
     font-size: 14px;
 `;
-
 const CardFooter = styled.div`
     display: flex;
     justify-content: space-around;
@@ -73,7 +60,6 @@ const CardFooter = styled.div`
     background: #bf5f82;
     height: ${(props) => (props.footer ? "47px" : "7px")};
 `;
-
 const StyledLink = styled.a`
     text-transform: uppercase;
     color: white;
@@ -100,36 +86,40 @@ const CardComponent = ({
                 <CardImg src={img} />
             </CardImgObject>
             <CardTag className="flex a-center j-center">
-                {coinIcon}For {operation}
+                <RiCoinsLine /> For {operation}
             </CardTag>
             <div className="flex j-between margin-md">
                 <IconTextContainer
                     className="flex j-center a-center"
                     text="24px">
-                    {moneyIcon} {price.toLocaleString()}
+                    <RiMoneyDollarCircleLine /> {price.toLocaleString()}
                 </IconTextContainer>
                 <IconTextContainer className="flex j-center a-center">
-                    {buildingIcon} {type}
+                    <PiBuildings /> {type}
                 </IconTextContainer>
             </div>
             <p className="margin-md mb-md">{address}</p>
             <div className="flex gap-md margin-md">
                 <IconTextContainer>
-                    {bedIcon} {bed}
+                    <BiBed /> {bed}
                 </IconTextContainer>
                 <IconTextContainer>
-                    {bathIcon} {bath}
+                    <BiBath /> {bath}
                 </IconTextContainer>
                 <IconTextContainer>
-                    {areaIcon} {area}
+                    <BiArea /> {area}
                 </IconTextContainer>
-                <IconTextContainer>{pet && petIcon}</IconTextContainer>
+                <IconTextContainer>{pet && <MdPets />}</IconTextContainer>
             </div>
             <CardFooter footer={footer}>
                 {footer && (
                     <>
-                        <StyledLink>{editIcon} Edit</StyledLink>
-                        <StyledLink>{closeIcon} Close</StyledLink>
+                        <StyledLink>
+                            <BiEdit /> Edit
+                        </StyledLink>
+                        <StyledLink>
+                            <AiOutlineCloseCircle /> Close
+                        </StyledLink>
                     </>
                 )}
             </CardFooter>
@@ -137,4 +127,49 @@ const CardComponent = ({
     );
 };
 
+CardComponent.propTypes = {
+    img: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    operation: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    bed: PropTypes.number.isRequired,
+    bath: PropTypes.number.isRequired,
+    area: PropTypes.number.isRequired,
+    pet: PropTypes.bool,
+    footer: PropTypes.bool,
+};
+
 export default CardComponent;
+
+<Button icon="<BiArea />" type="Ghost">
+    Dame click
+</Button>;
+
+const Button = ({ type, children, icon, ...props }) => {
+    let SelectedButton;
+    switch (type) {
+        case "Primary":
+            SelectedButton = Primary;
+            break;
+        case "Secundary":
+            SelectedButton = Secundary;
+            break;
+        case "Disabled":
+            SelectedButton = Disabled;
+            break;
+        case "Ghost":
+            SelectedButton = Ghost;
+            break;
+        default:
+            SelectedButton = Primary;
+    }
+    return (
+        <Btypography>
+            <SelectedButton {...props}>
+                <Bicon>{icon}</Bicon>
+                {children}
+            </SelectedButton>
+        </Btypography>
+    );
+};

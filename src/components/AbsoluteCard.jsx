@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 const AbsoluteDiv = styled.div`
@@ -28,6 +29,10 @@ const AbsoluteCard = ({ login }) => {
             )}
         </AbsoluteDiv>
     );
+};
+
+AbsoluteCard.propTypes = {
+    login: PropTypes.bool,
 };
 
 export default AbsoluteCard;

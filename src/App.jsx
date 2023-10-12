@@ -1,7 +1,8 @@
-import PropertyDetailsPage from "./pages/PropertyDetailsPage";
-
+// import PropertyDetailsPage from "./pages/PropertyDetailsPage";
+// import LandingPage from "./pages/LandingPage";
+import LoginModal from "./components/LoginModal"; // import LoginModal component
 function App() {
-    return <PropertyDetailsPage />;
+    return <LoginModal />;
 }
 
 export default App;
