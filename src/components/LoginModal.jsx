@@ -1,13 +1,25 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { login } from "../services/auth-services";
-const DivStyle = styled.div`
-width: 400px;
-hei
+import Input from "./Input";
+
+const StyledModal = styled.div`
+    width: 388px;
+    height: 256px;
+    border-radius: 8px;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background: red;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const LoginModal = () => {
-    const [user, setUser] = useState(null);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -17,7 +29,6 @@ const LoginModal = () => {
         login(credentials)
             .then((u) => setFormData(u))
             .catch((error) => console.log(error));
-        console.log("hello", user);
     }
 
     const handleSubmit = (event) => {
@@ -31,27 +42,29 @@ const LoginModal = () => {
     };
 
     return (
-        <DivStyle>
+        <StyledModal>
             <form onSubmit={handleSubmit}>
-                <input
-                    name="email"
-                    type="email"
-                    value={formData.value}
-                    onChange={handleChange}
-                    placeholder="example@mail.com"
+                <Input
                     label="Email"
-                />
-                <input
-                    name="password"
-                    type="password"
-                    value={formData.value}
+                    id="email"
+                    name="email"
+                    placeholder="example@mail.com"
+                    type="email"
+                    value={formData.email}
                     onChange={handleChange}
-                    placeholder="**"
+                />
+                <Input
                     label="Password"
+                    id="password"
+                    name="password"
+                    placeholder="**"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
                 />
                 <button type="submit">Login</button>
             </form>
-        </DivStyle>
+        </StyledModal>
     );
 };
 
