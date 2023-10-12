@@ -92,7 +92,7 @@ const CardComponent = ({
                 <IconTextContainer
                     className="flex j-center a-center"
                     text="24px">
-                    <RiMoneyDollarCircleLine /> {price.toLocaleString()}
+                    <RiMoneyDollarCircleLine /> {price}
                 </IconTextContainer>
                 <IconTextContainer className="flex j-center a-center">
                     <PiBuildings /> {type}

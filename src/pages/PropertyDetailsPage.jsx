@@ -6,7 +6,7 @@ import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BiBath, BiArea, BiBed } from "react-icons/bi";
 import { MdPets } from "react-icons/md";
 import Maps from "../components/Maps";
-import AbsoluteCard from "../components/AbsoluteCard";
+import ContactCard from "../components/AbsoluteCard";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import { ErrorBoundary } from "react-error-boundary";
@@ -60,7 +60,12 @@ const ParrDetails = styled.p`
     line-height: 24px;
     letter-spacing: 0.5px;
 `;
-
+const DivGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+    gap: 64px;
+`;
 // Esta constante se usara una vez que funcione la navegacion
 // asi se obtiene el id de la propiedad
 // const id= window.location.pathname.split("/")[2];
@@ -101,59 +106,65 @@ const PropertyDetailsPage = () => {
                     console.log("hello");
                 }}>
                 <Section>
-                    <ImagesCarrousell images={images} />
-                    <DivRow>
-                        <div className="flex flex-column">
-                            <ProTitle>{addressPrimary}</ProTitle>
-                            <p>{addressSecundaty}</p>
+                    <DivGrid>
+                        <div className="flex flex-column a-center">
+                            <ImagesCarrousell images={images} />
+                            <DivRow>
+                                <div className="flex flex-column">
+                                    <ProTitle>{addressPrimary}</ProTitle>
+                                    <p>{addressSecundaty}</p>
+                                </div>
+                                <div className="flex flex-column a-end gap-sm">
+                                    <ProPrice>
+                                        <RiMoneyDollarCircleLine />
+                                        {property?.rent_value.toLocaleString()}
+                                    </ProPrice>
+                                    <ProDetails>
+                                        + {property?.maintenance_price}
+                                    </ProDetails>
+                                </div>
+                            </DivRow>
+                            <DivDetails>
+                                <div className="flex a-center j-center">
+                                    <ProDetails2>
+                                        <BiBed style={{ fontSize: "32px" }} />{" "}
+                                        {property?.bedrooms} bedrooms
+                                    </ProDetails2>
+                                </div>
+                                <div className="flex">
+                                    <ProDetails2>
+                                        <BiBath style={{ fontSize: "32px" }} />{" "}
+                                        {property?.bathrooms} bathrooms
+                                    </ProDetails2>
+                                </div>
+                                <div className="flex">
+                                    <ProDetails2>
+                                        <BiArea style={{ fontSize: "32px" }} />{" "}
+                                        {property?.area} m2
+                                    </ProDetails2>
+                                </div>
+                                <div className="flex">
+                                    <ProDetails2>
+                                        <MdPets style={{ fontSize: "32px" }} />{" "}
+                                        {property?.pet_friendly
+                                            ? "Pets allowed"
+                                            : "No pets allowed"}
+                                    </ProDetails2>
+                                </div>
+                            </DivDetails>
+                            <DivCol>
+                                <ProDetails3>About this property</ProDetails3>
+                                <ParrDetails>
+                                    {property?.description}
+                                </ParrDetails>
+                            </DivCol>
+                            <DivCol>
+                                <ProDetails3>Location</ProDetails3>
+                                <Maps address={addressPrimary} />
+                            </DivCol>
                         </div>
-                        <div className="flex flex-column a-end gap-sm">
-                            <ProPrice>
-                                <RiMoneyDollarCircleLine />
-                                {property?.rent_value.toLocaleString()}
-                            </ProPrice>
-                            <ProDetails>
-                                + {property?.maintenance_price}
-                            </ProDetails>
-                        </div>
-                    </DivRow>
-                    <DivDetails>
-                        <div className="flex a-center j-center">
-                            <ProDetails2>
-                                <BiBed style={{ fontSize: "32px" }} />{" "}
-                                {property?.bedrooms} bedrooms
-                            </ProDetails2>
-                        </div>
-                        <div className="flex">
-                            <ProDetails2>
-                                <BiBath style={{ fontSize: "32px" }} />{" "}
-                                {property?.bathrooms} bathrooms
-                            </ProDetails2>
-                        </div>
-                        <div className="flex">
-                            <ProDetails2>
-                                <BiArea style={{ fontSize: "32px" }} />{" "}
-                                {property?.area} m2
-                            </ProDetails2>
-                        </div>
-                        <div className="flex">
-                            <ProDetails2>
-                                <MdPets style={{ fontSize: "32px" }} />{" "}
-                                {property?.pet_friendly
-                                    ? "Pets allowed"
-                                    : "No pets allowed"}
-                            </ProDetails2>
-                        </div>
-                    </DivDetails>
-                    <DivCol>
-                        <ProDetails3>About this property</ProDetails3>
-                        <ParrDetails>{property?.description}</ParrDetails>
-                    </DivCol>
-                    <DivCol>
-                        <ProDetails3>Location</ProDetails3>
-                        <Maps address={addressPrimary} />
-                    </DivCol>
-                    <AbsoluteCard login="false" />
+                        <ContactCard login={false} />
+                    </DivGrid>
                 </Section>
             </ErrorBoundary>
             <Footer page="other" />
