@@ -42,7 +42,14 @@ gap: 10px;
 border: 1px solid #F48FB1;
 background: #FFF;
 `;
-
+const MultiSelectText=styled.div`
+font-size: ${(props) => (props.text ? props.text : "10px")};
+font-weight: 400;
+line-height: normal;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+}
+`;
 const MultiSelectInput = styled.div`
 display: flex;
 padding: 8px;
@@ -71,3 +78,22 @@ alignt-items: flex-start;
 gap: 8px;
 
 `;
+
+const MultiSelect = ({
+title,
+selectText,
+options,
+}) => {
+    return( 
+        <MultiSelectText>{title}</MultiSelectText>
+        <MultiSelectInput className="">
+            {selectText}
+
+            {arrowdownslineIcon}
+        </MultiSelectInput> 
+        
+    );
+};
+
+export default MultiSelect;
+
