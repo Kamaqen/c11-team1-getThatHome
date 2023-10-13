@@ -1,8 +1,7 @@
-import CreateProperty from "./pages/CreateProperty";
-//import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
-    return <CreateProperty />;
+    return <LandingPage />;
 }
 
 export default App;
