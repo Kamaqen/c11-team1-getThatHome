@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Axios from 'axios';
-import {Image} from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 
 const CloudinaryUpload = ({ setImageUrls }) => {
   const [imageSelected, setImageSelected] = useState([]);
@@ -9,32 +9,38 @@ const CloudinaryUpload = ({ setImageUrls }) => {
   const uploadImage = async (event) => {
     event.preventDefault();
     setSecureUrls([]);
-    for (const file of imageSelected) {
-      const formData = new FormData()
-      formData.append("file", file)
-      formData.append("upload_preset", "d8soydn5")
-
-      await Axios.post("https://api.cloudinary.com/v1_1/doqrneqxd/image/upload", formData).then((response)=>{
-        setSecureUrls((prevSecureUrls) => [...prevSecureUrls, response.data.secure_url]);
-      })
+    const uploadPromises = imageSelected.map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "d8soydn5");
+      return Axios.post("https://api.cloudinary.com/v1_1/doqrneqxd/image/upload", formData)
+        .then((response) => response.data.secure_url);
+    });
+  
+    try {
+      const secureUrls = await Promise.all(uploadPromises);
+      setSecureUrls(secureUrls);
+      setImageUrls(secureUrls);
+      console.log(secureUrls);
+    } catch (error) {
+      // Handle any errors that might occur during the requests
+      console.error("Error uploading images:", error);
     }
-    setImageUrls(secureUrls);
-    console.log(secureUrls);
   };
   
-
   return (
     <>
       <div>
-        <input type='file' name="files[]" multiple onChange={(event)=>{setImageSelected(event.target.files)}}/>
+        <input type='file' name="files[]" multiple onChange={(event)=>{const filesArray = Array.from(event.target.files);
+                                                                        setImageSelected(filesArray);}}/>
         <button onClick={uploadImage}>Upload</button>
         <ul>
-          {secureUrls.map((secureUrl) => (
-            <li key={secureUrl}>
-              <Image
-                style={{width: 200}}
-                cloudName="doqrneqxd"
-                publicId={secureUrl}
+          {secureUrls.map((secureUrl, index) => (
+            <li key={index}>
+              <img
+                style={{ width: 200 }}
+                src={secureUrl}
+                alt={`Image ${index}`}
               />
             </li>
           ))}
