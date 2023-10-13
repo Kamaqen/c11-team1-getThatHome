@@ -23,7 +23,6 @@ const FooterContainer = styled.div`
     align-items: center;
     justify-content: space-around;
 `;
-
 const StyledDiv = styled.div`
     gap: 4px;
 `;
@@ -34,7 +33,6 @@ const TeamDiv = styled.div`
     height: 68px;
     margin: auto;
 `;
-
 const FooterLogo = styled.img`
     width: 134px;
 `;

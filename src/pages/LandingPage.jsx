@@ -5,6 +5,9 @@ import TeamCard from "../components/TeamCard";
 import { teamMembers, datafake } from "../STORE";
 import CardComponent from "../components/CardComponent";
 import SearchLanding from "../components/SearchLanding";
+import { createPortal } from "react-dom";
+import { useState } from "react";
+import LoginModal from "../components/LoginModal";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -49,9 +52,16 @@ const StyledP = styled.p`
 `;
 
 const LandingPage = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleClick = () => {
+        setShowModal(true);
+    };
     return (
         <div className="flex flex-column a-center">
-            <NavBarProv />
+            <NavBarProv>
+                <button onClick={handleClick}>Login</button>
+            </NavBarProv>
             <Section isImageSection="true">
                 <StyledImg src="src/assets/landing-img.svg" />
                 <TextDiv className="flex flex-column a-center gap-md">
@@ -113,6 +123,11 @@ const LandingPage = () => {
                     ))}
                 </div>
             </Section>
+            {showModal &&
+                createPortal(
+                    <LoginModal onClose={() => setShowModal(false)} />,
+                    document.body
+                )}
             <Footer page="home" />
         </div>
     );

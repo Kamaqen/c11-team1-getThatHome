@@ -7,6 +7,7 @@ const StyledSection = styled.section`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    overflow: hidden;
     padding: 64px 120px;
     position: relative;
     background: ${(props) => (props.color ? props.color : "white")};
@@ -27,7 +28,7 @@ const Section = ({ children, color, isImageSection }) => {
 Section.propTypes = {
     children: PropTypes.node.isRequired,
     color: PropTypes.string,
-    isImageSection: PropTypes.bool,
+    isImageSection: PropTypes.string,
 };
 
 export default Section;

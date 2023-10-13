@@ -76,4 +76,23 @@ const datafake = [
     },
 ];
 
-export { teamMembers, datafake };
+const singleProperty = {
+    img: [
+        "https://media.self.com/photos/630635c30b7f36ce816f374a/2:1/w_1280,c_limit/DAB03919-10470989.jpg",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1980&q=80",
+        "https://images.unsplash.com/photo-1560185009-dddeb820c7b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "https://images.unsplash.com/photo-1560185008-b033106af5c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    ],
+    price: 180000,
+    operation: "sale",
+    type: "villa",
+    mantenimiento: 100,
+    address: "Av. Insurgentes Sur #1079, Benito Juárez, Ciudad de México",
+    bed: 5,
+    bath: 4,
+    area: 350,
+    pet: true,
+    footer: true,
+};
+
+export { teamMembers, datafake, singleProperty };
