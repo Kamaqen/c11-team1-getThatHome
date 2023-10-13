@@ -12,23 +12,31 @@
 //     footer: false,
 // };
 
-import { useState } from "react";
-import CheckboxCategory from "./components/InputCategory";
+///////////////////
+// function App() {
+//   const [isChecked, setIsChecked] = useState(false);
+
+//   const handleCheckboxChange = (newState) => {
+//     setIsChecked(newState);
+//   };
+
+//   return (
+//     <div>
+//       <CheckboxCategory
+//         name="Category one"
+//         checked={isChecked}
+//         onChange={handleCheckboxChange}
+//       />
+//     </div>
+//   );
+// }
+
+import Navbar from "./components/Menu";
 
 function App() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = (newState) => {
-    setIsChecked(newState);
-  };
-
   return (
     <div>
-      <CheckboxCategory
-        name="Category one"
-        checked={isChecked}
-        onChange={handleCheckboxChange}
-      />
+      <Navbar />
     </div>
   );
 }
