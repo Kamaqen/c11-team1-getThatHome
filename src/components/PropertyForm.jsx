@@ -41,9 +41,20 @@ const PropertyForm = () => {
   const [imageUrls, setImageUrls] = React.useState([]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prevFormData) => {
+      if (type === "checkbox") {
+        return {
+          ...prevFormData,
+          [name]: checked,
+        };
+      } else {
+        return {
+          ...prevFormData,
+          [name]: value,
+        };
+      }
     });
   };
 

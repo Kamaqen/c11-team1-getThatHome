@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Axios from 'axios';
-import { Image } from 'cloudinary-react';
 
 const CloudinaryUpload = ({ setImageUrls }) => {
   const [imageSelected, setImageSelected] = useState([]);
