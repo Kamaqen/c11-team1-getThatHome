@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Input from './Input';
+import CloudinaryUpload from './CloudinaryUpload';
 
 const StyledLabel = styled.label`
     font-size: 10px;
@@ -37,6 +38,7 @@ const PropertyForm = () => {
     longitude: '',
     latitude: '',
   });
+  const [imageUrls, setImageUrls] = React.useState([]);
 
   const handleChange = (e) => {
     setFormData({
@@ -47,8 +49,7 @@ const PropertyForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Instead of submitting the data, just print it in console
+    formData.urls = imageUrls;
     console.log(formData);
   };
 
@@ -140,12 +141,9 @@ const PropertyForm = () => {
       <div>
       <p>Photos</p>
       <p>Upload as many photos as you wish</p>
-      <Input
-        label="URLs"
-        name="urls"
-        value={formData.urls}
-        onChange={handleChange}
-      />
+      <div>
+        <CloudinaryUpload setImageUrls={setImageUrls}/>
+      </div>
       </div>
       <button type="submit">Submit</button>
     </StyledForm>
