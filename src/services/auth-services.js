@@ -6,6 +6,7 @@ export function login(credentials) {
         const { token, ...user } = u;
         sessionStorage.setItem(tokenKey, token);
         sessionStorage.setItem("userId", user.id);
+        sessionStorage.setItem("userRole", user.role);
         return user;
     });
 }
@@ -13,5 +14,7 @@ export function login(credentials) {
 export function logout() {
     return apiFetch("/logout", { method: "GET" }).then(() => {
         sessionStorage.removeItem(tokenKey);
+        sessionStorage.removeItem("userId");
+        sessionStorage.removeItem("userRole");
     });
 }

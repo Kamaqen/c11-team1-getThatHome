@@ -6,8 +6,10 @@ import { teamMembers, datafake } from "../STORE";
 import CardComponent from "../components/CardComponent";
 import SearchLanding from "../components/SearchLanding";
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginModal from "../components/LoginModal";
+import { logout } from "../services/auth-services";
+import { tokenKey } from "../config";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -52,15 +54,53 @@ const StyledP = styled.p`
 `;
 
 const LandingPage = () => {
+    const [user, setUser] = useState(sessionStorage.getItem("userId"));
+    const [role, setRole] = useState(sessionStorage.getItem("userRole"));
     const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
         setShowModal(true);
     };
+    const updateUser = (userId) => {
+        setUser(userId);
+    };
+    const updateRole = (userRole) => {
+        setRole(userRole);
+    };
+
+    const handleLogOut = () => {
+        logout().then(() => {
+        setUser(null);
+        });
+    }
+
     return (
         <div className="flex flex-column a-center">
             <NavBarProv>
-                <button onClick={handleClick}>Login</button>
+                <p>Logo</p>
+                <button>Find a Home</button>
+                {user ? (
+                    <>
+                        <button onClick={handleLogOut}>Logout</button>
+                        {role === "landlord" && (
+                            <>
+                                <button>My Properties</button>
+                                <button>Profile</button>
+                            </>
+                        )}
+                        {role === "home_seeker" && (
+                            <>
+                                <button>Saved Properties</button>
+                                <button>Profile</button>
+                            </>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <button>Join</button>
+                        <button onClick={handleClick}>Login</button>
+                    </>
+                )}    
             </NavBarProv>
             <Section isImageSection="true">
                 <StyledImg src="src/assets/landing-img.svg" />
@@ -125,7 +165,13 @@ const LandingPage = () => {
             </Section>
             {showModal &&
                 createPortal(
-                    <LoginModal onClose={() => setShowModal(false)} />,
+                    <LoginModal 
+                        onClose={() => {
+                            setShowModal(false);
+                            updateUser(sessionStorage.getItem("userId"));
+                            updateRole(sessionStorage.getItem("userRole"));
+                        }} 
+                    />,
                     document.body
                 )}
             <Footer page="home" />

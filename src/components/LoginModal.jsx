@@ -38,19 +38,16 @@ const LoginModal = ({ onClose }) => {
     password: "",
   });
   function handleLogin(credentials) {
-    console.log(credentials);
     login(credentials)
       .then((u) => {
         setFormData(u);
         onClose();
-        console.log(u);
       })
       .catch((error) => console.log(error));
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
     handleLogin(formData);
   };
   const handleChange = (event) => {
