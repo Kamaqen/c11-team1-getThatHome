@@ -25,10 +25,4 @@ const Section = ({ children, color, isImageSection }) => {
     );
 };
 
-Section.propTypes = {
-    children: PropTypes.node.isRequired,
-    color: PropTypes.string,
-    isImageSection: PropTypes.string,
-};
-
 export default Section;

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import SelectLanding from "./SelectLanding";
+import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
     border-radius: 8px;
@@ -50,7 +51,9 @@ const SearchLanding = () => {
                 label="Where"
                 options={["Favorite district"]}
             />
-            <ButtonProv>Search</ButtonProv>
+            <Link to="/list" style={{ textDecoration: "none" }}>
+                <ButtonProv>Search</ButtonProv>
+            </Link>
         </StyledDiv>
     );
 };

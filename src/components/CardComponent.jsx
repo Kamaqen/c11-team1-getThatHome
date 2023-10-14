@@ -21,6 +21,9 @@ const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    &:hover {
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    }
 `;
 const CardImgObject = styled.div`
     width: 300px;
@@ -92,7 +95,7 @@ const CardComponent = ({
                 <IconTextContainer
                     className="flex j-center a-center"
                     text="24px">
-                    <RiMoneyDollarCircleLine /> {price.toLocaleString()}
+                    <RiMoneyDollarCircleLine /> {price}
                 </IconTextContainer>
                 <IconTextContainer className="flex j-center a-center">
                     <PiBuildings /> {type}
@@ -125,19 +128,6 @@ const CardComponent = ({
             </CardFooter>
         </CardContainer>
     );
-};
-
-CardComponent.propTypes = {
-    img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    operation: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    bed: PropTypes.number.isRequired,
-    bath: PropTypes.number.isRequired,
-    area: PropTypes.number.isRequired,
-    pet: PropTypes.bool,
-    footer: PropTypes.bool,
 };
 
 export default CardComponent;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Section from "../components/Section";
 import PropertyForm from "../components/PropertyForm";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 
 const NavBarProv = styled.div`
     position: relative;
