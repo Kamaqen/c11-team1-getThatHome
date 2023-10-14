@@ -8,11 +8,9 @@ export const Icon = styled.div`
   align-items: center;
 `;
 
-export const Blayout = styled.div`
+export const Blayout = styled.button`
   font-family: "Inter", sans-serif;
   font-size: 14px;
-  font-weight: 500;
-  line-height: 24px; /* 171.429% */
   letter-spacing: 1.25px;
   text-transform: uppercase;
   text-align: center;
@@ -31,22 +29,8 @@ export const Blayout = styled.div`
       : props.size === "sm"
       ? "4px 8px 4px 8px"
       : "8px"};
-  height: ${(props) =>
-    props.size === "def"
-      ? "40px"
-      : props.size === "lg"
-      ? "56px"
-      : props.size === "sm"
-      ? "32px"
-      : "0px"};
-  width: ${(props) =>
-    props.size === "def"
-      ? "161px"
-      : props.size === "lg"
-      ? "177px"
-      : props.size === "sm"
-      ? "145px"
-      : "0px"};
+  height: auto;
+  width: auto;
   color: ${(
     props // Text inside the button
   ) =>
@@ -85,33 +69,13 @@ export const Blayout = styled.div`
   }
 `;
 
-const Button = ({ type, children, ...props }) => {
-  let SelectedButton;
-  switch (type) {
-    case "Primary":
-      SelectedButton = Primary;
-      break;
-    case "Secundary":
-      SelectedButton = Secundary;
-      break;
-    case "Disabled":
-      SelectedButton = Disabled;
-      break;
-    case "Ghost":
-      SelectedButton = Ghost;
-      break;
-    default:
-      SelectedButton = Primary;
-  }
-
+const Button = ({ children, icon, icon2, ...props }) => {
   return (
-    <Blayout>
-      <Icon>
-        <RiUserLine />
-      </Icon>
+    <Blayout {...props}>
+      <Icon>{icon ? icon : <RiUserLine />}</Icon>
       {children}
       <Icon>
-        <RiArrowDownSLine />
+        <Icon>{icon2 && <RiArrowDownSLine />}</Icon>
       </Icon>
     </Blayout>
   );

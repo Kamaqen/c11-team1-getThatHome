@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { login } from "../services/auth-services";
-import Input from "./Input";
+import Input from "./Inputlau";
+import Button from "./Button";
+import { RiUserReceivedLine } from "react-icons/ri";
+import { RiCloseLine } from "react-icons/ri";
+
+const iconRiUserReceivedLine = <RiUserReceivedLine />;
+const iconRiCloseLine = <RiCloseLine />;
 
 const StyledModal = styled.div`
   width: 388px;
@@ -25,11 +31,36 @@ const BGModal = styled.div`
   top: 0;
   left: 0;
 `;
+
 const StyledForm = styled.form`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Buttonlog = styled.button`
+  margin: 16px;
+  /* Headline5 */
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  align-items: center;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px; /* Ajusta la posición superior según tus necesidades */
+  right: 10px; /* Ajusta la posición derecha según tus necesidades */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
 const LoginModal = ({ onClose }) => {
@@ -62,12 +93,14 @@ const LoginModal = ({ onClose }) => {
     <>
       <BGModal />
       <StyledModal>
+        <CloseButton onClick={onClose}>X</CloseButton>
         <StyledForm onSubmit={handleSubmit}>
+          Login
           <Input
             label="Email"
             id="email"
             name="email"
-            placeholder="example@mail.com"
+            placeholder="user@mail.com"
             type="email"
             value={formData.email}
             onChange={handleChange}
@@ -76,12 +109,20 @@ const LoginModal = ({ onClose }) => {
             label="Password"
             id="password"
             name="password"
-            placeholder="**"
+            placeholder="********"
             type="password"
             value={formData.password}
             onChange={handleChange}
           />
-          <button type="submit">Login</button>
+          <Buttonlog>
+            <Button
+              variant="Primary"
+              type="submit"
+              icon={iconRiUserReceivedLine}
+            >
+              Login
+            </Button>
+          </Buttonlog>
         </StyledForm>
       </StyledModal>
     </>
