@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../components/ErrorFallback";
+import AbsoluteCard from "../components/AbsoluteCard";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -20,6 +21,18 @@ const NavBarProv = styled.div`
     margin: auto;
     background-color: #f48fb1;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+`;
+
+const SectionProperty = styled.section`
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 64px;
+    width: 100%;
+    overflow: hidden;
+    padding: 64px 120px;
+    background: white;
 `;
 const ProTitle = styled.h3`
     padding: 4px 0;
@@ -60,42 +73,16 @@ const ParrDetails = styled.p`
     line-height: 24px;
     letter-spacing: 0.5px;
 `;
-const DivGrid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto;
-    gap: 64px;
-`;
-// Esta constante se usara una vez que funcione la navegacion
-// asi se obtiene el id de la propiedad
-// const id= window.location.pathname.split("/")[2];
 
 const PropertyDetailsPage = () => {
-    const [data, setData] = useState([]);
+    const data = JSON.parse(localStorage.getItem("propertiesData"));
+    const id = parseInt(window.location.pathname.split("/")[2]);
+    const property = data?.find((item) => item.id === id);
 
-    useEffect(() => {
-        getProperties().then((res) => {
-            setData(res);
-            console.log(res);
-            localStorage.setItem("propertiesData", JSON.stringify(res));
-        });
-    }, []);
-
-    // Esta constante "id" se usa para probar la pagina
-    const id = 5;
-    const property = data.find((property) => property.id === id);
-    const address = property?.address;
-
-    // Se divide la address para mostrarla en dos lineas (HTML)
-    // Se envia a la API de mapas solo la "addressPrimary"
     const [addressPrimary = "", address1 = "", address2 = ""] = (
-        address || ""
+        property?.address || ""
     ).split(",");
     const addressSecundaty = `${address1.trim()}, ${address2.trim()}`;
-
-    // Esta variable "images" es provisional, se debe revisar en la API
-    // que se envie un array para mapearlo en el carrusel
-    const images = [property?.image];
 
     return (
         <div className="flex flex-column a-center">
@@ -105,61 +92,63 @@ const PropertyDetailsPage = () => {
                 onReset={() => {
                     console.log("hello");
                 }}>
-                <Section>
-                    <ImagesCarrousell images={images} />
-                    <DivRow>
-                        <div className="flex flex-column">
-                            <ProTitle>{addressPrimary}</ProTitle>
-                            <p>{addressSecundaty}</p>
-                        </div>
-                        <div className="flex flex-column a-end gap-sm">
-                            <ProPrice>
-                                <RiMoneyDollarCircleLine />
-                                {property?.rent_value.toLocaleString()}
-                            </ProPrice>
-                            <ProDetails>
-                                + {property?.maintenance_price}
-                            </ProDetails>
-                        </div>
-                    </DivRow>
-                    <DivDetails>
-                        <div className="flex a-center j-center">
-                            <ProDetails2>
-                                <BiBed style={{ fontSize: "32px" }} />{" "}
-                                {property?.bedrooms} bedrooms
-                            </ProDetails2>
-                        </div>
-                        <div className="flex">
-                            <ProDetails2>
-                                <BiBath style={{ fontSize: "32px" }} />{" "}
-                                {property?.bathrooms} bathrooms
-                            </ProDetails2>
-                        </div>
-                        <div className="flex">
-                            <ProDetails2>
-                                <BiArea style={{ fontSize: "32px" }} />{" "}
-                                {property?.area} m2
-                            </ProDetails2>
-                        </div>
-                        <div className="flex">
-                            <ProDetails2>
-                                <MdPets style={{ fontSize: "32px" }} />{" "}
-                                {property?.pet_friendly
-                                    ? "Pets allowed"
-                                    : "No pets allowed"}
-                            </ProDetails2>
-                        </div>
-                    </DivDetails>
-                    <DivCol>
-                        <ProDetails3>About this property</ProDetails3>
-                        <ParrDetails>{property?.description}</ParrDetails>
-                    </DivCol>
-                    <DivCol>
-                        <ProDetails3>Location</ProDetails3>
-                        <Maps address={addressPrimary} />
-                    </DivCol>
+                <SectionProperty>
+                    <div>
+                        <ImagesCarrousell images={property.urls} />
+                        <DivRow>
+                            <div className="flex flex-column">
+                                <ProTitle>{addressPrimary}</ProTitle>
+                                <p>{addressSecundaty}</p>
+                            </div>
+                            <div className="flex flex-column a-end gap-sm">
+                                <ProPrice>
+                                    <RiMoneyDollarCircleLine />
+                                    {property?.rent_value.toLocaleString()}
+                                </ProPrice>
+                                <ProDetails>
+                                    + {property?.maintenance_price}
+                                </ProDetails>
+                            </div>
+                        </DivRow>
+                        <DivDetails>
+                            <div className="flex a-center j-center">
+                                <ProDetails2>
+                                    <BiBed style={{ fontSize: "32px" }} />{" "}
+                                    {property?.bedrooms} bedrooms
+                                </ProDetails2>
+                            </div>
+                            <div className="flex">
+                                <ProDetails2>
+                                    <BiBath style={{ fontSize: "32px" }} />{" "}
+                                    {property?.bathrooms} bathrooms
+                                </ProDetails2>
+                            </div>
+                            <div className="flex">
+                                <ProDetails2>
+                                    <BiArea style={{ fontSize: "32px" }} />{" "}
+                                    {property?.area} m2
+                                </ProDetails2>
+                            </div>
+                            <div className="flex">
+                                <ProDetails2>
+                                    <MdPets style={{ fontSize: "32px" }} />{" "}
+                                    {property?.pet_friendly
+                                        ? "Pets allowed"
+                                        : "No pets allowed"}
+                                </ProDetails2>
+                            </div>
+                        </DivDetails>
+                        <DivCol>
+                            <ProDetails3>About this property</ProDetails3>
+                            <ParrDetails>{property?.description}</ParrDetails>
+                        </DivCol>
+                        <DivCol>
+                            <ProDetails3>Location</ProDetails3>
+                            <Maps address={addressPrimary} />
+                        </DivCol>
+                    </div>
                     <AbsoluteCard login="false" />
-                </Section>
+                </SectionProperty>
             </ErrorBoundary>
             <Footer page="other" />
         </div>

@@ -3,16 +3,15 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const Maps = ({ address }) => {
-    console.log(address);
-    const direccion = address;
-    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-        direccion
-    )}`;
-
     const [latitud, setLatitud] = useState(null);
     const [longitud, setLongitud] = useState(null);
+    const [coordinatesFound, setCoordinatesFound] = useState(true);
 
     useEffect(() => {
+        const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+            address
+        )}`;
+
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
@@ -25,12 +24,44 @@ const Maps = ({ address }) => {
                     console.error(
                         "No se encontraron coordenadas para la dirección proporcionada."
                     );
+                    setCoordinatesFound(false);
                 }
             })
             .catch((error) => {
                 console.error("Error al obtener las coordenadas: " + error);
+                setCoordinatesFound(false);
             });
-    }, [apiUrl]);
+    }, [address]);
+
+    useEffect(() => {
+        if (!coordinatesFound) {
+            const defaultAddress = "Insurgentes 1079";
+            const defaultApiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+                defaultAddress
+            )}`;
+
+            fetch(defaultApiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data && data.length > 0) {
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+                        setLatitud(lat);
+                        setLongitud(lon);
+                        setCoordinatesFound(true);
+                    } else {
+                        console.error(
+                            "No se encontraron coordenadas para la dirección por defecto."
+                        );
+                    }
+                })
+                .catch((error) => {
+                    console.error(
+                        "Error al obtener las coordenadas por defecto: " + error
+                    );
+                });
+        }
+    }, [coordinatesFound]);
 
     useEffect(() => {
         if (latitud !== null && longitud !== null) {
@@ -42,10 +73,10 @@ const Maps = ({ address }) => {
 
             L.marker([latitud, longitud])
                 .addTo(map)
-                .bindPopup(direccion)
+                .bindPopup(address)
                 .openPopup();
         }
-    }, [latitud, longitud]);
+    }, [latitud, longitud, address]);
 
     return <div id="map" style={{ height: "400px" }}></div>;
 };
