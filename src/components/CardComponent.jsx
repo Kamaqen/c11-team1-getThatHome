@@ -92,7 +92,7 @@ const CardComponent = ({
                 <IconTextContainer
                     className="flex j-center a-center"
                     text="24px">
-                    <RiMoneyDollarCircleLine /> {price.toLocaleString()}
+                    <RiMoneyDollarCircleLine /> {price}
                 </IconTextContainer>
                 <IconTextContainer className="flex j-center a-center">
                     <PiBuildings /> {type}
@@ -125,19 +125,6 @@ const CardComponent = ({
             </CardFooter>
         </CardContainer>
     );
-};
-
-CardComponent.propTypes = {
-    img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    operation: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    bed: PropTypes.number.isRequired,
-    bath: PropTypes.number.isRequired,
-    area: PropTypes.number.isRequired,
-    pet: PropTypes.bool,
-    footer: PropTypes.bool,
 };
 
 export default CardComponent;
