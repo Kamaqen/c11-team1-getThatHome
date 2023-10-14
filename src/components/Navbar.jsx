@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import { createPortal } from "react-dom";
 import { useState } from "react";
-import LoginModal from "../components/LoginModal";
 import { logout } from "../services/auth-services";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -187,9 +185,7 @@ const StyledP = styled.p`
   color: ${(props) => (props.color ? props.color : "#373737")};
 `;
 
-const Navbar = () => {
-  const [showModal, setShowModal] = useState(false);
-
+const Navbar = ({ setShowModal, setUser, user }) => {
   const handleClick = () => {
     setShowModal(true);
   };
@@ -259,17 +255,6 @@ const Navbar = () => {
         </StyledMenuV>
       </Navbarstyled>
     </MenuContainer>
-          {showModal &&
-            createPortal(
-              <LoginModal
-                onClose={() => {
-                  setShowModal(false);
-                  updateUser(sessionStorage.getItem("userId"));
-                  updateRole(sessionStorage.getItem("userRole"));
-                }}
-              />,
-              document.body
-            )}
   );
 };
 
