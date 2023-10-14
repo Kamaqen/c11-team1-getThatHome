@@ -43,7 +43,7 @@ const StyledForm = styled.form`
     justify-content: center;
 `;
 
-const Buttonlog = styled.button`
+const Buttonlog = styled.div`
     margin: 16px;
     /* Headline5 */
     font-family: Montserrat;
@@ -69,7 +69,7 @@ const LoginModal = ({ onClose }) => {
         password: "",
     });
     function handleLogin(credentials) {
-        console.log(credentials);
+        console.log("Dentro de handleLogin", credentials);
         login(credentials)
             .then((u) => {
                 setFormData(u);
@@ -100,7 +100,7 @@ const LoginModal = ({ onClose }) => {
                         label="Email"
                         id="email"
                         name="email"
-                        placeholder="user@mail.com"
+                        placeholder="test@mail.com"
                         type="email"
                         value={formData.email}
                         onChange={handleChange}

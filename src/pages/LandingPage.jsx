@@ -40,6 +40,7 @@ const MenuContainer = styled.div`
 `;
 
 const Navbarstyled = styled.div`
+    z-index: 100;
     display: flex;
     width: 100%;
     height: 72px;
