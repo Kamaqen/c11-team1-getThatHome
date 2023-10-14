@@ -1,25 +1,170 @@
+import React, { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import Section from "../components/Section";
-import Footer from "../components/footer";
-import TeamCard from "../components/TeamCard";
-import { teamMembers, datafake } from "../STORE";
-import CardComponent from "../components/CardComponent";
-import SearchLanding from "../components/SearchLanding";
+import { Link } from "react-router-dom";
+import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
+import { BiLogOutCircle } from "react-icons/bi";
+import { BsFillHeartFill } from "react-icons/bs";
+import { TbHome2 } from "react-icons/tb";
+import { LuSearch } from "react-icons/lu";
 import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
-import LoginModal from "../components/LoginModal";
-import { Link } from "react-router-dom";
 import { getProperties } from "../services/property-services";
+import { logout } from "../services/auth-services";
 
-const NavBarProv = styled.div`
-    position: relative;
-    top: 0px;
-    height: 72px;
+import Section from "../components/Section";
+import Footer from "../components/Footer";
+import TeamCard from "../components/TeamCard";
+import CardComponent from "../components/CardComponent";
+import SearchLanding from "../components/SearchLanding";
+import Button from "../components/Button";
+import LoginModal from "../components/LoginModal";
+
+import { teamMembers, datafake } from "../STORE";
+
+const iconRiUserAddLine = <RiUserAddLine />;
+const iconRiUserReceivedLine = <RiUserReceivedLine />;
+const iconlusearch = <LuSearch />;
+const iconBiLogOutCircle = <BiLogOutCircle />;
+const iconBsFillHeartFill = <BsFillHeartFill />;
+const userlineIcon = <RiUserLine />;
+const iconTbHome2 = <TbHome2 />;
+
+const MenuContainer = styled.div`
     width: 100%;
-    margin: auto;
-    background-color: #f48fb1;
+    /* max-height: 72px; */
+    display: flex;
+    align-items: center;
+`;
+
+const Navbarstyled = styled.div`
+    display: flex;
+    width: 100%;
+    height: 72px;
+    padding: 0px 120px;
+    justify-content: center;
+    align-items: center;
+    background: var(--White, #fff);
+    /* Elevation1 */
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
+
+const ContentImg = styled.div`
+    width: 15%;
+`;
+
+const LogoImg = styled.img`
+    width: 136px;
+    height: 40px;
+    object-fit: contain;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 0 0;
+`;
+
+const ButtonFindHome = styled.div`
+    width: 169px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #616161;
+    background-color: white;
+    border-radius: 16px;
+    color: var(--Gray, #616161);
+    text-align: center;
+    line-height: 40px;
+`;
+
+const ButtonJoin = styled.div`
+    width: 101px;
+    height: 40px;
+    display: flex;
+    padding: 8px 16px;
+    justify-content: space-between;
+    align-items: center;
+    color: #616161;
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid var(--Pink, #f48fb1);
+    color: var(--Gray, #616161);
+    text-align: center;
+    box-sizing: border-box;
+`;
+
+const Icon = styled.div`
+    display: flex;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+`;
+
+const StyledMenuV = styled.div`
+    width: 85%;
+    /* width: 414px; */
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    /* Button */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+`;
+
+const ButtonLogout = styled.button`
+    width: 130px;
+    height: 40px;
+    display: flex;
+    padding: 8px 16px;
+    justify-content: space-between;
+    align-items: center;
+    color: #616161;
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid var(--Pink, #f48fb1);
+    color: var(--Gray, #616161);
+    text-align: center;
+    box-sizing: border-box;
+`;
+
+const ButtonProfile = styled.div`
+    width: 129px;
+    height: 40px;
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    background-color: #f48fb1;
+    border-radius: 16px;
+    background: var(--Pink, #f48fb1);
+    color: var(--White, #fff);
+    text-align: center;
+    box-sizing: border-box;
+`;
+
+const ButtonSP = styled.div`
+    width: 218px;
+    height: 40px;
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    background-color: #f48fb1;
+    border-radius: 16px;
+    background: var(--Pink, #f48fb1);
+    color: var(--White, #fff);
+    text-align: center;
+    box-sizing: border-box;
+    white-space: nowrap;
+`;
+
 const ButtonProv = styled.button`
     width: 200px;
     height: 50px;
@@ -54,32 +199,106 @@ const StyledP = styled.p`
 `;
 
 const LandingPage = () => {
-    const [data, setData] = useState();
+    const [user, setUser] = useState(sessionStorage.getItem("userId"));
+    const [role, setRole] = useState(sessionStorage.getItem("userRole"));
     const [showModal, setShowModal] = useState(false);
-
-    const threeFirst = data?.slice(0, 3);
-
-    useEffect(() => {
-        if (localStorage.getItem("propertiesData") !== null) {
-            setData(JSON.parse(localStorage.getItem("propertiesData")));
-            console.log("si hay data en el local storage");
-        } else {
-            getProperties().then((res) => {
-                console.log(" no hay data en el local storage");
-                setData(res);
-                localStorage.setItem("propertiesData", JSON.stringify(res));
-            });
-        }
-    }, []);
+    const modalRef = useRef(null);
 
     const handleClick = () => {
         setShowModal(true);
     };
+    const updateUser = (userId) => {
+        setUser(userId);
+    };
+    const updateRole = (userRole) => {
+        setRole(userRole);
+    };
+
+    const handleLogOut = () => {
+        logout().then(() => {
+            setUser(null);
+        });
+    };
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (modalRef.current && !modalRef.current.contains(e.target)) {
+                setShowModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, []);
+
     return (
         <div className="flex flex-column a-center">
-            <NavBarProv>
-                <button onClick={handleClick}>Login</button>
-            </NavBarProv>
+            <MenuContainer>
+                <Navbarstyled>
+                    <ContentImg>
+                        <LogoImg src="src/assets/Logo.png" />
+                    </ContentImg>
+                    <StyledMenuV>
+                        <ButtonFindHome>
+                            <Icon>{iconlusearch}</Icon>
+                            FIND A HOME
+                        </ButtonFindHome>
+                        {user ? (
+                            <>
+                                <ButtonLogout onClick={handleLogOut}>
+                                    <Icon>{iconBiLogOutCircle}</Icon>
+                                    LOGOUT
+                                </ButtonLogout>
+                                {role === "landlord" && (
+                                    <>
+                                        <Button
+                                            variant="Primary"
+                                            size="def"
+                                            icon={iconTbHome2}>
+                                            My Properties
+                                        </Button>
+                                        <ButtonProfile>
+                                            <Icon>{userlineIcon}</Icon>
+                                            PROFILE
+                                        </ButtonProfile>
+                                    </>
+                                )}
+                                {role === "home_seeker" && (
+                                    <>
+                                        <ButtonSP>
+                                            <Icon>{iconBsFillHeartFill}</Icon>
+                                            SAVED PROPERTIES
+                                        </ButtonSP>
+                                        <ButtonProfile>
+                                            <Icon>{userlineIcon}</Icon>
+                                            PROFILE
+                                        </ButtonProfile>
+                                    </>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    variant="Secundary"
+                                    size="def"
+                                    icon={iconRiUserAddLine}>
+                                    JOIN
+                                </Button>
+                                <Button
+                                    variant="Primary"
+                                    size="def"
+                                    onClick={handleClick}
+                                    icon={iconRiUserReceivedLine}>
+                                    Login
+                                </Button>
+                            </>
+                        )}
+                    </StyledMenuV>
+                </Navbarstyled>
+            </MenuContainer>
             <Section isImageSection="true">
                 <StyledImg src="src/assets/landing-img.svg" />
                 <TextDiv className="flex flex-column a-center gap-md">
@@ -98,24 +317,19 @@ const LandingPage = () => {
                     Homes for rent at the best prices
                 </StyledP>
                 <div className="flex flex-row gap-xl">
-                    {threeFirst?.map((item) => (
-                        <Link
-                            to={`/property_details/${item.id}`}
-                            key={item.id}
-                            style={{ textDecoration: "none" }}>
-                            <CardComponent
-                                key={item.id}
-                                img={item.urls[0]}
-                                price={item.rent_value}
-                                operation={item.operation_type}
-                                type={item.property_type}
-                                address={item.address}
-                                bed={item.bedrooms}
-                                bath={item.bathrooms}
-                                area={item.area}
-                                pet={item.pet_friendly}
-                            />
-                        </Link>
+                    {datafake.map((item, index) => (
+                        <CardComponent
+                            key={index}
+                            img={item.img}
+                            price={item.price}
+                            operation={item.operation}
+                            type={item.type}
+                            address={item.address}
+                            bed={item.bed}
+                            bath={item.bath}
+                            area={item.area}
+                            pet={item.pet}
+                        />
                     ))}
                 </div>
             </Section>
@@ -148,7 +362,15 @@ const LandingPage = () => {
             </Section>
             {showModal &&
                 createPortal(
-                    <LoginModal onClose={() => setShowModal(false)} />,
+                    <div ref={modalRef}>
+                        <LoginModal
+                            onClose={() => {
+                                setShowModal(false);
+                                updateUser(sessionStorage.getItem("userId"));
+                                updateRole(sessionStorage.getItem("userRole"));
+                            }}
+                        />
+                    </div>,
                     document.body
                 )}
             <Footer page="home" />
