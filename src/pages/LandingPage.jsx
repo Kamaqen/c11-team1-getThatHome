@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
@@ -7,7 +7,6 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { TbHome2 } from "react-icons/tb";
 import { LuSearch } from "react-icons/lu";
 import { createPortal } from "react-dom";
-import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import { logout } from "../services/auth-services";
 
@@ -242,10 +241,12 @@ const LandingPage = () => {
                         <LogoImg src="src/assets/Logo.png" />
                     </ContentImg>
                     <StyledMenuV>
-                        <ButtonFindHome>
-                            <Icon>{iconlusearch}</Icon>
-                            FIND A HOME
-                        </ButtonFindHome>
+                        <Link to="/list" style={{ textDecoration: "none" }}>
+                            <ButtonFindHome>
+                                <Icon>{iconlusearch}</Icon>
+                                FIND A HOME
+                            </ButtonFindHome>
+                        </Link>
                         {user ? (
                             <>
                                 <ButtonLogout onClick={handleLogOut}>

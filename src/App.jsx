@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import PropertyDetailsPage from "./pages/PropertyDetailsPage";
 import ListViewPage from "./pages/ListViewPage";
+import SignupPage from "./pages/SignupPage.jsx";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
                     element={<PropertyDetailsPage />}
                 />
                 <Route path="list" element={<ListViewPage />} />
+                <Route path="signup" element={<SignupPage />} />
             </Route>
         </Routes>
     );
