@@ -19,6 +19,10 @@ import Button from "../components/Button";
 import LoginModal from "../components/LoginModal";
 
 import { teamMembers, datafake } from "../STORE";
+import TeamSection from "../components/landingPage_components/TeamSection";
+import GettingSection from "../components/landingPage_components/GettingSection";
+import HomesSection from "../components/landingPage_components/HomesSection";
+import SearchSection from "../components/landingPage_components/SearchSection";
 
 const iconRiUserAddLine = <RiUserAddLine />;
 const iconRiUserReceivedLine = <RiUserReceivedLine />;
@@ -72,22 +76,6 @@ const ButtonFindHome = styled.div`
     color: var(--Gray, #616161);
     text-align: center;
     line-height: 40px;
-`;
-
-const ButtonJoin = styled.div`
-    width: 101px;
-    height: 40px;
-    display: flex;
-    padding: 8px 16px;
-    justify-content: space-between;
-    align-items: center;
-    color: #616161;
-    background-color: white;
-    border-radius: 16px;
-    border: 1px solid var(--Pink, #f48fb1);
-    color: var(--Gray, #616161);
-    text-align: center;
-    box-sizing: border-box;
 `;
 
 const Icon = styled.div`
@@ -164,44 +152,39 @@ const ButtonSP = styled.div`
     white-space: nowrap;
 `;
 
-const ButtonProv = styled.button`
-    width: 200px;
-    height: 50px;
-    background-color: #f48fb1;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-`;
-const StyledImg = styled.img`
-    margin-top: -72px;
-    width: 130%;
-    object-fit: cover;
-`;
-const TextDiv = styled.div`
-    text-align: center;
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-`;
-
-const StyledP = styled.p`
-    width: 823px;
-    text-align: center;
-    margin-bottom: 32px;
-    z-index: 1;
-    font-size: ${(props) => props.font};
-    line-height: 48px;
-    color: ${(props) => (props.color ? props.color : "#373737")};
-`;
-
 const LandingPage = () => {
     const [user, setUser] = useState(sessionStorage.getItem("userId"));
     const [role, setRole] = useState(sessionStorage.getItem("userRole"));
     const [showModal, setShowModal] = useState(false);
     const modalRef = useRef(null);
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        if (localStorage.getItem("propertiesData") === null) {
+            setData(JSON.parse(localStorage.getItem("propertiesData")));
+            console.log("si hay data en el local storage");
+        } else {
+            getProperties().then((res) => {
+                console.log(" no hay data en el local storage");
+                setData(res);
+                localStorage.setItem("propertiesData", JSON.stringify(res));
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (modalRef.current && !modalRef.current.contains(e.target)) {
+                setShowModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, []);
 
     const handleClick = () => {
         setShowModal(true);
@@ -218,20 +201,6 @@ const LandingPage = () => {
             setUser(null);
         });
     };
-
-    useEffect(() => {
-        const handleOutsideClick = (e) => {
-            if (modalRef.current && !modalRef.current.contains(e.target)) {
-                setShowModal(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleOutsideClick);
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, []);
 
     return (
         <div className="flex flex-column a-center">
@@ -282,12 +251,16 @@ const LandingPage = () => {
                             </>
                         ) : (
                             <>
-                                <Button
-                                    variant="Secundary"
-                                    size="def"
-                                    icon={iconRiUserAddLine}>
-                                    JOIN
-                                </Button>
+                                <Link
+                                    to="/signup"
+                                    style={{ textDecoration: "none" }}>
+                                    <Button
+                                        variant="Secundary"
+                                        size="def"
+                                        icon={iconRiUserAddLine}>
+                                        JOIN
+                                    </Button>
+                                </Link>
                                 <Button
                                     variant="Primary"
                                     size="def"
@@ -300,67 +273,10 @@ const LandingPage = () => {
                     </StyledMenuV>
                 </Navbarstyled>
             </MenuContainer>
-            <Section isImageSection="true">
-                <StyledImg src="src/assets/landing-img.svg" />
-                <TextDiv className="flex flex-column a-center gap-md">
-                    <StyledP font="64px" top="50px">
-                        Meet your new Home
-                    </StyledP>
-                    <p style={{ fontSize: "24px" }}>
-                        The easiest way to find where you belong
-                    </p>
-                </TextDiv>
-                <SearchLanding />
-            </Section>
-            <Section>
-                <p className="mb-md">Find an Apartment you Love</p>
-                <StyledP font="36px" top="50px" color="#BF5F82">
-                    Homes for rent at the best prices
-                </StyledP>
-                <div className="flex flex-row gap-xl">
-                    {datafake.map((item, index) => (
-                        <CardComponent
-                            key={index}
-                            img={item.img}
-                            price={item.price}
-                            operation={item.operation}
-                            type={item.type}
-                            address={item.address}
-                            bed={item.bed}
-                            bath={item.bath}
-                            area={item.area}
-                            pet={item.pet}
-                        />
-                    ))}
-                </div>
-            </Section>
-            <Section color="rgba(244, 143, 177,  0.15)">
-                <StyledP
-                    font="36px"
-                    mb="32px"
-                    className="flex flex-column a-center j-center">
-                    Getting someone to rent your apartment has never been this
-                    easy
-                </StyledP>
-                <ButtonProv>Create an account now</ButtonProv>
-            </Section>
-            <Section>
-                <StyledP font="48px" color="#BF5F82">
-                    Meet the team
-                </StyledP>
-                <br />
-                <div className="flex flex-row container">
-                    {teamMembers.map((member, index) => (
-                        <TeamCard
-                            key={index}
-                            photo={member.photo}
-                            name={member.name}
-                            github={member.github}
-                            linkedin={member.linkedin}
-                        />
-                    ))}
-                </div>
-            </Section>
+            <SearchSection />
+            <HomesSection />
+            <GettingSection />
+            <TeamSection />
             {showModal &&
                 createPortal(
                     <div ref={modalRef}>

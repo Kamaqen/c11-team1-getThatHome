@@ -21,6 +21,9 @@ const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    &:hover {
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    }
 `;
 const CardImgObject = styled.div`
     width: 300px;

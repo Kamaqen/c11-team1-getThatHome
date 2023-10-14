@@ -5,16 +5,6 @@ import { AiOutlineLinkedin } from "react-icons/ai";
 const ghIcon = <AiFillGithub />;
 const liIcon = <AiOutlineLinkedin />;
 
-const TeamCardWrapper = styled.div`
-    width: 240px;
-    height: 273px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-`;
 const TeamCardObject = styled.div`
     width: 180px;
     height: 180px;
@@ -27,6 +17,16 @@ const TeamCardImg = styled.img`
     height: 100%;
     object-fit: cover;
 `;
+const TeamCardWrapper = styled.div`
+    width: 240px;
+    height: 273px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+`;
 
 const TeamCardName = styled.h3`
     font-size: 24px;
@@ -38,10 +38,13 @@ const TeamILink = styled.a`
     margin: 4px;
     padding: 4px;
     :hover {
-        color: #f48fb1;
-        background: #f5f5f6;
+        background: #f48fb1;
         border-radius: 50%;
-        transition: 0.5s ease-in-out;
+        transition: 0.2s ease-in-out;
+    }
+
+    &:hover svg:last-child {
+        fill: #ffffff;
     }
 `;
 

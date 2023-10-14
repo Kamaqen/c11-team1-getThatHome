@@ -1,5 +1,5 @@
 import Section from "../components/Section";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";

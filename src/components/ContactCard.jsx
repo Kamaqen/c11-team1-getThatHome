@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-const AbsoluteDiv = styled.div`
+const StyledDiv = styled.div`
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     width: 258px;
@@ -15,7 +15,7 @@ const AbsoluteDiv = styled.div`
 
 const ContactCard = ({ login }) => {
     return (
-        <AbsoluteDiv>
+        <StyledDiv>
             {login ? (
                 <div className="flex flex-column gap-md">
                     <button>Contact Advertiser</button>
@@ -27,7 +27,7 @@ const ContactCard = ({ login }) => {
                     <button>Login</button>
                 </div>
             )}
-        </AbsoluteDiv>
+        </StyledDiv>
     );
 };
 

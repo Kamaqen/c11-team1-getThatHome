@@ -74,6 +74,9 @@
 .mb-md {
     margin-bottom: 16px;
 }
+.mb-xl {
+    margin-bottom: 48px;
+}
 .check {
     width: 20px;
     height: 20px;
