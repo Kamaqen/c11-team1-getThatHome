@@ -6,7 +6,7 @@ import { teamMembers, datafake } from "../STORE";
 import CardComponent from "../components/CardComponent";
 import SearchLanding from "../components/SearchLanding";
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LoginModal from "../components/LoginModal";
 import { logout } from "../services/auth-services";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
@@ -23,16 +23,6 @@ const iconBiLogOutCircle = <BiLogOutCircle />;
 const iconBsFillHeartFill = <BsFillHeartFill />;
 const userlineIcon = <RiUserLine />;
 const iconTbHome2 = <TbHome2 />;
-
-// const NavBarProv = styled.div`
-//   position: relative;
-//   top: 0px;
-//   height: 72px;
-//   width: 100%;
-//   margin: auto;
-//   background-color: #f48fb1;
-//   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-// `;
 
 const MenuContainer = styled.div`
   width: 100%;
@@ -207,6 +197,7 @@ const LandingPage = () => {
   const [user, setUser] = useState(sessionStorage.getItem("userId"));
   const [role, setRole] = useState(sessionStorage.getItem("userRole"));
   const [showModal, setShowModal] = useState(false);
+  const modalRef = useRef(null);
 
   const handleClick = () => {
     setShowModal(true);
@@ -223,6 +214,20 @@ const LandingPage = () => {
       setUser(null);
     });
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setShowModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className="flex flex-column a-center">
@@ -244,7 +249,7 @@ const LandingPage = () => {
                 </ButtonLogout>
                 {role === "landlord" && (
                   <>
-                    <Button variant="Primary" size="def">
+                    <Button variant="Primary" size="def" icon={iconTbHome2}>
                       My Properties
                     </Button>
                     <ButtonProfile>
@@ -347,13 +352,15 @@ const LandingPage = () => {
       </Section>
       {showModal &&
         createPortal(
-          <LoginModal
-            onClose={() => {
-              setShowModal(false);
-              updateUser(sessionStorage.getItem("userId"));
-              updateRole(sessionStorage.getItem("userRole"));
-            }}
-          />,
+          <div ref={modalRef}>
+            <LoginModal
+              onClose={() => {
+                setShowModal(false);
+                updateUser(sessionStorage.getItem("userId"));
+                updateRole(sessionStorage.getItem("userRole"));
+              }}
+            />
+          </div>,
           document.body
         )}
       <Footer page="home" />
