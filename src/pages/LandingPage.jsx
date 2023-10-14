@@ -6,8 +6,10 @@ import { teamMembers, datafake } from "../STORE";
 import CardComponent from "../components/CardComponent";
 import SearchLanding from "../components/SearchLanding";
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginModal from "../components/LoginModal";
+import { Link } from "react-router-dom";
+import { getProperties } from "../services/property-services";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -52,7 +54,15 @@ const StyledP = styled.p`
 `;
 
 const LandingPage = () => {
+    const [data, setData] = useState();
     const [showModal, setShowModal] = useState(false);
+
+    const threeFirst = data?.slice(0, 3);
+
+    useEffect(() => {
+        getProperties().then((res) => setData(res));
+        localStorage.setItem("properties", JSON.stringify(data));
+    }, []);
 
     const handleClick = () => {
         setShowModal(true);
@@ -80,19 +90,24 @@ const LandingPage = () => {
                     Homes for rent at the best prices
                 </StyledP>
                 <div className="flex flex-row gap-xl">
-                    {datafake.map((item, index) => (
-                        <CardComponent
-                            key={index}
-                            img={item.img}
-                            price={item.price}
-                            operation={item.operation}
-                            type={item.type}
-                            address={item.address}
-                            bed={item.bed}
-                            bath={item.bath}
-                            area={item.area}
-                            pet={item.pet}
-                        />
+                    {threeFirst?.map((item) => (
+                        <Link
+                            to={`/property_details/${item.id}`}
+                            key={item.id}
+                            style={{ textDecoration: "none" }}>
+                            <CardComponent
+                                key={item.id}
+                                img={item.urls[0]}
+                                price={item.rent_value}
+                                operation={item.operation_type}
+                                type={item.property_type}
+                                address={item.address}
+                                bed={item.bedrooms}
+                                bath={item.bathrooms}
+                                area={item.area}
+                                pet={item.pet_friendly}
+                            />
+                        </Link>
                     ))}
                 </div>
             </Section>

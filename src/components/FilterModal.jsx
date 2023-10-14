@@ -20,42 +20,48 @@ const FilterModal = ({ card }) => {
     console.log("la card es", card);
     return (
         <StyledBar>
-            {card === "PriceCard" ? (<FilterCards type="PriceCard">
-                <p className="overline">PRICE Range</p>
-                <div className="flex ">
-                    <input type="text" placeholder="Min" />
-                    <input type="text" placeholder="Max" />
-                </div>
-                <button>done</button>
-            </FilterCards>): card === "PropCard" ? (<FilterCards type="PropCard">
-                <p className="overline">Property Type</p>
-                <div className="flex ">
-                    <input type="checkbox" />
-                    <input type="checkbox" />
-                </div>
-                <button>done</button>
-            </FilterCards>): card === "BedCard" ? (<FilterCards type="BedCard">
-                <p className="overline">beds</p>
-                <ButtonsDiv>
-                    <button>Any</button>
-                    <button>1+</button>
-                    <button>2+</button>
-                    <button>3+</button>
-                    <button>4+</button>
-                </ButtonsDiv>
-                <p className="overline">baths</p>
-                <ButtonsDiv>
-                    <button>Any</button>
-                    <button>1+</button>
-                    <button>2+</button>
-                    <button>3+</button>
-                    <button>4+</button>
-                </ButtonsDiv>
-                <button>done</button>
-            </FilterCards>)}
-            
-            
-            
+            {card === "PriceCard" ? (
+                <FilterCards type="PriceCard">
+                    <p className="overline">PRICE Range</p>
+                    <div className="flex ">
+                        <input type="text" placeholder="Min" />
+                        <input type="text" placeholder="Max" />
+                    </div>
+                    <button>done</button>
+                </FilterCards>
+            ) : card === "PropCard" ? (
+                <FilterCards type="PropCard">
+                    <p className="overline">Property Type</p>
+                    <div className="flex ">
+                        <input type="checkbox" />
+                        <input type="checkbox" />
+                    </div>
+                    <button>done</button>
+                </FilterCards>
+            ) : card === "BedCard" ? (
+                <FilterCards type="BedCard">
+                    <p className="overline">beds</p>
+                    <ButtonsDiv>
+                        <button>Any</button>
+                        <button>1+</button>
+                        <button>2+</button>
+                        <button>3+</button>
+                        <button>4+</button>
+                    </ButtonsDiv>
+                    <p className="overline">baths</p>
+                    <ButtonsDiv>
+                        <button>Any</button>
+                        <button>1+</button>
+                        <button>2+</button>
+                        <button>3+</button>
+                        <button>4+</button>
+                    </ButtonsDiv>
+                    <button>done</button>
+                </FilterCards>
+            ) : (
+                ""
+            )}
+            ;
             <FilterCards type="MoreCard">
                 <div className="flex ">
                     <input type="checkbox" />
