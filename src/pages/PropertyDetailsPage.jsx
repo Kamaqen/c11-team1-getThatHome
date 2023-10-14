@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
-import Footer from "../components/footer";
-import ImagesCarrousell from "../components/ImagesCarrousell";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { BiBath, BiArea, BiBed } from "react-icons/bi";
-import { MdPets } from "react-icons/md";
-import Maps from "../components/Maps";
-import ContactCard from "../components/ContactCard";
 import { ErrorBoundary } from "react-error-boundary";
+import Footer from "../components/Footer";
+import ImagesCarrousell from "../components/ImagesCarrousell";
+import HeadersSection from "../components/propertyDetailsPage_components/HeadersSection";
+import ContactCard from "../components/ContactCard";
+import LocationSection from "../components/propertyDetailsPage_components/LocationSection";
 import ErrorFallback from "../components/ErrorFallback";
+import AboutSection from "../components/propertyDetailsPage_components/AboutSection";
+import DetailsSection from "../components/propertyDetailsPage_components/DetailsSection";
+import { singleProperty } from "../STORE";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -24,56 +25,17 @@ const SectionProperty = styled.section`
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: 64px;
     width: 100%;
     overflow: hidden;
     padding: 64px 120px;
     background: white;
 `;
-const ProTitle = styled.h3`
-    padding: 4px 0;
-    font-size: 36px;
-`;
-const ProPrice = styled.p`
-    font-size: 36px;
-`;
-const ProDetails = styled.p`
-    font-size: 20px;
-`;
-const ProDetails2 = styled.p`
-    font-size: 24px;
-`;
-const ProDetails3 = styled(ProDetails)`
-    color: #bf5f82;
-    font-weight: 500;
-`;
-const DivRow = styled.div`
-    padding: 16px 32px;
-    width: 100%;
-    max-width: 766px;
-    display: flex;
-    justify-content: space-between;
-    align-items: top;
-`;
-const DivCol = styled(DivRow)`
-    flex-direction: column;
-    gap: 16px;
-`;
-const DivDetails = styled(DivRow)`
-    border-top: 1px solid #bf5f82;
-    border-bottom: 1px solid #bf5f82;
-`;
-const ParrDetails = styled.p`
-    padding: 8px 0;
-    text-align-last: start;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-`;
 
 const PropertyDetailsPage = () => {
-    const data = JSON.parse(localStorage.getItem("propertiesData"));
-    const id = parseInt(window.location.pathname.split("/")[2]);
-    const property = data?.find((item) => item.id === id);
+    // const data = JSON.parse(localStorage.getItem("propertiesData"));
+    // const id = parseInt(window.location.pathname.split("/")[2]);
+    // const property = data?.find((item) => item.id === id);
+    const property = singleProperty;
 
     const [addressPrimary = "", address1 = "", address2 = ""] = (
         property?.address || ""
@@ -89,59 +51,22 @@ const PropertyDetailsPage = () => {
                     console.log("hello");
                 }}>
                 <SectionProperty>
-                    <div>
+                    <div className="flex flex-column">
                         <ImagesCarrousell images={property.urls} />
-                        <DivRow>
-                            <div className="flex flex-column">
-                                <ProTitle>{addressPrimary}</ProTitle>
-                                <p>{addressSecundaty}</p>
-                            </div>
-                            <div className="flex flex-column a-end gap-sm">
-                                <ProPrice>
-                                    <RiMoneyDollarCircleLine />
-                                    {property?.rent_value.toLocaleString()}
-                                </ProPrice>
-                                <ProDetails>
-                                    + {property?.maintenance_price}
-                                </ProDetails>
-                            </div>
-                        </DivRow>
-                        <DivDetails>
-                            <div className="flex a-center j-center">
-                                <ProDetails2>
-                                    <BiBed style={{ fontSize: "32px" }} />{" "}
-                                    {property?.bedrooms} bedrooms
-                                </ProDetails2>
-                            </div>
-                            <div className="flex">
-                                <ProDetails2>
-                                    <BiBath style={{ fontSize: "32px" }} />{" "}
-                                    {property?.bathrooms} bathrooms
-                                </ProDetails2>
-                            </div>
-                            <div className="flex">
-                                <ProDetails2>
-                                    <BiArea style={{ fontSize: "32px" }} />{" "}
-                                    {property?.area} m2
-                                </ProDetails2>
-                            </div>
-                            <div className="flex">
-                                <ProDetails2>
-                                    <MdPets style={{ fontSize: "32px" }} />{" "}
-                                    {property?.pet_friendly
-                                        ? "Pets allowed"
-                                        : "No pets allowed"}
-                                </ProDetails2>
-                            </div>
-                        </DivDetails>
-                        <DivCol>
-                            <ProDetails3>About this property</ProDetails3>
-                            <ParrDetails>{property?.description}</ParrDetails>
-                        </DivCol>
-                        <DivCol>
-                            <ProDetails3>Location</ProDetails3>
-                            <Maps address={addressPrimary} />
-                        </DivCol>
+                        <HeadersSection
+                            addressPrimary={addressPrimary}
+                            addressSecundaty={addressSecundaty}
+                            rent_value={property.rent_value}
+                            maintenance_price={property.maintenance_price}
+                        />
+                        <DetailsSection
+                            bed={property.bed}
+                            bath={property.bath}
+                            area={property.area}
+                            pet={property.pet}
+                        />
+                        <AboutSection description={property?.description} />
+                        <LocationSection address={addressPrimary} />
                     </div>
                     <ContactCard login="false" />
                 </SectionProperty>

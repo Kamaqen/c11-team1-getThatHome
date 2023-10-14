@@ -86,3 +86,6 @@
 .check:checked + label::before {
     background-color: #f48fb1;
 }
+.self-center {
+    align-self: center;
+}

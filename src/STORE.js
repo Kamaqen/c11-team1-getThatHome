@@ -77,22 +77,26 @@ const datafake = [
 ];
 
 const singleProperty = {
-    img: [
-        "https://media.self.com/photos/630635c30b7f36ce816f374a/2:1/w_1280,c_limit/DAB03919-10470989.jpg",
-        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1980&q=80",
-        "https://images.unsplash.com/photo-1560185009-dddeb820c7b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-        "https://images.unsplash.com/photo-1560185008-b033106af5c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    id: 11,
+    rent_value: 4996,
+    bedrooms: 3,
+    bathrooms: 2,
+    property_type: "department",
+    address: "Suite 634 93891 Gutmann Port, Konopelskifurt, AZ 53949",
+    area: "94",
+    created_at: "2023-10-13T20:33:43.158Z",
+    description: "Provident itaque error dolorem.",
+    is_active: false,
+    latitude: null,
+    longitude: null,
+    maintenance_price: 433,
+    operation_type: "sale",
+    pet_friendly: false,
+    property_price: 413575,
+    updated_at: "2023-10-13T20:33:43.158Z",
+    urls: [
+        "https://img.freepik.com/fotos-premium/moderna-acog…stacionamiento-generado-ai_859483-3864.jpg?w=2000",
     ],
-    price: 180000,
-    operation: "sale",
-    type: "villa",
-    mantenimiento: 100,
-    address: "Av. Insurgentes Sur #1079, Benito Juárez, Ciudad de México",
-    bed: 5,
-    bath: 4,
-    area: 350,
-    pet: true,
-    footer: true,
+    user_id: 20,
 };
-
 export { teamMembers, datafake, singleProperty };

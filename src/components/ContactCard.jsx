@@ -11,6 +11,7 @@ const StyledDiv = styled.div`
     right: calc(20%);
     display: grid;
     place-items: center;
+    margin-left: 64px;
 `;
 
 const ContactCard = ({ login }) => {

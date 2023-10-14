@@ -210,7 +210,9 @@ const LandingPage = () => {
                         <LogoImg src="src/assets/Logo.png" />
                     </ContentImg>
                     <StyledMenuV>
-                        <Link to="/list" style={{ textDecoration: "none" }}>
+                        <Link
+                            to={`/list/${5}`}
+                            style={{ textDecoration: "none" }}>
                             <ButtonFindHome>
                                 <Icon>{iconlusearch}</Icon>
                                 FIND A HOME
@@ -274,7 +276,7 @@ const LandingPage = () => {
                 </Navbarstyled>
             </MenuContainer>
             <SearchSection />
-            <HomesSection />
+            <HomesSection data={data} />
             <GettingSection />
             <TeamSection />
             {showModal &&

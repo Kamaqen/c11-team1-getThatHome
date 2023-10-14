@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
-import FilterBar from "../components/filter_modal_components/FilterBar";
+import FilterBar from "../components/listViewPage_components/FilterBar";
 
 const NavBarProv = styled.div`
     position: relative;
