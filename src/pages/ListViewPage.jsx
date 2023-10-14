@@ -29,7 +29,7 @@ const CardContainer = styled.div`
     row-gap: 32px;
     column-gap: 64px;
 `;
-const ListViesPage = () => {
+const ListViewPage = () => {
     const [data, setData] = useState();
     const [filter, setFilter] = useState({
         price: { priceMin: "", priceMax: "" },
@@ -77,4 +77,4 @@ const ListViesPage = () => {
     );
 };
 
-export default ListViesPage;
+export default ListViewPage;
