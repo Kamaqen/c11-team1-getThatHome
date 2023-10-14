@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Input from './Inputlau';
 import CloudinaryUpload from './CloudinaryUpload';
+//import { createProperty } from '../services/property-services';
 
 const StyledLabel = styled.label`
     font-size: 10px;
@@ -37,8 +38,10 @@ const PropertyForm = () => {
     is_active: true,
     longitude: '',
     latitude: '',
+    user_id: '13'
   });
   const [imageUrls, setImageUrls] = React.useState([]);
+  const [operationType, setOperationType] = React.useState("rent");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -58,13 +61,32 @@ const PropertyForm = () => {
     });
   };
 
+  const handleRent = () => {
+    setOperationType("rent");
+    formData.operation_type = "rent";
+  };
+
+  const handleSale = () => {
+    setOperationType("sale");
+    formData.operation_type = "sale";
+  }
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     formData.urls = imageUrls;
+    //createProperty(formData);
     console.log(formData);
   };
 
   return (
+    <>
+    <div>
+    <p>Operation Type</p>
+    <button onClick={handleRent}>Rent</button>
+    <button onClick={handleSale}>Sale</button>
+    </div>
+    {operationType === "rent" ?
     <StyledForm onSubmit={handleSubmit}>
       <Input
         label="Address"
@@ -76,6 +98,7 @@ const PropertyForm = () => {
       <Input
         label="Montly rent"
         name="rent_value"
+        type= "number"
         placeholder="2000"
         value={formData.rent_value}
         onChange={handleChange}
@@ -83,6 +106,7 @@ const PropertyForm = () => {
       <Input
         label="Maintenance"
         name="maintenance_price"
+        type = "number"
         placeholder="100"
         value={formData.maintenance_price}
         onChange={handleChange}
@@ -92,16 +116,16 @@ const PropertyForm = () => {
       <Input
         type="radio"
         name="property_type"
-        value="Apartment"
-        checked={formData.property_type === "Apartment"}
+        value="apartment"
+        checked={formData.property_type === "apartment"}
         onChange={handleChange}
       />
       <label htmlFor="property_type_apartment">Apartment</label>
       <Input
         type="radio"
         name="property_type"
-        value="House"
-        checked={formData.property_type === "House"}
+        value="house"
+        checked={formData.property_type === "house"}
         onChange={handleChange}
       />
       <label htmlFor="property_type_house">House</label>
@@ -126,6 +150,7 @@ const PropertyForm = () => {
         <Input
           label="Area in m2"
           name="area"
+          type="number"
           placeholder="##"
           value={formData.area}
           onChange={handleChange}
@@ -157,7 +182,90 @@ const PropertyForm = () => {
       </div>
       </div>
       <button type="submit">Submit</button>
-    </StyledForm>
+    </StyledForm> 
+    : ""}
+    {operationType == "sale" ?
+    <StyledForm onSubmit={handleSubmit}>
+    <Input
+      label="Address"
+      name="address"
+      placeholder="start typing to autocomplete"
+      value={formData.address}
+      onChange={handleChange}
+    />
+    <Input
+      label="Price"
+      name="property_price"
+      type = "number"
+      placeholder="2000"
+      value={formData.property_price}
+      onChange={handleChange}
+    />
+    <div className="flex flex-row" >
+    <StyledLabel>Property type</StyledLabel>
+    <Input
+      type="radio"
+      name="property_type"
+      value="apartment"
+      checked={formData.property_type === "apartment"}
+      onChange={handleChange}
+    />
+    <label htmlFor="property_type_apartment">Apartment</label>
+    <Input
+      type="radio"
+      name="property_type"
+      value="house"
+      checked={formData.property_type === "house"}
+      onChange={handleChange}
+    />
+    <label htmlFor="property_type_house">House</label>
+    </div>
+    <div className="flex flex-row">
+      <Input
+        label="Bedrooms"
+        name="bedrooms"
+        type="number"
+        value={formData.bedrooms}
+        onChange={handleChange}
+      >
+      </Input>
+      <Input
+        label="Bathrooms"
+        name="bathrooms"
+        type="number"
+        value={formData.bathrooms}
+        onChange={handleChange}
+      >
+      </Input>
+      <Input
+        label="Area in m2"
+        name="area"
+        type = "number"
+        placeholder="##"
+        value={formData.area}
+        onChange={handleChange}
+      />
+    </div>
+    <Input
+      label="About this property"
+      name="description"
+      type="text"
+      placeholder="My apartment is great because..."
+      value={formData.description}
+      onChange={handleChange}
+    />
+    <p>Renter will read this first, so highlight any features or important information the apartment has.</p>
+    <div>
+    <p>Photos</p>
+    <p>Upload as many photos as you wish</p>
+    <div>
+      <CloudinaryUpload setImageUrls={setImageUrls}/>
+    </div>
+    </div>
+    <button type="submit">Submit</button>
+  </StyledForm> 
+    : ""}
+    </>
   );
 };
 

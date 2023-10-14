@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { LuSearch } from "react-icons/lu";
-import { Icon } from "../../Button";
+import { Icon } from "./Button";
+
 
 const arrowdownIcon = <RiArrowDownSLine />;
 const lusearchIcon = <LuSearch />;
