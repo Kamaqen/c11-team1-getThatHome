@@ -140,7 +140,7 @@ const ButtonLogin = styled.div`
   box-sizing: border-box;
 `;
 
-const ButtonLogout = styled.div`
+const ButtonLogout = styled.button`
   width: 130px;
   height: 40px;
   display: flex;

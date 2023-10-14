@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { login } from "../services/auth-services";
-import Input from "./Input";
+import Input from "./Inputlau";
 
 const StyledModal = styled.div`
   width: 388px;
