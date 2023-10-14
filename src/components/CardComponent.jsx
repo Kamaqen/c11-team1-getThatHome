@@ -128,14 +128,14 @@ const CardComponent = ({
 };
 
 CardComponent.propTypes = {
-    img: PropTypes.string.isRequired,
+    img: PropTypes.array.isRequired,
     price: PropTypes.number.isRequired,
     operation: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     bed: PropTypes.number.isRequired,
     bath: PropTypes.number.isRequired,
-    area: PropTypes.number.isRequired,
+    area: PropTypes.string.isRequired,
     pet: PropTypes.bool,
     footer: PropTypes.bool,
 };
