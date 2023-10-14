@@ -35,8 +35,10 @@ const ListViewPage = () => {
     useEffect(() => {
         if (localStorage.getItem("propertiesData")) {
             setData(JSON.parse(localStorage.getItem("propertiesData")));
+            console.log("si hay data en el local storage");
         }
         getProperties().then((res) => {
+            console.log(" no hay data en el local storage");
             setData(res);
             localStorage.setItem("propertiesData", JSON.stringify(res));
         });

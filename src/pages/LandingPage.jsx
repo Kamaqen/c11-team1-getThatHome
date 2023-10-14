@@ -60,8 +60,16 @@ const LandingPage = () => {
     const threeFirst = data?.slice(0, 3);
 
     useEffect(() => {
-        getProperties().then((res) => setData(res));
-        localStorage.setItem("propertiesData", JSON.stringify(data));
+        if (localStorage.getItem("propertiesData") !== null) {
+            setData(JSON.parse(localStorage.getItem("propertiesData")));
+            console.log("si hay data en el local storage");
+        } else {
+            getProperties().then((res) => {
+                console.log(" no hay data en el local storage");
+                setData(res);
+                localStorage.setItem("propertiesData", JSON.stringify(res));
+            });
+        }
     }, []);
 
     const handleClick = () => {
