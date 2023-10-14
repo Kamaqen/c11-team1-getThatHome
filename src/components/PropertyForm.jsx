@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Input from './Inputlau';
 import CloudinaryUpload from './CloudinaryUpload';
-//import { createProperty } from '../services/property-services';
+import { createProperty } from '../services/property-services';
 
 const StyledLabel = styled.label`
     font-size: 10px;
@@ -75,7 +75,7 @@ const PropertyForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     formData.urls = imageUrls;
-    //createProperty(formData);
+    createProperty(formData);
     console.log(formData);
   };
 
