@@ -5,10 +5,9 @@ import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BiBath, BiArea, BiBed } from "react-icons/bi";
 import { MdPets } from "react-icons/md";
 import Maps from "../components/Maps";
-import ContactCard from "../components/AbsoluteCard";
+import ContactCard from "../components/ContactCard";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../components/ErrorFallback";
-import AbsoluteCard from "../components/AbsoluteCard";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -144,7 +143,7 @@ const PropertyDetailsPage = () => {
                             <Maps address={addressPrimary} />
                         </DivCol>
                     </div>
-                    <AbsoluteCard login="false" />
+                    <ContactCard login="false" />
                 </SectionProperty>
             </ErrorBoundary>
             <Footer page="other" />

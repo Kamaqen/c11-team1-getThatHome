@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const PriceCard = styled.div`
-    display: ${(props) => (props.visible ? "flex" : "none")};
+    display: flex;
     margin-top: 4px;
     width: 247px;
     height: 116px;
@@ -9,26 +9,26 @@ const PriceCard = styled.div`
     background: white;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
     padding: 8px;
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: 1 / 1 / 2 / 2;
     flex-direction: column;
     justify-content: center;
 `;
 const PropCard = styled(PriceCard)`
     width: 211px;
-    grid-area: 2 / 3 / 3 / 4;
+    grid-area: 1 / 2 / 2 / 3;
 `;
 const BedCard = styled(PriceCard)`
-    grid-area: 2 / 4 / 3 / 5;
+    grid-area: 1 / 3 / 2 / 4;
     width: 270px;
     height: 184px;
 `;
 const MoreCard = styled(PriceCard)`
-    grid-area: 2 / 5 / 3 / 6;
+    grid-area: 1 / 4 / 2 / 5;
     width: 247px;
     height: 168px;
 `;
 
-const FilterCards = ({ type, children, visible }) => {
+const FilterCardContainer = ({ type, children }) => {
     let SelectedCard;
     switch (type) {
         case "PriceCard":
@@ -46,7 +46,7 @@ const FilterCards = ({ type, children, visible }) => {
         default:
             SelectedCard = PriceCard;
     }
-    return <SelectedCard visible={visible}>{children}</SelectedCard>;
+    return <SelectedCard>{children}</SelectedCard>;
 };
 
-export default FilterCards;
+export default FilterCardContainer;

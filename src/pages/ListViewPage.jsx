@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
-import FiltersBar from "../components/FiltersBar";
-import FilterModal from "../components/FilterModal";
+import FilterBar from "../components/filter_modal_components/FilterBar";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -23,7 +22,6 @@ const StyledDiv = styled.div`
 const CardContainer = styled.div`
     display: flex;
     justify-content: center;
-
     flex-wrap: wrap;
     padding: 32px;
     row-gap: 32px;
@@ -44,15 +42,11 @@ const ListViewPage = () => {
         });
     }, []);
 
-    const handleClick = (type, value) => {
-        console.log("le diste click a ", type, value);
-    };
-
     return (
         <div className="flex flex-column a-center">
             <NavBarProv />
             <Section>
-                <FiltersBar handleClick={handleClick} />
+                <FilterBar />
                 <StyledDiv>
                     <CardContainer>
                         {data?.map((item) => (
