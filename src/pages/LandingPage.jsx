@@ -61,7 +61,7 @@ const LandingPage = () => {
 
     useEffect(() => {
         getProperties().then((res) => setData(res));
-        localStorage.setItem("properties", JSON.stringify(data));
+        localStorage.setItem("propertiesData", JSON.stringify(data));
     }, []);
 
     const handleClick = () => {

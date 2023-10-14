@@ -5,6 +5,7 @@ import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import FiltersBar from "../components/FiltersBar";
+import FilterModal from "../components/FilterModal";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -18,7 +19,6 @@ const NavBarProv = styled.div`
 const StyledDiv = styled.div`
     display: flex;
     padding: 32px;
-    background: blue;
 `;
 const CardContainer = styled.div`
     display: flex;
@@ -31,19 +31,17 @@ const CardContainer = styled.div`
 `;
 const ListViewPage = () => {
     const [data, setData] = useState();
-    const [filter, setFilter] = useState({
-        price: { priceMin: "", priceMax: "" },
-        type: "all",
-        bedrooms: "any",
-        bathrooms: "any",
-        pet_friendly: true,
-        area: { areaMin: "", areaMax: "" },
-        operation_type: "all",
-    });
+
     useEffect(() => {
-        getProperties().then((res) => setData(res));
-        localStorage.setItem("properties", JSON.stringify(data));
+        if (localStorage.getItem("propertiesData")) {
+            setData(JSON.parse(localStorage.getItem("propertiesData")));
+        }
+        getProperties().then((res) => {
+            setData(res);
+            localStorage.setItem("propertiesData", JSON.stringify(res));
+        });
     }, []);
+
     const handleClick = (type, value) => {
         console.log("le diste click a ", type, value);
     };

@@ -6,7 +6,7 @@ import Button from "./Button";
 
 const StyledBar = styled.div`
     width: 100%;
-    background: #808080;
+    background: blue;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 40px auto;
@@ -66,14 +66,15 @@ const FiltersBar = () => {
                     <option value="">Buying</option>
                     <option value="">Renting</option>
                 </select>
-                <FilterModal
-                    isOpen={isModalOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Filter Modal"
-                    ariaHideApp={false}
-                    card={selectedCardType}>
-                    <button onClick={closeModal}>Cerrar</button>
-                </FilterModal>
+
+                {isModalOpen && (
+                    <FilterModal
+                        isOpen={isModalOpen}
+                        onRequestClose={closeModal}
+                        contentLabel="Filter Modal"
+                        ariaHideApp={false}
+                        card={selectedCardType}></FilterModal>
+                )}
             </StyledBar>
         </div>
     );

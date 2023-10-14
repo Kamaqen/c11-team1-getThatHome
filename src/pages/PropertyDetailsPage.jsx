@@ -1,14 +1,11 @@
 import styled from "@emotion/styled";
 import Footer from "../components/footer";
-import Section from "../components/Section";
 import ImagesCarrousell from "../components/ImagesCarrousell";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BiBath, BiArea, BiBed } from "react-icons/bi";
 import { MdPets } from "react-icons/md";
 import Maps from "../components/Maps";
 import ContactCard from "../components/AbsoluteCard";
-import { useEffect, useState } from "react";
-import { getProperties } from "../services/property-services";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../components/ErrorFallback";
 import AbsoluteCard from "../components/AbsoluteCard";

@@ -3,10 +3,10 @@ import FilterCards from "./FilterCards";
 
 const StyledBar = styled.div`
     width: 100%;
-    background: #808080;
+    background: red;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 40px auto;
+    grid-template-rows: auto;
     justify-content: center;
 `;
 
@@ -15,6 +15,7 @@ const ButtonsDiv = styled.div`
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 36px;
     margin-top: 8px;
+    background: green;
 `;
 const FilterModal = ({ card }) => {
     console.log("la card es", card);
@@ -59,22 +60,21 @@ const FilterModal = ({ card }) => {
                     <button>done</button>
                 </FilterCards>
             ) : (
-                ""
+                <FilterCards type="MoreCard">
+                    <div className="flex ">
+                        <input type="checkbox" />
+                        <p>Pets Allowed</p>
+                    </div>
+                    <div>
+                        <p className="overline">Area in m2</p>
+                        <div className="flex ">
+                            <input type="text" placeholder="Min" />
+                            <input type="text" placeholder="Max" />
+                        </div>
+                    </div>
+                </FilterCards>
             )}
             ;
-            <FilterCards type="MoreCard">
-                <div className="flex ">
-                    <input type="checkbox" />
-                    <p>Pets Allowed</p>
-                </div>
-                <div>
-                    <p className="overline">Area in m2</p>
-                    <div className="flex ">
-                        <input type="text" placeholder="Min" />
-                        <input type="text" placeholder="Max" />
-                    </div>
-                </div>
-            </FilterCards>
         </StyledBar>
     );
 };
