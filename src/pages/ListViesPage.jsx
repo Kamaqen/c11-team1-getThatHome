@@ -2,7 +2,9 @@ import Section from "../components/Section";
 import Footer from "../components/footer";
 import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProperties } from "../services/property-services";
+import FiltersBar from "../components/FiltersBar";
 
 const NavBarProv = styled.div`
     position: relative;
@@ -16,6 +18,7 @@ const NavBarProv = styled.div`
 const StyledDiv = styled.div`
     display: flex;
     padding: 32px;
+    background: blue;
 `;
 const CardContainer = styled.div`
     display: flex;
@@ -27,8 +30,7 @@ const CardContainer = styled.div`
     column-gap: 64px;
 `;
 const ListViesPage = () => {
-    const localData = JSON.parse(localStorage.getItem("propertiesData"));
-    const [data, setData] = useState(localData);
+    const [data, setData] = useState();
     const [filter, setFilter] = useState({
         price: { priceMin: "", priceMax: "" },
         type: "all",
@@ -38,17 +40,25 @@ const ListViesPage = () => {
         area: { areaMin: "", areaMax: "" },
         operation_type: "all",
     });
+    useEffect(() => {
+        getProperties().then((res) => setData(res));
+        localStorage.setItem("properties", JSON.stringify(data));
+    }, []);
+    const handleClick = (type, value) => {
+        console.log("le diste click a ", type, value);
+    };
 
     return (
         <div className="flex flex-column a-center">
             <NavBarProv />
             <Section>
+                <FiltersBar handleClick={handleClick} />
                 <StyledDiv>
                     <CardContainer>
                         {data?.map((item) => (
                             <CardComponent
                                 key={item.id}
-                                img={item.image}
+                                img={item.urls}
                                 price={item.rent_value}
                                 operation={item.operation_type}
                                 type={item.property_type}
