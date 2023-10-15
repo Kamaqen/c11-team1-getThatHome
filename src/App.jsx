@@ -5,20 +5,21 @@ import ListViewPage from "./pages/ListViewPage";
 import SignupPage from "./pages/SignupPage.jsx";
 
 const App = () => {
-    return (
-        <Routes>
-            <Route path="/">
-                <Route index element={<Navigate to="/main" />} />
-                <Route path="main" element={<LandingPage />} />
-                <Route
-                    path="property_details/:id"
-                    element={<PropertyDetailsPage />}
-                />
-                <Route path="list" element={<ListViewPage />} />
-                <Route path="signup" element={<SignupPage />} />
-            </Route>
-        </Routes>
-    );
+  return (
+    // <Routes>
+    //     <Route path="/">
+    //         <Route index element={<Navigate to="/main" />} />
+    //         <Route path="main" element={<LandingPage />} />
+    //         <Route
+    //             path="property_details/:id"
+    //             element={<PropertyDetailsPage />}
+    //         />
+    //         <Route path="list" element={<ListViewPage />} />
+    //         <Route path="signup" element={<SignupPage />} />
+    //     </Route>
+    // </Routes>
+    <SignupPage />
+  );
 };
 
 export default App;

@@ -18,6 +18,7 @@ const iconTbHome2 = <TbHome2 />;
 
 const MenuContainer = styled.div`
   width: 100%;
+  position: fixed;
   /* max-height: 72px; */
   display: flex;
   align-items: center;
