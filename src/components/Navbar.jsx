@@ -151,6 +151,7 @@ const ButtonSP = styled.div`
   text-align: center;
   box-sizing: border-box;
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 const ButtonProv = styled.button`
@@ -229,7 +230,7 @@ const Navbar = ({ setShowModal, setUser, user, role }) => {
               )}
               {role === "home_seeker" && (
                 <>
-                  <ButtonSP>
+                  <ButtonSP onClick={()=>navigate("/saved_properties")}>
                     <Icon>{iconBsFillHeartFill}</Icon>
                     SAVED PROPERTIES
                   </ButtonSP>

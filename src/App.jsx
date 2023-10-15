@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import LoginModal from "./components/LoginModal";
 import Footer from "./components/Footer";
+import SavedProperties from "./pages/SavedProperties";
 
 const App = () => {
     const [user, setUser] = useState(sessionStorage.getItem("userId"));
@@ -43,6 +44,7 @@ const App = () => {
                 />
                 <Route path="list" element={<ListViewPage />} />
                 <Route path="signup" element={<SignupPage />} />
+                <Route path="saved_properties" element={<SavedProperties/>} />
             </Route>
         </Routes>
         {showModal &&
