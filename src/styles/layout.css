@@ -1,0 +1,91 @@
+.section {
+    padding: 64px 0;
+}
+.container {
+    max-width: 1440px;
+    margin: auto;
+}
+.flex {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.j-center {
+    justify-content: center;
+}
+.j-start {
+    justify-content: flex-start;
+}
+.j-end {
+    justify-content: flex-end;
+}
+.j-between {
+    justify-content: space-between;
+}
+.j-around {
+    justify-content: space-around;
+}
+.j-evenly {
+    justify-content: space-evenly;
+}
+.a-center {
+    align-items: center;
+}
+.a-end {
+    align-items: flex-end;
+}
+.a-start {
+    align-items: flex-start;
+}
+.a-between {
+    align-items: space-between;
+}
+.a-stretch {
+    align-items: stretch;
+}
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.gap-sm {
+    gap: 8px;
+}
+.gap-md {
+    gap: 16px;
+}
+.gap-xl {
+    gap: 48px;
+}
+.margin-md {
+    margin: 0 16px;
+}
+.mb-md {
+    margin-bottom: 16px;
+}
+.mb-xl {
+    margin-bottom: 48px;
+}
+.check {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    border: 2px solid #f48fb1;
+}
+.check:checked + label::before {
+    background-color: #f48fb1;
+}
+.self-center {
+    align-self: center;
+}

@@ -1,0 +1,11 @@
+@import url("./reset.css");
+@import url("./utils.css");
+@import url("./layout.css");
+@import url("./typography.css");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+body {
+    font-weight: 300;
+    box-sizing: border-box;
+}
