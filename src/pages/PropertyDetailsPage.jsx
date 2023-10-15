@@ -44,7 +44,6 @@ const PropertyDetailsPage = () => {
 
     return (
         <div className="flex flex-column a-center">
-            <NavBarProv />
             <ErrorBoundary
                 FallbackComponent={ErrorFallback}
                 onReset={() => {

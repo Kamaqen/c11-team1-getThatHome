@@ -45,7 +45,6 @@ const ListViewPage = () => {
 
   return (
     <div className="flex flex-column a-center">
-      <Navbar />
       <Section>
         <FilterBar />
         <StyledDiv>
