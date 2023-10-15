@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import PropertyDetailsPage from "./pages/PropertyDetailsPage";
 import ListViewPage from "./pages/ListViewPage";
@@ -14,6 +14,9 @@ const App = () => {
   const [role, setRole] = useState(sessionStorage.getItem("userRole"));
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
+
+  const location = useLocation();
+  const currentRoute = location.pathname;
 
   const updateUser = (userId) => {
     setUser(userId);
@@ -55,7 +58,7 @@ const App = () => {
           </div>,
           document.body
         )}
-        <Footer page="home" />
+        <Footer location={currentRoute} />
         </>
     );
 };

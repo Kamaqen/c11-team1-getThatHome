@@ -70,7 +70,6 @@ const PropertyDetailsPage = () => {
                     <ContactCard login="false" />
                 </SectionProperty>
             </ErrorBoundary>
-            <Footer page="other" />
         </div>
     );
 };
