@@ -30,7 +30,7 @@ const App = () => {
     <>
       <Navbar
         setShowModal={setShowModal}
-        setUser={setIdUser}
+        setIdUser={setIdUser}
         id={idUser}
         role={role}
       />
