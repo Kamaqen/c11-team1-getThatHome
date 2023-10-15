@@ -11,43 +11,43 @@ import Footer from "./components/Footer";
 import SavedProperties from "./pages/SavedProperties";
 
 const App = () => {
-    const [user, setUser] = useState(sessionStorage.getItem("userId"));
+  const [idUser, setIdUser] = useState(sessionStorage.getItem("userId"));
   const [role, setRole] = useState(sessionStorage.getItem("userRole"));
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
 
-  const location = useLocation();
-  const currentRoute = location.pathname;
+  const { pathname } = useLocation();
+  // const currentRoute = location.pathname;
 
   const updateUser = (userId) => {
-    setUser(userId);
+    setIdUser(userId);
   };
   const updateRole = (userRole) => {
     setRole(userRole);
   };
 
-    return (
-        <>
-        <Navbar
+  return (
+    <>
+      <Navbar
         setShowModal={setShowModal}
-        setUser={setUser}
-        user={user}
+        setUser={setIdUser}
+        id={idUser}
         role={role}
-        />
-        <Routes>
-            <Route path="/">
-                <Route index element={<Navigate to="/main" />} />
-                <Route path="main" element={<LandingPage />} />
-                <Route
-                    path="property_details/:id"
-                    element={<PropertyDetailsPage />}
-                />
-                <Route path="list" element={<ListViewPage />} />
-                <Route path="signup" element={<SignupPage />} />
-                <Route path="saved_properties" element={<SavedProperties/>} />
-            </Route>
-        </Routes>
-        {showModal &&
+      />
+      <Routes>
+        <Route path="/">
+          <Route index element={<Navigate to="/main" />} />
+          <Route path="main" element={<LandingPage />} />
+          <Route
+            path="property_details/:id"
+            element={<PropertyDetailsPage />}
+          />
+          <Route path="list" element={<ListViewPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="saved_properties" element={<SavedProperties />} />
+        </Route>
+      </Routes>
+      {showModal &&
         createPortal(
           <div ref={modalRef}>
             <LoginModal
@@ -60,9 +60,9 @@ const App = () => {
           </div>,
           document.body
         )}
-        <Footer location={currentRoute} />
-        </>
-    );
+      <Footer location={pathname} />
+    </>
+  );
 };
 
 export default App;

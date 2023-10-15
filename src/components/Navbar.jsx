@@ -47,6 +47,7 @@ const LogoImg = styled.img`
   justify-content: space-between;
   align-items: center;
   flex: 1 0 0;
+  cursor: pointer;
 `;
 
 const ButtonFindHome = styled.div`
@@ -61,6 +62,7 @@ const ButtonFindHome = styled.div`
   color: var(--Gray, #616161);
   text-align: center;
   line-height: 40px;
+  cursor: pointer;
 `;
 
 const ButtonJoin = styled.div`
@@ -189,7 +191,7 @@ const StyledP = styled.p`
 
 const Navbar = ({ setShowModal, setUser, user, role }) => {
   const navigate = useNavigate();
-    
+
   const handleClick = () => {
     setShowModal(true);
   };
@@ -207,7 +209,7 @@ const Navbar = ({ setShowModal, setUser, user, role }) => {
           <LogoImg src="src/assets/Logo.png" onClick={() => navigate("/")} />
         </ContentImg>
         <StyledMenuV>
-          <ButtonFindHome>
+          <ButtonFindHome onClick={() => navigate("/list")}>
             <Icon>{iconlusearch}</Icon>
             FIND A HOME
           </ButtonFindHome>
@@ -230,7 +232,7 @@ const Navbar = ({ setShowModal, setUser, user, role }) => {
               )}
               {role === "home_seeker" && (
                 <>
-                  <ButtonSP onClick={()=>navigate("/saved_properties")}>
+                  <ButtonSP onClick={() => navigate("/saved_properties")}>
                     <Icon>{iconBsFillHeartFill}</Icon>
                     SAVED PROPERTIES
                   </ButtonSP>
