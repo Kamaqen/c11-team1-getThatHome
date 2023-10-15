@@ -183,7 +183,12 @@ const LandingPage = () => {
 
   return (
     <div className="flex flex-column a-center">
-      <Navbar setShowModal={setShowModal} setUser={setUser} user={user} />
+      <Navbar
+        setShowModal={setShowModal}
+        setUser={setUser}
+        user={user}
+        role={role}
+      />
       {/* <MenuContainer>
         <Navbarstyled>
           <ContentImg>

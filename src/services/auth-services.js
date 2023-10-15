@@ -6,6 +6,7 @@ export function login(credentials) {
         const { token, ...user } = u;
         sessionStorage.setItem(tokenKey, token);
         sessionStorage.setItem("userId", user.id);
+        sessionStorage.setItem("userRole", user.role)
         return user;
     });
 }

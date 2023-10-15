@@ -185,7 +185,7 @@ const StyledP = styled.p`
   color: ${(props) => (props.color ? props.color : "#373737")};
 `;
 
-const Navbar = ({ setShowModal, setUser, user }) => {
+const Navbar = ({ setShowModal, setUser, user, role }) => {
   const handleClick = () => {
     setShowModal(true);
   };
