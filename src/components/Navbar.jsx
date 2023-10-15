@@ -213,7 +213,7 @@ const Navbar = ({ setShowModal, setUser, user }) => {
                 <Icon>{iconBiLogOutCircle}</Icon>
                 LOGOUT
               </ButtonLogout>
-              {role === "landlord" && (
+              {user.role === "landlord" && (
                 <>
                   <Button variant="Primary" size="def" icon={iconTbHome2}>
                     My Properties
@@ -224,7 +224,7 @@ const Navbar = ({ setShowModal, setUser, user }) => {
                   </ButtonProfile>
                 </>
               )}
-              {role === "home_seeker" && (
+              {user.role === "home_seeker" && (
                 <>
                   <ButtonSP>
                     <Icon>{iconBsFillHeartFill}</Icon>

@@ -24,14 +24,14 @@
     chalk "^2.4.2"
 
 "@babel/compat-data@^7.22.9":
-  version "7.23.2"
-  resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.23.2.tgz"
-  integrity sha512-0S9TQMmDHlqAZ2ITT95irXKfxN9bncq8ZCoJhun3nHL/lLUxd2NKBJYoNGWH7S0hz6fRQwWlAWn/ILM0C70KZQ==
+  version "7.22.20"
+  resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.22.20.tgz"
+  integrity sha512-BQYjKbpXjoXwFW5jGqiizJQQT/aC7pFm9Ok1OWssonuguICi264lbgMzRp2ZMmRSlfkX6DsWDDcsrctK8Rwfiw==
 
 "@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.22.20":
-  version "7.23.2"
-  resolved "https://registry.npmjs.org/@babel/core/-/core-7.23.2.tgz"
-  integrity sha512-n7s51eWdaWZ3vGT2tD4T7J6eJs3QoBXydv7vkUM06Bf1cbVD2Kc2UrkzhiQwobfV7NwOnQXYL7UBJ5VPU+RGoQ==
+  version "7.23.0"
+  resolved "https://registry.npmjs.org/@babel/core/-/core-7.23.0.tgz"
+  integrity sha512-97z/ju/Jy1rZmDxybphrBuI+jtJjFVoz7Mr9yUQVVVi+DNZE333uFQeMOqcCIy1x3WYBIbWftUSLmbNXNT7qFQ==
   dependencies:
     "@ampproject/remapping" "^2.2.0"
     "@babel/code-frame" "^7.22.13"
@@ -180,9 +180,9 @@
     "@babel/helper-plugin-utils" "^7.22.5"
 
 "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.5.5":
-  version "7.23.2"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.2.tgz"
-  integrity sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg==
+  version "7.23.1"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.1.tgz"
+  integrity sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -435,6 +435,11 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@remix-run/router@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.9.0.tgz"
+  integrity sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==
 
 "@types/babel__core@^7.20.2":
   version "7.20.2"
@@ -816,9 +821,9 @@ doctrine@^3.0.0:
     esutils "^2.0.2"
 
 electron-to-chromium@^1.4.535:
-  version "1.4.554"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.554.tgz"
-  integrity sha512-Q0umzPJjfBrrj8unkONTgbKQXzXRrH7sVV7D9ea2yBV3Oaogz991yhbpfvo2LMNkJItmruXTEzVpP9cp7vaIiQ==
+  version "1.4.545"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.545.tgz"
+  integrity sha512-G1HKumUw+y5yxMjewGfKz0XrqG6O+Tb4zrlC/Vs1+9riRXBuFlO0hOEXP3xeI+ltlJkbVUuLkYdmjHYH6Jkiow==
 
 equals@^1.0.5:
   version "1.0.5"
@@ -1844,7 +1849,7 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-react-dom@^18.2.0, "react-dom@15.x || 16.x || 17.x || 18.x":
+react-dom@^18.2.0, react-dom@>=16.8, "react-dom@15.x || 16.x || 17.x || 18.x":
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -1874,7 +1879,22 @@ react-refresh@^0.14.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-react@*, react@^18.2.0, react@>=16.13.1, react@>=16.8.0, "react@15.x || 16.x || 17.x || 18.x":
+react-router-dom@^6.16.0:
+  version "6.16.0"
+  resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.16.0.tgz"
+  integrity sha512-aTfBLv3mk/gaKLxgRDUPbPw+s4Y/O+ma3rEN1u8EgEpLpPe6gNjIsWt9rxushMHHMb7mSwxRGdGlGdvmFsyPIg==
+  dependencies:
+    "@remix-run/router" "1.9.0"
+    react-router "6.16.0"
+
+react-router@6.16.0:
+  version "6.16.0"
+  resolved "https://registry.npmjs.org/react-router/-/react-router-6.16.0.tgz"
+  integrity sha512-VT4Mmc4jj5YyjpOi5jOf0I+TYzGpvzERy4ckNSvSh2RArv8LLoCxlsZ2D+tc7zgjxcY34oTz2hZaeX5RVprKqA==
+  dependencies:
+    "@remix-run/router" "1.9.0"
+
+react@*, react@^18.2.0, react@>=16.13.1, react@>=16.8, react@>=16.8.0, "react@15.x || 16.x || 17.x || 18.x":
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -1913,18 +1933,18 @@ resolve-from@^4.0.0:
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
 resolve@^1.19.0:
-  version "1.22.8"
-  resolved "https://registry.npmjs.org/resolve/-/resolve-1.22.8.tgz"
-  integrity sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==
+  version "1.22.6"
+  resolved "https://registry.npmjs.org/resolve/-/resolve-1.22.6.tgz"
+  integrity sha512-njhxM7mV12JfufShqGy3Rz8j11RPdLy4xi15UurGJeoHLfJpVXKdh3ueuOqbYUcDZnffr6X739JBo5LzyahEsw==
   dependencies:
     is-core-module "^2.13.0"
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
 resolve@^2.0.0-next.4:
-  version "2.0.0-next.5"
-  resolved "https://registry.npmjs.org/resolve/-/resolve-2.0.0-next.5.tgz"
-  integrity sha512-U7WjGVG9sH8tvjW5SmGbQuui75FiyjAX72HX15DwBBwF9dNiQZRQAg9nnPhYy+TUnE0+VcrttuvNI8oSxZcocA==
+  version "2.0.0-next.4"
+  resolved "https://registry.npmjs.org/resolve/-/resolve-2.0.0-next.4.tgz"
+  integrity sha512-iMDbmAWtfU+MHpxt/I5iWI7cY6YVEZUQ3MBgPQ++XD1PELuJHIl82xBmObyP2KyQmkNB2dsqF7seoQQiAn5yDQ==
   dependencies:
     is-core-module "^2.13.0"
     path-parse "^1.0.7"
