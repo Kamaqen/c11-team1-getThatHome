@@ -37,10 +37,10 @@ const FooterLogo = styled.img`
     width: 134px;
 `;
 
-const Footer = ({ page }) => {
+const Footer = ({ location }) => {
     return (
-        <FooterWrapper className="flex" page={page}>
-            {page !== "home" ? (
+        <FooterWrapper className="flex" location={location}>
+            {location !== "/main" ? (
                 <FooterContainer className="flex container">
                     <StyledDiv className="flex flex-column text-left">
                         <FooterLogo src="src/assets/Logo.png" />
@@ -96,7 +96,7 @@ const Footer = ({ page }) => {
 };
 
 Footer.propTypes = {
-    page: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
 };
 
 export default Footer;

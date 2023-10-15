@@ -1,11 +1,9 @@
 import Section from "../components/Section";
-import Footer from "../components/Footer";
 import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import FilterBar from "../components/listViewPage_components/FilterBar";
-import Navbar from "../components/Navbar";
 
 // const NavBarProv = styled.div`
 //     position: relative;
@@ -34,10 +32,8 @@ const ListViewPage = () => {
   useEffect(() => {
     if (localStorage.getItem("propertiesData")) {
       setData(JSON.parse(localStorage.getItem("propertiesData")));
-      console.log("si hay data en el local storage");
     }
     getProperties().then((res) => {
-      console.log(" no hay data en el local storage");
       setData(res);
       localStorage.setItem("propertiesData", JSON.stringify(res));
     });
@@ -45,7 +41,6 @@ const ListViewPage = () => {
 
   return (
     <div className="flex flex-column a-center">
-      <Navbar />
       <Section>
         <FilterBar />
         <StyledDiv>
@@ -67,7 +62,6 @@ const ListViewPage = () => {
           </CardContainer>
         </StyledDiv>
       </Section>
-      <Footer page="other" />
     </div>
   );
 };

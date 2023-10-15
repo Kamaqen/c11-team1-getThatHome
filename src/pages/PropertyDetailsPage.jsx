@@ -44,7 +44,6 @@ const PropertyDetailsPage = () => {
 
     return (
         <div className="flex flex-column a-center">
-            <NavBarProv />
             <ErrorBoundary
                 FallbackComponent={ErrorFallback}
                 onReset={() => {
@@ -71,7 +70,6 @@ const PropertyDetailsPage = () => {
                     <ContactCard login="false" />
                 </SectionProperty>
             </ErrorBoundary>
-            <Footer page="other" />
         </div>
     );
 };

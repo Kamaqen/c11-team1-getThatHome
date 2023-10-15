@@ -155,10 +155,10 @@ const ButtonSP = styled.div`
 `;
 
 const LandingPage = () => {
-  const [user, setUser] = useState(sessionStorage.getItem("userId"));
-  const [role, setRole] = useState(sessionStorage.getItem("userRole"));
-  const [showModal, setShowModal] = useState(false);
-  const modalRef = useRef(null);
+  //const [user, setUser] = useState(sessionStorage.getItem("userId"));
+  //const [role, setRole] = useState(sessionStorage.getItem("userRole"));
+  //const [showModal, setShowModal] = useState(false);
+  //const modalRef = useRef(null);
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -174,16 +174,16 @@ const LandingPage = () => {
     }
   }, []);
 
-  const updateUser = (userId) => {
+  /*const updateUser = (userId) => {
     setUser(userId);
   };
   const updateRole = (userRole) => {
     setRole(userRole);
-  };
+  };*/
 
   return (
     <div className="flex flex-column a-center">
-      <Navbar
+      {/*<Navbar
         setShowModal={setShowModal}
         setUser={setUser}
         user={user}
@@ -259,7 +259,7 @@ const LandingPage = () => {
       <HomesSection data={data} />
       <GettingSection />
       <TeamSection />
-      {showModal &&
+      {/*showModal &&
         createPortal(
           <div ref={modalRef}>
             <LoginModal
@@ -271,8 +271,7 @@ const LandingPage = () => {
             />
           </div>,
           document.body
-        )}
-      <Footer page="home" />
+            )*/}
     </div>
   );
 };
