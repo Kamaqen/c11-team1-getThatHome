@@ -120,6 +120,7 @@ const ButtonLogout = styled.button`
   color: var(--Gray, #616161);
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const ButtonProfile = styled.div`
@@ -136,6 +137,7 @@ const ButtonProfile = styled.div`
   color: var(--White, #fff);
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const ButtonSP = styled.div`
@@ -189,7 +191,7 @@ const StyledP = styled.p`
   color: ${(props) => (props.color ? props.color : "#373737")};
 `;
 
-const Navbar = ({ setShowModal, setUser, user, role }) => {
+const Navbar = ({ setShowModal, setIdUser, id, role }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -198,7 +200,7 @@ const Navbar = ({ setShowModal, setUser, user, role }) => {
 
   const handleLogOut = () => {
     logout().then(() => {
-      setUser(null);
+      setIdUser(null);
     });
   };
 
@@ -213,7 +215,7 @@ const Navbar = ({ setShowModal, setUser, user, role }) => {
             <Icon>{iconlusearch}</Icon>
             FIND A HOME
           </ButtonFindHome>
-          {user ? (
+          {id ? (
             <>
               <ButtonLogout onClick={handleLogOut}>
                 <Icon>{iconBiLogOutCircle}</Icon>
