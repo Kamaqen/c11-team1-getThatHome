@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import FilterCardContainer from "./FilterCardContainer";
 import Button from "../Button";
+import { useState } from "react";
 
 const ButtonsDiv = styled.div`
     display: grid;
@@ -30,25 +31,57 @@ const ButtonSmall = styled.button`
         color: white;
     }
 `;
-const BedCard = ({ onRequestClose }) => {
+
+const BedCard = ({ onRequestClose, handleSetParams }) => {
+    const [beds, setBeds] = useState("");
+    const [baths, setBaths] = useState("");
+
+    const handleClickDone = () => {
+        console.log(beds, baths);
+        handleSetParams("baths", baths);
+        handleSetParams("beds", beds);
+        onRequestClose();
+    };
+
+    const handleButtonClick = (type, e) => {
+        const value = e.target.id;
+        if (type === "beds") {
+            console.log("dentro de bed " + value);
+            setBeds(value);
+        } else if (type === "baths") {
+            console.log("dentro de bath " + value);
+            setBaths(value);
+        }
+    };
+
     return (
         <FilterCardContainer type="BedCard">
             <p className="overline">beds</p>
             <ButtonsDiv>
                 {["any", "1+", "2+", "3+", "4+"].map((item, index) => (
-                    <ButtonSmall key={index}>{item}</ButtonSmall>
+                    <ButtonSmall
+                        key={index}
+                        id={index}
+                        onClick={(e) => handleButtonClick("beds", e)}>
+                        {item}
+                    </ButtonSmall>
                 ))}
             </ButtonsDiv>
             <p className="overline">baths</p>
             <ButtonsDiv className="mb-md">
                 {["any", "1+", "2+", "3+", "4+"].map((item, index) => (
-                    <ButtonSmall key={index}>{item}</ButtonSmall>
+                    <ButtonSmall
+                        key={index}
+                        id={index}
+                        onClick={(e) => handleButtonClick("baths", e)}>
+                        {item}
+                    </ButtonSmall>
                 ))}
             </ButtonsDiv>
             <Button
                 variant="Primary"
                 size="sm"
-                onClick={onRequestClose}
+                onClick={handleClickDone}
                 style={{ alignSelf: "flex-end" }}>
                 done
             </Button>

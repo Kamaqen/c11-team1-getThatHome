@@ -161,7 +161,7 @@ const LandingPage = () => {
     const [data, setData] = useState();
 
     useEffect(() => {
-        if (localStorage.getItem("propertiesData") === null) {
+        if (localStorage.getItem("propertiesData") !== null) {
             setData(JSON.parse(localStorage.getItem("propertiesData")));
             console.log("si hay data en el local storage");
         } else {

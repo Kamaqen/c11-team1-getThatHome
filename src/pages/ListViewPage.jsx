@@ -29,6 +29,7 @@ const CardContainer = styled.div`
 `;
 const ListViewPage = () => {
     const [data, setData] = useState();
+    const [filter, setFilter] = useState();
 
     useEffect(() => {
         if (localStorage.getItem("propertiesData")) {
@@ -46,7 +47,7 @@ const ListViewPage = () => {
         <div className="flex flex-column a-center">
             <NavBarProv />
             <Section>
-                <FilterBar />
+                <FilterBar setFilter={setFilter} />
                 <StyledDiv>
                     <CardContainer>
                         {data?.map((item) => (

@@ -13,16 +13,28 @@ const StyledBar = styled.div`
     justify-content: center;
 `;
 
-const FilterBar = () => {
+const FilterBar = ({ setFilter }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCardType, setSelectedCardType] = useState(null);
+    const [filterParams, setFilterParams] = useState({
+        price: null,
+        property: null,
+        beds: null,
+        baths: null,
+        pet: null,
+        area: null,
+    });
 
+    const handleSetParams = (type, value) => {
+        console.log(type, value);
+        setFilterParams({ ...filterParams, [type]: value });
+    };
     const openModal = (type) => {
         console.log(type);
         setSelectedCardType(type);
         setIsModalOpen(true);
     };
-
+    console.log(filterParams);
     const closeModal = () => {
         setSelectedCardType(null);
         setIsModalOpen(false);
@@ -78,6 +90,7 @@ const FilterBar = () => {
                             contentLabel="Filter Modal"
                             ariaHideApp={false}
                             card={selectedCardType}
+                            handleSetParams={handleSetParams}
                         />,
                         document.body
                     )}

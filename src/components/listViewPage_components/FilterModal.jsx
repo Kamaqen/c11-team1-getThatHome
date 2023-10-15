@@ -19,22 +19,34 @@ const StyledBar = styled.div`
     transform: translateX(-50%);
 `;
 
-const FilterModal = ({ card, onRequestClose }) => {
+const FilterModal = ({ card, onRequestClose, handleSetParams }) => {
     console.log("la card es", card);
     return (
         <>
             <StyledBar>
                 {card === "PriceCard" && (
-                    <PriceCard onRequestClose={onRequestClose} />
+                    <PriceCard
+                        onRequestClose={onRequestClose}
+                        handleSetParams={handleSetParams}
+                    />
                 )}
                 {card === "PropCard" && (
-                    <PropCard onRequestClose={onRequestClose} />
+                    <PropCard
+                        onRequestClose={onRequestClose}
+                        handleSetParams={handleSetParams}
+                    />
                 )}
                 {card === "BedCard" && (
-                    <BedCard onRequestClose={onRequestClose} />
+                    <BedCard
+                        onRequestClose={onRequestClose}
+                        handleSetParams={handleSetParams}
+                    />
                 )}
                 {card === "MoreCard" && (
-                    <MoreCard onRequestClose={onRequestClose} />
+                    <MoreCard
+                        onRequestClose={onRequestClose}
+                        handleSetParams={handleSetParams}
+                    />
                 )}
             </StyledBar>
         </>
