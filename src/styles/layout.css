@@ -74,6 +74,9 @@
 .mb-md {
     margin-bottom: 16px;
 }
+.mt-md {
+    margin-top: 16px;
+}
 .mb-xl {
     margin-bottom: 48px;
 }
@@ -88,4 +91,7 @@
 }
 .self-center {
     align-self: center;
+}
+.self-start {
+    align-self: flex-start;
 }
