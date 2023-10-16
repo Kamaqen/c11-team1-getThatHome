@@ -2,19 +2,9 @@ import Section from "../components/Section";
 import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
-import { getProperties } from "../services/property-services";
 import FilterBar from "../components/listViewPage_components/FilterBar";
 import { getSavedProperties } from "../services/user-properties-services";
 
-// const NavBarProv = styled.div`
-//     position: relative;
-//     top: 0px;
-//     height: 72px;
-//     width: 100%;
-//     margin: auto;
-//     background-color: #f48fb1;
-//     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-//`;
 const StyledDiv = styled.div`
   display: flex;
   padding: 32px;
