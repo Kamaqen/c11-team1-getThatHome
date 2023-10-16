@@ -9,7 +9,7 @@ import DetailsSection from "../components/propertyDetailsPage_components/Details
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { showProperty } from "../services/property-services";
-import Carousel from "../components/ImagesCarrousell";
+import ImageCarousel from "../components/ImagesCarrousell";
 
 const NavBarProv = styled.div`
   position: relative;
@@ -39,8 +39,6 @@ const PropertyDetailsPage = () => {
   const [currentProperty, setCurrentProperty] = useState({});
   const { id } = useParams();
 
-  showProperty(id);
-
   useEffect(() => {
     showProperty(id).then((res) => {
       console.log(res);
@@ -49,8 +47,10 @@ const PropertyDetailsPage = () => {
     });
   }, [id]);
 
-  const { urls } = currentProperty;
-  console.log(urls);
+  let emptyArray = [];
+  const urls = currentProperty.urls;
+  emptyArray = urls;
+  console.log(emptyArray);
 
   const [addressPrimary = "", address1 = "", address2 = ""] = (
     currentProperty?.address || ""
@@ -59,6 +59,7 @@ const PropertyDetailsPage = () => {
 
   return (
     <div className="flex flex-column a-center">
+      <p>{urls[0]}</p>
       <ErrorBoundary
         FallbackComponent={ErrorFallback}
         onReset={() => {
@@ -67,7 +68,7 @@ const PropertyDetailsPage = () => {
       >
         <SectionProperty>
           <div className="flex flex-column">
-            <Carousel images={urls} />
+            <ImageCarousel images={urls} id="aidí" />
             <HeadersSection
               addressPrimary={addressPrimary}
               addressSecundaty={addressSecundaty}

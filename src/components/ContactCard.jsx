@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { createSavedProperty } from "../services/user-properties-services";
-import { useParams } from "react-router-dom";
 
 const StyledDiv = styled.div`
   grid-column: 2 / 3;
@@ -16,8 +15,7 @@ const StyledDiv = styled.div`
   margin-left: 64px;
 `;
 
-const ContactCard = ({ login }) => {
-  const { id } = useParams();
+const ContactCard = ({ login, id }) => {
   async function handleSaved() {
     try {
       await createSavedProperty({ property_id: Number.parseInt(id) });
