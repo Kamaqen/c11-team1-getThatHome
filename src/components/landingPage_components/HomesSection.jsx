@@ -4,7 +4,6 @@ import CardComponent from "../CardComponent";
 import { datafake } from "../../STORE";
 
 const HomesSection = ({ data }) => {
-    // const threeFirst = { data ? data.slice(0, 3) : datafake.slice(0, 3) };
     const threeFirst = data ? data.slice(0, 3) : datafake.slice(0, 3);
     return (
         <Section>

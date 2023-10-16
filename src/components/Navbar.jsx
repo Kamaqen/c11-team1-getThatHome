@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import { createPortal } from "react-dom";
 import { useState } from "react";
-import LoginModal from "../components/LoginModal";
 import { logout } from "../services/auth-services";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -9,6 +7,7 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { TbHome2 } from "react-icons/tb";
 import { LuSearch } from "react-icons/lu";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const iconRiUserAddLine = <RiUserAddLine />;
 const iconRiUserReceivedLine = <RiUserReceivedLine />;
@@ -48,6 +47,7 @@ const LogoImg = styled.img`
   justify-content: space-between;
   align-items: center;
   flex: 1 0 0;
+  cursor: pointer;
 `;
 
 const ButtonFindHome = styled.div`
@@ -62,6 +62,7 @@ const ButtonFindHome = styled.div`
   color: var(--Gray, #616161);
   text-align: center;
   line-height: 40px;
+  cursor: pointer;
 `;
 
 const ButtonJoin = styled.div`
@@ -119,6 +120,7 @@ const ButtonLogout = styled.button`
   color: var(--Gray, #616161);
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const ButtonProfile = styled.div`
@@ -135,6 +137,7 @@ const ButtonProfile = styled.div`
   color: var(--White, #fff);
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const ButtonSP = styled.div`
@@ -152,6 +155,7 @@ const ButtonSP = styled.div`
   text-align: center;
   box-sizing: border-box;
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 const ButtonProv = styled.button`
@@ -187,8 +191,8 @@ const StyledP = styled.p`
   color: ${(props) => (props.color ? props.color : "#373737")};
 `;
 
-const Navbar = () => {
-  const [showModal, setShowModal] = useState(false);
+const Navbar = ({ setShowModal, setIdUser, id, role }) => {
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setShowModal(true);
@@ -196,7 +200,7 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     logout().then(() => {
-      setUser(null);
+      setIdUser(null);
     });
   };
 
@@ -204,14 +208,14 @@ const Navbar = () => {
     <MenuContainer>
       <Navbarstyled>
         <ContentImg>
-          <LogoImg src="src/assets/Logo.png" />
+          <LogoImg src="src/assets/Logo.png" onClick={() => navigate("/")} />
         </ContentImg>
         <StyledMenuV>
-          <ButtonFindHome>
+          <ButtonFindHome onClick={() => navigate("/list")}>
             <Icon>{iconlusearch}</Icon>
             FIND A HOME
           </ButtonFindHome>
-          {user ? (
+          {id ? (
             <>
               <ButtonLogout onClick={handleLogOut}>
                 <Icon>{iconBiLogOutCircle}</Icon>
@@ -230,7 +234,7 @@ const Navbar = () => {
               )}
               {role === "home_seeker" && (
                 <>
-                  <ButtonSP>
+                  <ButtonSP onClick={() => navigate("/saved_properties")}>
                     <Icon>{iconBsFillHeartFill}</Icon>
                     SAVED PROPERTIES
                   </ButtonSP>
@@ -243,7 +247,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Button variant="Secundary" size="def" icon={iconRiUserAddLine}>
+              <Button
+                onClick={() => navigate("/signup")}
+                variant="Secundary"
+                size="def"
+                icon={iconRiUserAddLine}
+              >
                 JOIN
               </Button>
               <Button
@@ -259,17 +268,6 @@ const Navbar = () => {
         </StyledMenuV>
       </Navbarstyled>
     </MenuContainer>
-          {showModal &&
-            createPortal(
-              <LoginModal
-                onClose={() => {
-                  setShowModal(false);
-                  updateUser(sessionStorage.getItem("userId"));
-                  updateRole(sessionStorage.getItem("userRole"));
-                }}
-              />,
-              document.body
-            )}
   );
 };
 

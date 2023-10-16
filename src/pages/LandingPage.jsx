@@ -23,6 +23,7 @@ import TeamSection from "../components/landingPage_components/TeamSection";
 import GettingSection from "../components/landingPage_components/GettingSection";
 import HomesSection from "../components/landingPage_components/HomesSection";
 import SearchSection from "../components/landingPage_components/SearchSection";
+import Navbar from "../components/Navbar";
 
 const iconRiUserAddLine = <RiUserAddLine />;
 const iconRiUserReceivedLine = <RiUserReceivedLine />;
@@ -154,146 +155,25 @@ const ButtonSP = styled.div`
 `;
 
 const LandingPage = () => {
-    const [user, setUser] = useState(sessionStorage.getItem("userId"));
-    const [role, setRole] = useState(sessionStorage.getItem("userRole"));
-    const [showModal, setShowModal] = useState(false);
-    const modalRef = useRef(null);
     const [data, setData] = useState();
 
     useEffect(() => {
         if (localStorage.getItem("propertiesData") !== null) {
             setData(JSON.parse(localStorage.getItem("propertiesData")));
-            console.log("si hay data en el local storage");
         } else {
             getProperties().then((res) => {
-                console.log(" no hay data en el local storage");
                 setData(res);
                 localStorage.setItem("propertiesData", JSON.stringify(res));
             });
         }
     }, []);
 
-    useEffect(() => {
-        const handleOutsideClick = (e) => {
-            if (modalRef.current && !modalRef.current.contains(e.target)) {
-                setShowModal(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleOutsideClick);
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, []);
-
-    const handleClick = () => {
-        setShowModal(true);
-    };
-    const updateUser = (userId) => {
-        setUser(userId);
-    };
-    const updateRole = (userRole) => {
-        setRole(userRole);
-    };
-
-    const handleLogOut = () => {
-        logout().then(() => {
-            setUser(null);
-        });
-    };
-
     return (
         <div className="flex flex-column a-center">
-            <MenuContainer>
-                <Navbarstyled>
-                    <ContentImg>
-                        <LogoImg src="src/assets/Logo.png" />
-                    </ContentImg>
-                    <StyledMenuV>
-                        <Link
-                            to={`/list/${5}`}
-                            style={{ textDecoration: "none" }}>
-                            <ButtonFindHome>
-                                <Icon>{iconlusearch}</Icon>
-                                FIND A HOME
-                            </ButtonFindHome>
-                        </Link>
-                        {user ? (
-                            <>
-                                <ButtonLogout onClick={handleLogOut}>
-                                    <Icon>{iconBiLogOutCircle}</Icon>
-                                    LOGOUT
-                                </ButtonLogout>
-                                {role === "landlord" && (
-                                    <>
-                                        <Button
-                                            variant="Primary"
-                                            size="def"
-                                            icon={iconTbHome2}>
-                                            My Properties
-                                        </Button>
-                                        <ButtonProfile>
-                                            <Icon>{userlineIcon}</Icon>
-                                            PROFILE
-                                        </ButtonProfile>
-                                    </>
-                                )}
-                                {role === "home_seeker" && (
-                                    <>
-                                        <ButtonSP>
-                                            <Icon>{iconBsFillHeartFill}</Icon>
-                                            SAVED PROPERTIES
-                                        </ButtonSP>
-                                        <ButtonProfile>
-                                            <Icon>{userlineIcon}</Icon>
-                                            PROFILE
-                                        </ButtonProfile>
-                                    </>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                <Link
-                                    to="/signup"
-                                    style={{ textDecoration: "none" }}>
-                                    <Button
-                                        variant="Secundary"
-                                        size="def"
-                                        icon={iconRiUserAddLine}>
-                                        JOIN
-                                    </Button>
-                                </Link>
-                                <Button
-                                    variant="Primary"
-                                    size="def"
-                                    onClick={handleClick}
-                                    icon={iconRiUserReceivedLine}>
-                                    Login
-                                </Button>
-                            </>
-                        )}
-                    </StyledMenuV>
-                </Navbarstyled>
-            </MenuContainer>
             <SearchSection />
             <HomesSection data={data} />
             <GettingSection />
             <TeamSection />
-            {showModal &&
-                createPortal(
-                    <div ref={modalRef}>
-                        <LoginModal
-                            onClose={() => {
-                                setShowModal(false);
-                                updateUser(sessionStorage.getItem("userId"));
-                                updateRole(sessionStorage.getItem("userRole"));
-                            }}
-                        />
-                    </div>,
-                    document.body
-                )}
-            <Footer page="home" />
         </div>
     );
 };
