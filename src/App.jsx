@@ -17,7 +17,6 @@ const App = () => {
   const modalRef = useRef(null);
 
   const { pathname } = useLocation();
-  // const currentRoute = location.pathname;
 
   const updateUser = (userId) => {
     setIdUser(userId);
