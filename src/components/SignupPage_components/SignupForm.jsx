@@ -4,7 +4,7 @@ import Button from "../Button";
 
 const MainBackground = styled.div`
   width: 100%;
-  height: calc(100vh - 230px);
+  height: calc(100vh - 160px);
   background: linear-gradient(to bottom, #f48fb126 50%, transparent 50%);
   display: flex;
   justify-content: center;
