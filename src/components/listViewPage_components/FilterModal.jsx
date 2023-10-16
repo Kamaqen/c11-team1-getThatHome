@@ -14,7 +14,7 @@ const StyledBar = styled.div`
     grid-template-rows: 1fr;
     justify-content: center;
     position: absolute;
-    top: 108px;
+    top: 180px;
     left: 50%;
     transform: translateX(-50%);
 `;

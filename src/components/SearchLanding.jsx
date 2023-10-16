@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import SelectLanding from "./SelectLanding";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Button from "./Button";
 
 const StyledDiv = styled.div`
     border-radius: 8px;
@@ -16,44 +18,65 @@ const StyledDiv = styled.div`
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
 
-const ButtonProv = styled.button`
-    width: 96px;
-    height: 40px;
-    background-color: #f48fb1;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    :hover {
-        background-color: #f06292;
-    }
-    :active {
-        background-color: #ec407a;
-    }
-`;
-
 const SearchLanding = () => {
+    const [filter, setFilter] = useState({
+        price: [],
+        property_type: [],
+        bedrooms: "",
+        bathrooms: "",
+        pet_friendly: false,
+        operation_type: "",
+    });
+
+    const handleSelectChange = (type, value) => {
+        if (type === "type") {
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                property_type:
+                    value === "An appartment" ? ["apartment"] : ["house"],
+            }));
+        } else if (type === "operation") {
+            setFilter((prevFilter) => ({
+                ...prevFilter,
+                operation_type: value === "Rent" ? "rent" : "sale",
+            }));
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        localStorage.setItem("filter", JSON.stringify(filter));
+    };
     return (
         <StyledDiv className="flex flex-row j-around a-center ">
-            <SelectLanding
-                type="type"
-                label="I’m Looking for"
-                options={["An appartment", "An House"]}
-            />
-            <SelectLanding
-                type="operation"
-                label="I want To"
-                options={["Rent", "Buy"]}
-            />
-            <SelectLanding
-                type="address"
-                label="Where"
-                options={["Favorite district"]}
-            />
-            <Link to="/list" style={{ textDecoration: "none" }}>
-                <ButtonProv>Search</ButtonProv>
-            </Link>
+            <form onSubmit={handleSubmit} className="flex gap-md">
+                <SelectLanding
+                    type="type"
+                    label="I’m Looking for"
+                    options={["An appartment", "An House"]}
+                    onSelectChange={(value) =>
+                        handleSelectChange("type", value)
+                    }
+                />
+                <SelectLanding
+                    type="operation"
+                    label="I want To"
+                    options={["Rent", "Buy"]}
+                    onSelectChange={(value) =>
+                        handleSelectChange("operation", value)
+                    }
+                />
+                <SelectLanding
+                    type="address"
+                    label="Where"
+                    options={["Favorite district"]}
+                />
+                <Link to="/list" style={{ textDecoration: "none" }}>
+                    <Button type="submit" variant="Primary">
+                        Search
+                    </Button>
+                </Link>
+            </form>
         </StyledDiv>
     );
 };
