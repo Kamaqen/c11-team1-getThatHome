@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { createSavedProperty } from "../services/user-properties-services";
+import { useParams } from "react-router-dom";
 
 const StyledDiv = styled.div`
   grid-column: 2 / 3;
@@ -16,26 +17,14 @@ const StyledDiv = styled.div`
 `;
 
 const ContactCard = ({ login }) => {
-  // const [saveData, setSaveData] = useState({
-  //     property_id: "",
-  //   });
+  const { id } = useParams();
   async function handleSaved() {
     try {
-      await createSavedProperty({ property_id: 105 });
+      await createSavedProperty({ property_id: Number.parseInt(id) });
     } catch (error) {
       console.error("Error al manejar favoritos:", error.message);
     }
   }
-  //   async function handleSubmitSave(event) {
-  //     event.preventDefault();
-  //     console.log(saveData);
-  //     await createContactedProperty({ property_id: saveData.property_id });
-  //   }
-
-  //   function handleChangeSave(event) {
-  //     const { value } = event.target;
-  //     setSaveData({ ...saveData, property_id: value });
-  //   }
   return (
     <StyledDiv>
       {login ? (
