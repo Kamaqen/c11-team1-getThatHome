@@ -247,7 +247,12 @@ const Navbar = ({ setShowModal, setIdUser, id, role }) => {
             </>
           ) : (
             <>
-              <Button variant="Secundary" size="def" icon={iconRiUserAddLine}>
+              <Button
+                onClick={() => navigate("/signup")}
+                variant="Secundary"
+                size="def"
+                icon={iconRiUserAddLine}
+              >
                 JOIN
               </Button>
               <Button
