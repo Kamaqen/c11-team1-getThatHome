@@ -4,25 +4,19 @@ import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import FilterBar from "../components/listViewPage_components/FilterBar";
+import { Link } from "react-router-dom";
 
-// const NavBarProv = styled.div`
-//     position: relative;
-//     top: 0px;
-//     height: 72px;
-//     width: 100%;
-//     margin: auto;
-//     background-color: #f48fb1;
-//     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-//`;
 const StyledDiv = styled.div`
     display: flex;
-    padding: 32px;
+    flex-direction: column;
+    padding: 0px;
+    max-width: 1130px;
 `;
 const CardContainer = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    padding: 32px;
+    padding: 16px 0px;
     row-gap: 32px;
     column-gap: 64px;
 `;
@@ -105,26 +99,35 @@ const ListViewPage = () => {
             console.log("Se filtraron los datos:", filteredData);
         }
     }, [filter]);
+    const DataLength = data?.length;
 
     return (
         <div className="flex flex-column a-center">
-            <Section>
-                <FilterBar filter={filter} setFilter={setFilter} />
+            <Section align="flex-start">
                 <StyledDiv>
+                    <FilterBar filter={filter} setFilter={setFilter} />
+                    <p className="headline6 mt-md self-start ">
+                        {DataLength} Properties found
+                    </p>
+
                     <CardContainer>
                         {data?.map((item) => (
-                            <CardComponent
+                            <Link
                                 key={item.id}
-                                img={item.urls}
-                                price={item.rent_value}
-                                operation={item.operation_type}
-                                type={item.property_type}
-                                address={item.address}
-                                bed={item.bedrooms}
-                                bath={item.bathrooms}
-                                area={item.area}
-                                pet={item.pet_friendly}
-                            />
+                                to={`/property_details/${item.id}`}
+                                style={{ textDecoration: "none" }}>
+                                <CardComponent
+                                    img={item.urls}
+                                    price={item.rent_value}
+                                    operation={item.operation_type}
+                                    type={item.property_type}
+                                    address={item.address}
+                                    bed={item.bedrooms}
+                                    bath={item.bathrooms}
+                                    area={item.area}
+                                    pet={item.pet_friendly}
+                                />
+                            </Link>
                         ))}
                     </CardContainer>
                 </StyledDiv>

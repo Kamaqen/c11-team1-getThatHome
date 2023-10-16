@@ -3,6 +3,7 @@ import SelectLanding from "./SelectLanding";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "./Button";
+import Input from "./Inputs";
 
 const StyledDiv = styled.div`
     border-radius: 8px;
