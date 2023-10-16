@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { showProperty } from "../services/property-services";
 import ImageCarousel from "../components/ImagesCarrousell";
+import { singleProperty } from "../STORE";
 
 const NavBarProv = styled.div`
   position: relative;
@@ -36,21 +37,17 @@ const PropertyDetailsPage = () => {
   // const data = JSON.parse(localStorage.getItem("propertiesData"));
   // const id = parseInt(window.location.pathname.split("/")[2]);
   // const property = data?.find((item) => item.id === id);
-  const [currentProperty, setCurrentProperty] = useState({});
-  const { id } = useParams();
+  // const [currentProperty, setCurrentProperty] = useState({});
+  // const { id } = useParams();
+  const currentProperty = singleProperty;
 
-  useEffect(() => {
-    showProperty(id).then((res) => {
-      console.log(res);
-      setCurrentProperty(res);
-      localStorage.setItem("propertyData", JSON.stringify(res));
-    });
-  }, [id]);
-
-  let emptyArray = [];
-  const urls = currentProperty.urls;
-  emptyArray = urls;
-  console.log(emptyArray);
+  // useEffect(() => {
+  //   showProperty(id).then((res) => {
+  //     console.log(res);
+  //     setCurrentProperty(res);
+  //     localStorage.setItem("propertyData", JSON.stringify(res));
+  //   });
+  // }, [id]);
 
   const [addressPrimary = "", address1 = "", address2 = ""] = (
     currentProperty?.address || ""
@@ -59,7 +56,6 @@ const PropertyDetailsPage = () => {
 
   return (
     <div className="flex flex-column a-center">
-      <p>{urls[0]}</p>
       <ErrorBoundary
         FallbackComponent={ErrorFallback}
         onReset={() => {
@@ -68,7 +64,7 @@ const PropertyDetailsPage = () => {
       >
         <SectionProperty>
           <div className="flex flex-column">
-            <ImageCarousel images={urls} id="aidí" />
+            <ImageCarousel images={currentProperty.urls} id="aidí" />
             <HeadersSection
               addressPrimary={addressPrimary}
               addressSecundaty={addressSecundaty}
@@ -84,7 +80,7 @@ const PropertyDetailsPage = () => {
             <AboutSection description={currentProperty?.description} />
             <LocationSection address={addressPrimary} />
           </div>
-          <ContactCard login="false" id={id} />
+          <ContactCard login="false" />
         </SectionProperty>
       </ErrorBoundary>
     </div>
