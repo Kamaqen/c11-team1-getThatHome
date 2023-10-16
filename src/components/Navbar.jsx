@@ -64,6 +64,10 @@ const ButtonFindHome = styled.div`
     text-align: center;
     line-height: 40px;
     cursor: pointer;
+    :hover {
+        font-weight: 600;
+        color: var(--Primary, #f48fb1);
+    }
 `;
 
 const Icon = styled.div`
@@ -75,72 +79,18 @@ const Icon = styled.div`
 
 const StyledMenuV = styled.div`
     width: 85%;
-    /* width: 414px; */
     height: 40px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 16px;
-    /* Button */
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 24px; /* 171.429% */
+    line-height: 24px;
     letter-spacing: 1.25px;
     text-transform: uppercase;
-`;
-
-const ButtonLogout = styled.button`
-    width: 130px;
-    height: 40px;
-    display: flex;
-    padding: 8px 16px;
-    justify-content: space-between;
-    align-items: center;
-    color: #616161;
-    background-color: white;
-    border-radius: 16px;
-    border: 1px solid var(--Pink, #f48fb1);
-    color: var(--Gray, #616161);
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-`;
-
-const ButtonProfile = styled.div`
-    width: 129px;
-    height: 40px;
-    display: flex;
-    padding: 8px 16px;
-    align-items: center;
-    gap: 8px;
-    color: #ffffff;
-    background-color: #f48fb1;
-    border-radius: 16px;
-    background: var(--Pink, #f48fb1);
-    color: var(--White, #fff);
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-`;
-
-const ButtonSP = styled.div`
-    width: 218px;
-    height: 40px;
-    display: flex;
-    padding: 8px 16px;
-    align-items: center;
-    gap: 8px;
-    color: #ffffff;
-    background-color: #f48fb1;
-    border-radius: 16px;
-    background: var(--Pink, #f48fb1);
-    color: var(--White, #fff);
-    text-align: center;
-    box-sizing: border-box;
-    white-space: nowrap;
-    cursor: pointer;
 `;
 
 const Navbar = ({ setShowModal, setIdUser, id, role }) => {
@@ -172,10 +122,13 @@ const Navbar = ({ setShowModal, setIdUser, id, role }) => {
                     </ButtonFindHome>
                     {id ? (
                         <>
-                            <ButtonLogout onClick={handleLogOut}>
-                                <Icon>{iconBiLogOutCircle}</Icon>
+                            <Button
+                                onClick={handleLogOut}
+                                variant="Secundary"
+                                size="def"
+                                icon={iconBiLogOutCircle}>
                                 LOGOUT
-                            </ButtonLogout>
+                            </Button>
                             {role === "landlord" && (
                                 <>
                                     <Button
@@ -184,25 +137,31 @@ const Navbar = ({ setShowModal, setIdUser, id, role }) => {
                                         icon={iconTbHome2}>
                                         My Properties
                                     </Button>
-                                    <ButtonProfile>
-                                        <Icon>{userlineIcon}</Icon>
+                                    <Button
+                                        variant="Primary"
+                                        size="def"
+                                        icon={userlineIcon}>
                                         PROFILE
-                                    </ButtonProfile>
+                                    </Button>
                                 </>
                             )}
                             {role === "home_seeker" && (
                                 <>
-                                    <ButtonSP
+                                    <Button
                                         onClick={() =>
                                             navigate("/saved_properties")
-                                        }>
-                                        <Icon>{iconBsFillHeartFill}</Icon>
+                                        }
+                                        variant="Primary"
+                                        size="def"
+                                        icon={iconBsFillHeartFill}>
                                         SAVED PROPERTIES
-                                    </ButtonSP>
-                                    <ButtonProfile>
-                                        <Icon>{userlineIcon}</Icon>
+                                    </Button>
+                                    <Button
+                                        variant="Primary"
+                                        size="def"
+                                        icon={userlineIcon}>
                                         PROFILE
-                                    </ButtonProfile>
+                                    </Button>
                                 </>
                             )}
                         </>
