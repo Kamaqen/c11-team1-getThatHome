@@ -102,8 +102,8 @@ const ListViewPage = () => {
     const DataLength = data?.length;
 
     return (
-        <div className="flex flex-column a-center">
-            <Section align="flex-start">
+        <Section align="flex-start">
+            <div className="flex flex-column a-center">
                 <StyledDiv>
                     <FilterBar filter={filter} setFilter={setFilter} />
                     <p className="headline6 mt-md self-start ">
@@ -131,8 +131,8 @@ const ListViewPage = () => {
                         ))}
                     </CardContainer>
                 </StyledDiv>
-            </Section>
-        </div>
+            </div>{" "}
+        </Section>
     );
 };
 

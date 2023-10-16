@@ -18,11 +18,11 @@ const userlineIcon = <RiUserLine />;
 const iconTbHome2 = <TbHome2 />;
 
 const MenuContainer = styled.div`
+    position: fixed;
     width: 100%;
-    /* max-height: 72px; */
     display: flex;
     align-items: center;
-    z-index: 9999;
+    z-index: 2;
 `;
 
 const Navbarstyled = styled.div`
@@ -64,22 +64,6 @@ const ButtonFindHome = styled.div`
     text-align: center;
     line-height: 40px;
     cursor: pointer;
-`;
-
-const ButtonJoin = styled.div`
-    width: 101px;
-    height: 40px;
-    display: flex;
-    padding: 8px 16px;
-    justify-content: space-between;
-    align-items: center;
-    color: #616161;
-    background-color: white;
-    border-radius: 16px;
-    border: 1px solid var(--Pink, #f48fb1);
-    color: var(--Gray, #616161);
-    text-align: center;
-    box-sizing: border-box;
 `;
 
 const Icon = styled.div`
@@ -157,39 +141,6 @@ const ButtonSP = styled.div`
     box-sizing: border-box;
     white-space: nowrap;
     cursor: pointer;
-`;
-
-const ButtonProv = styled.button`
-    width: 200px;
-    height: 50px;
-    background-color: #f48fb1;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-`;
-const StyledImg = styled.img`
-    margin-top: -72px;
-    width: 130%;
-    object-fit: cover;
-`;
-const TextDiv = styled.div`
-    text-align: center;
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-`;
-
-const StyledP = styled.p`
-    width: 823px;
-    text-align: center;
-    margin-bottom: 32px;
-    z-index: 1;
-    font-size: ${(props) => props.font};
-    line-height: 48px;
-    color: ${(props) => (props.color ? props.color : "#373737")};
 `;
 
 const Navbar = ({ setShowModal, setIdUser, id, role }) => {

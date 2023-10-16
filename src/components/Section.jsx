@@ -8,7 +8,7 @@ const StyledSection = styled.section`
     align-items: center;
     width: 100%;
     overflow: hidden;
-    padding: 64px 120px;
+    padding: 136px 120px;
     position: relative;
     background: ${(props) => (props.color ? props.color : "white")};
 `;

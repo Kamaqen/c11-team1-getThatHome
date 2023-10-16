@@ -9,7 +9,6 @@ const DivRow = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: top;
-    background: red;
 `;
 const ProTitle = styled.h3`
     padding: 4px 0;
