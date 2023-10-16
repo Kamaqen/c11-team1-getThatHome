@@ -32,22 +32,85 @@ const ListViewPage = () => {
     const [filter, setFilter] = useState();
 
     useEffect(() => {
-        if (localStorage.getItem("propertiesData")) {
-            setData(JSON.parse(localStorage.getItem("propertiesData")));
-            console.log("si hay data en el local storage");
-        }
-        getProperties().then((res) => {
-            console.log(" no hay data en el local storage");
-            setData(res);
-            localStorage.setItem("propertiesData", JSON.stringify(res));
-        });
+        const fetchData = async () => {
+            let storedData = localStorage.getItem("propertiesData");
+
+            if (storedData) {
+                setData(JSON.parse(storedData));
+                console.log("Se cargaron datos del localStorage.");
+            } else {
+                try {
+                    const apiData = await getProperties();
+                    setData(apiData);
+                    localStorage.setItem(
+                        "propertiesData",
+                        JSON.stringify(apiData)
+                    );
+                    console.log(
+                        "Se cargaron datos desde la API y se almacenaron en el localStorage."
+                    );
+                } catch (error) {
+                    console.error("Error al obtener datos de la API: ", error);
+                }
+            }
+        };
+
+        fetchData();
     }, []);
+
+    console.log(filter);
+
+    useEffect(() => {
+        if (data && filter) {
+            const filteredData = data.filter((item) => {
+                const priceInRange =
+                    !filter.price.length ||
+                    ((filter.price[0] === "" ||
+                        item.rent_value >= parseInt(filter.price[0])) &&
+                        (filter.price[1] === "" ||
+                            item.rent_value <= parseInt(filter.price[1])));
+
+                const isPropertyTypeValid =
+                    !filter.property_type.length ||
+                    (filter.property_type.length === 1 &&
+                        filter.property_type.includes(item.property_type));
+
+                const bedroomsMatch =
+                    !filter.bedrooms ||
+                    item.bedrooms === parseInt(filter.bedrooms);
+                const bathroomsMatch =
+                    !filter.bathrooms ||
+                    item.bathrooms === parseInt(filter.bathrooms);
+                const petFriendlyMatch =
+                    !filter.pet_friendly ||
+                    item.pet_friendly === filter.pet_friendly;
+
+                const areaInRange =
+                    !filter.area ||
+                    ((!filter.area.min ||
+                        item.area >= parseInt(filter.area.min)) &&
+                        (!filter.area.max ||
+                            item.area <= parseInt(filter.area.max)));
+
+                return (
+                    priceInRange &&
+                    isPropertyTypeValid &&
+                    bedroomsMatch &&
+                    bathroomsMatch &&
+                    petFriendlyMatch &&
+                    areaInRange
+                );
+            });
+
+            setData(filteredData);
+            console.log("Se filtraron los datos:", filteredData);
+        }
+    }, [filter]);
 
     return (
         <div className="flex flex-column a-center">
-            <NavBarProv />
             <Section>
-                <FilterBar setFilter={setFilter} />
+                <FilterBar filter={filter} setFilter={setFilter} />
                 <StyledDiv>
                     <CardContainer>
                         {data?.map((item) => (
@@ -67,7 +130,6 @@ const ListViewPage = () => {
                     </CardContainer>
                 </StyledDiv>
             </Section>
-            <Footer page="other" />
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import FilterCardContainer from "./FilterCardContainer";
 import Button from "../Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const StyledInput = styled.input`
     width: 102px;
@@ -9,7 +9,7 @@ const StyledInput = styled.input`
     border-radius: 8px;
     border: 1px solid var(--Pink, #f48fb1);
 `;
-const PriceCard = ({ onRequestClose, handleSetParams }) => {
+const PriceCard = ({ onRequestClose, handleSetParams, filter }) => {
     const [minValue, setMinValue] = useState("");
     const [maxValue, setMaxValue] = useState("");
 

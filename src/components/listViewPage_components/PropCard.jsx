@@ -14,7 +14,7 @@ const PropCard = ({ onRequestClose, handleSetParams }) => {
     };
 
     const handleDoneClick = () => {
-        handleSetParams("property", propType);
+        handleSetParams("property_type", propType);
         onRequestClose();
     };
     return (
@@ -25,22 +25,22 @@ const PropCard = ({ onRequestClose, handleSetParams }) => {
                     <input
                         className="check"
                         type="checkbox"
-                        id="houses"
+                        id="house"
                         onChange={handleCheck}
                     />
                     <label className="gray" htmlFor="houses">
-                        Houses
+                        House
                     </label>
                 </div>
                 <div>
                     <input
                         className="check"
                         type="checkbox"
-                        id="apartments"
+                        id="department"
                         onChange={handleCheck}
                     />
                     <label className="gray" htmlFor="apartments">
-                        Apartments
+                        Department
                     </label>
                 </div>
             </div>

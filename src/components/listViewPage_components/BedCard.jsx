@@ -33,24 +33,16 @@ const ButtonSmall = styled.button`
 `;
 
 const BedCard = ({ onRequestClose, handleSetParams }) => {
-    const [beds, setBeds] = useState("");
-    const [baths, setBaths] = useState("");
-
     const handleClickDone = () => {
-        console.log(beds, baths);
-        handleSetParams("baths", baths);
-        handleSetParams("beds", beds);
         onRequestClose();
     };
 
     const handleButtonClick = (type, e) => {
         const value = e.target.id;
         if (type === "beds") {
-            console.log("dentro de bed " + value);
-            setBeds(value);
-        } else if (type === "baths") {
-            console.log("dentro de bath " + value);
-            setBaths(value);
+            handleSetParams("bedrooms", value);
+        } else if (type === "beth") {
+            handleSetParams("bathrooms", value);
         }
     };
 

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterModal from "./FilterModal";
 import { createPortal } from "react-dom";
 import Button from "../Button";
@@ -13,32 +13,33 @@ const StyledBar = styled.div`
     justify-content: center;
 `;
 
-const FilterBar = ({ setFilter }) => {
+const FilterBar = ({ setFilter, filter }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCardType, setSelectedCardType] = useState(null);
     const [filterParams, setFilterParams] = useState({
-        price: null,
-        property: null,
-        beds: null,
-        baths: null,
-        pet: null,
-        area: null,
+        price: [],
+        property_type: "",
+        bedrooms: "",
+        bathrooms: "",
+        pet_friendly: false,
     });
 
+    useEffect(() => {
+        setFilter(filterParams);
+    }, [filterParams, setFilter]);
+
     const handleSetParams = (type, value) => {
-        console.log(type, value);
         setFilterParams({ ...filterParams, [type]: value });
     };
     const openModal = (type) => {
-        console.log(type);
         setSelectedCardType(type);
         setIsModalOpen(true);
     };
-    console.log(filterParams);
     const closeModal = () => {
         setSelectedCardType(null);
         setIsModalOpen(false);
     };
+
     return (
         <div className="flex" style={{ gap: "96px" }}>
             <input type="text" />
@@ -68,7 +69,7 @@ const FilterBar = ({ setFilter }) => {
                         id="BedCard"
                         size="def"
                         onClick={() => openModal("BedCard")}>
-                        Beds & baths
+                        Beds & Baths
                     </Button>
                 </div>
                 <div className="flex a-center j-center">
@@ -91,6 +92,7 @@ const FilterBar = ({ setFilter }) => {
                             ariaHideApp={false}
                             card={selectedCardType}
                             handleSetParams={handleSetParams}
+                            filter={filter}
                         />,
                         document.body
                     )}

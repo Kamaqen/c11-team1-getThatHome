@@ -14,12 +14,12 @@ const StyledBar = styled.div`
     grid-template-rows: 1fr;
     justify-content: center;
     position: absolute;
-    top: 180px;
+    top: 108px;
     left: 50%;
     transform: translateX(-50%);
 `;
 
-const FilterModal = ({ card, onRequestClose, handleSetParams }) => {
+const FilterModal = ({ card, onRequestClose, handleSetParams, filter }) => {
     console.log("la card es", card);
     return (
         <>
@@ -28,24 +28,28 @@ const FilterModal = ({ card, onRequestClose, handleSetParams }) => {
                     <PriceCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
+                        filter={filter}
                     />
                 )}
                 {card === "PropCard" && (
                     <PropCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
+                        filter={filter}
                     />
                 )}
                 {card === "BedCard" && (
                     <BedCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
+                        filter={filter}
                     />
                 )}
                 {card === "MoreCard" && (
                     <MoreCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
+                        filter={filter}
                     />
                 )}
             </StyledBar>
