@@ -20,7 +20,6 @@ const StyledBar = styled.div`
 `;
 
 const FilterModal = ({ card, onRequestClose, handleSetParams, filter }) => {
-    console.log("la card es", card);
     return (
         <>
             <StyledBar>

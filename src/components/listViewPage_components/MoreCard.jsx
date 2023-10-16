@@ -62,10 +62,14 @@ const MoreCard = ({ onRequestClose, handleSetParams }) => {
                         onChange={handleMaxInputChange}
                     />
                 </div>
-                <Button variant="Primary" size="sm" onClick={handleClicked}>
-                    done
-                </Button>
             </div>
+            <Button
+                variant="Primary"
+                size="sm"
+                onClick={handleClicked}
+                style={{ alignSelf: "flex-end" }}>
+                done
+            </Button>
         </FilterCardContainer>
     );
 };
