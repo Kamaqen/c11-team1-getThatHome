@@ -23,7 +23,6 @@ export default async function apiFetch(
         body: body ? JSON.stringify(body) : null,
     };
     const response = await fetch(BASE_URI + endPoint, config);
-    // En el repositorio nos mostrara el flujo con el archivo Posibles-respuestas.png
     let data;
     if (!response.ok) {
         try {
@@ -40,5 +39,3 @@ export default async function apiFetch(
     }
     return data;
 }
-
-// apiFetch("login",{})
