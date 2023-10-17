@@ -1,4 +1,10 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import PropertyDetailsPage from "./pages/PropertyDetailsPage";
 import ListViewPage from "./pages/ListViewPage";
@@ -11,13 +17,14 @@ import Footer from "./components/Footer";
 import SavedProperties from "./pages/SavedProperties";
 import CreateProperty from "./pages/CreateProperty";
 import { logout } from "./services/auth-services";
+import { ProfilePage } from "./pages/ProfilePage";
 
 const App = () => {
   const [idUser, setIdUser] = useState(sessionStorage.getItem("userId"));
   const [role, setRole] = useState(sessionStorage.getItem("userRole"));
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
-
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -27,8 +34,9 @@ const App = () => {
 
   const handleLogout = () => {
     logout();
-    setIdUser(null); 
+    setIdUser(null);
     setRole(null);
+    navigate("/");
   };
 
   const updateUser = (userId) => {
@@ -44,18 +52,22 @@ const App = () => {
         setShowModal={setShowModal}
         id={idUser}
         role={role}
-        onLogout = {handleLogout}
+        onLogout={handleLogout}
       />
       <Routes>
         <Route path="/">
           <Route index element={<Navigate to="/main" />} />
           <Route path="main" element={<LandingPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route
             path="property_details/:id"
             element={<PropertyDetailsPage />}
           />
           <Route path="list" element={<ListViewPage />} />
-          <Route path="signup" element={<SignupPage />} />
+          <Route
+            path="signup"
+            element={<SignupPage setIdUser={setIdUser} setRole={setRole} />}
+          />
           <Route path="saved_properties" element={<SavedProperties />} />
           <Route path="create_property" element={<CreateProperty />} />
         </Route>

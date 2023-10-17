@@ -92,93 +92,93 @@ const StyledMenuV = styled.div`
 `;
 
 const Navbar = ({ setShowModal, id, role, onLogout }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setShowModal(true);
   };
 
-    return (
-        <MenuContainer>
-            <Navbarstyled>
-                <ContentImg>
-                    <LogoImg
-                        src="src/assets/Logo.png"
-                        onClick={() => navigate("/")}
-                    />
-                </ContentImg>
-                <StyledMenuV>
-                    <ButtonFindHome onClick={() => navigate("/list")}>
-                        <Icon>{iconlusearch}</Icon>
-                        FIND A HOME
-                    </ButtonFindHome>
-                    {id ? (
-                        <>
-                            <Button
-                                onClick={onLogout}
-                                variant="Secundary"
-                                size="def"
-                                icon={iconBiLogOutCircle}>
-                                LOGOUT
-                            </Button>
-                            {role === "landlord" && (
-                                <>
-                                    <Button
-                                        variant="Primary"
-                                        size="def"
-                                        icon={iconTbHome2}>
-                                        My Properties
-                                    </Button>
-                                    <Button
-                                        variant="Primary"
-                                        size="def"
-                                        icon={userlineIcon}>
-                                        PROFILE
-                                    </Button>
-                                </>
-                            )}
-                            {role === "home_seeker" && (
-                                <>
-                                    <Button
-                                        onClick={() =>
-                                            navigate("/saved_properties")
-                                        }
-                                        variant="Primary"
-                                        size="def"
-                                        icon={iconBsFillHeartFill}>
-                                        SAVED PROPERTIES
-                                    </Button>
-                                    <Button
-                                        variant="Primary"
-                                        size="def"
-                                        icon={userlineIcon}>
-                                        PROFILE
-                                    </Button>
-                                </>
-                            )}
-                        </>
-                    ) : (
-                        <>
-                            <Button
-                                onClick={() => navigate("/signup")}
-                                variant="Secundary"
-                                size="def"
-                                icon={iconRiUserAddLine}>
-                                JOIN
-                            </Button>
-                            <Button
-                                variant="Primary"
-                                size="def"
-                                onClick={handleClick}
-                                icon={iconRiUserReceivedLine}>
-                                Login
-                            </Button>
-                        </>
-                    )}
-                </StyledMenuV>
-            </Navbarstyled>
-        </MenuContainer>
-    );
+  return (
+    <MenuContainer>
+      <Navbarstyled>
+        <ContentImg>
+          <LogoImg src="src/assets/Logo.png" onClick={() => navigate("/")} />
+        </ContentImg>
+        <StyledMenuV>
+          <ButtonFindHome onClick={() => navigate("/list")}>
+            <Icon>{iconlusearch}</Icon>
+            FIND A HOME
+          </ButtonFindHome>
+          {id ? (
+            <>
+              <Button
+                onClick={onLogout}
+                variant="Secundary"
+                size="def"
+                icon={iconBiLogOutCircle}
+              >
+                LOGOUT
+              </Button>
+              {role === "landlord" && (
+                <>
+                  <Button variant="Primary" size="def" icon={iconTbHome2}>
+                    My Properties
+                  </Button>
+                  <Button
+                    onClick={() => navigate("/profile")}
+                    variant="Primary"
+                    size="def"
+                    icon={userlineIcon}
+                  >
+                    PROFILE
+                  </Button>
+                </>
+              )}
+              {role === "home_seeker" && (
+                <>
+                  <Button
+                    onClick={() => navigate("/saved_properties")}
+                    variant="Primary"
+                    size="def"
+                    icon={iconBsFillHeartFill}
+                  >
+                    SAVED PROPERTIES
+                  </Button>
+                  <Button
+                    variant="Primary"
+                    size="def"
+                    icon={userlineIcon}
+                    onClick={() => navigate("/profile")}
+                  >
+                    PROFILE
+                  </Button>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <Button
+                onClick={() => navigate("/signup")}
+                variant="Secundary"
+                size="def"
+                icon={iconRiUserAddLine}
+              >
+                JOIN
+              </Button>
+              <Button
+                variant="Primary"
+                size="def"
+                onClick={handleClick}
+                icon={iconRiUserReceivedLine}
+              >
+                Login
+              </Button>
+            </>
+          )}
+        </StyledMenuV>
+      </Navbarstyled>
+    </MenuContainer>
+  );
 };
 
 export default Navbar;
