@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import InputSignUp from "../InputSignUpForm";
 import Button from "../Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signUp } from "../../services/user-services";
 import { useNavigate } from "react-router-dom";
 
@@ -55,8 +55,9 @@ const Signupform = ({ role }) => {
   async function handleSubmit(event) {
     try {
       event.preventDefault();
-      await signUp(formData);
-      navigate("main");
+      await signUp(formData).then();
+      navigate("/profile");
+      window.location.reload();
     } catch (error) {
       console.error("Error al registrar:", error);
     }
@@ -117,6 +118,7 @@ const Signupform = ({ role }) => {
               type="password"
               placeholder="*****"
               value={formData.value}
+              onChange={handleChange}
               required
             />
 
