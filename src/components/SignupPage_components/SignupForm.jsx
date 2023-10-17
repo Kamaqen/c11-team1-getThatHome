@@ -3,6 +3,7 @@ import InputSignUp from "../InputSignUpForm";
 import Button from "../Button";
 import { useState } from "react";
 import { signUp } from "../../services/user-services";
+import { useNavigate } from "react-router-dom";
 
 const MainBackground = styled.div`
   width: 100%;
@@ -41,20 +42,21 @@ const InputContainer = styled.div`
 `;
 
 const Signupform = ({ role }) => {
-  const initialRole = role === "landlord" ? 0 : 1;
+  const navigate = useNavigate();
+  const userRole = role === "landlord" ? 0 : 1;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone_number: "",
     password: "",
-    role: initialRole,
+    role: userRole,
   });
-  console.log(role);
 
   async function handleSubmit(event) {
     try {
       event.preventDefault();
       await signUp(formData);
+      navigate("main");
     } catch (error) {
       console.error("Error al registrar:", error);
     }
