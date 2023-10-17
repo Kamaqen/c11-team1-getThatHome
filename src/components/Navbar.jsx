@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { logout } from "../services/auth-services";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
 import { BiLogOutCircle } from "react-icons/bi";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -99,7 +97,6 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
     const handleClick = () => {
         setShowModal(true);
     };
-
 
     return (
         <MenuContainer>
