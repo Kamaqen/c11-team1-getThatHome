@@ -121,7 +121,12 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
               </Button>
               {role === "landlord" && (
                 <>
-                  <Button variant="Primary" size="def" icon={iconTbHome2}>
+                  <Button
+                    onClick={() => navigate("/my_properties")}
+                    variant="Primary"
+                    size="def"
+                    icon={iconTbHome2}
+                  >
                     My Properties
                   </Button>
                   <Button
