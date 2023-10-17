@@ -10,7 +10,7 @@ const SignupPage = () => {
       {role === null ? ( // Si el rol es nulo, muestra la vista de selección de perfil
         <Signuplanding setRole={setRole} />
       ) : (
-        <Signupform /> // Si se ha seleccionado un rol, muestra el formulario
+        <Signupform role={role} /> // Si se ha seleccionado un rol, muestra el formulario
       )}
     </>
   );

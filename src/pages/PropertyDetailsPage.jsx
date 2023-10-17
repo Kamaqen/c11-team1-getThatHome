@@ -11,60 +11,61 @@ import { singleProperty } from "../STORE";
 import { useState } from "react";
 
 const SectionProperty = styled.section`
-    box-sizing: border-box;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    overflow: hidden;
-    padding: 138px 120px;
-    background: white;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  padding: 138px 120px;
+  background: white;
 `;
 
 const PropertyDetailsPage = () => {
-    const login = sessionStorage.getItem("userId");
-    const role = sessionStorage.getItem("userRole");
-    const data = JSON.parse(localStorage.getItem("propertiesData"));
-    const id = parseInt(window.location.pathname.split("/")[2]);
-    const propertyCorrect = data?.find((item) => item.id === id);
-    const property = propertyCorrect || singleProperty;
-    console.log(property);
+  const login = sessionStorage.getItem("userId");
+  const role = sessionStorage.getItem("userRole");
+  const data = JSON.parse(localStorage.getItem("propertiesData"));
+  const id = parseInt(window.location.pathname.split("/")[2]);
+  const propertyCorrect = data?.find((item) => item.id === id);
+  const property = propertyCorrect || singleProperty;
+  console.log(property);
 
-    const [addressPrimary = "", address1 = "", address2 = ""] = (
-        property?.address || ""
-    ).split(",");
-    const addressSecundaty = `${address1.trim()}, ${address2.trim()}`;
+  const [addressPrimary = "", address1 = "", address2 = ""] = (
+    property?.address || ""
+  ).split(",");
+  const addressSecundaty = `${address1.trim()}, ${address2.trim()}`;
 
-    return (
-        <div className="flex flex-column a-center">
-            <ErrorBoundary
-                FallbackComponent={ErrorFallback}
-                onReset={() => {
-                    console.log("hello");
-                }}>
-                <SectionProperty>
-                    <div className="flex flex-column">
-                        <ImagesCarrousell images={property.urls} />
-                        <HeadersSection
-                            addressPrimary={addressPrimary}
-                            addressSecundaty={addressSecundaty}
-                            rent_value={property.rent_value}
-                            maintenance_price={property.maintenance_price}
-                        />
-                        <DetailsSection
-                            bed={property.bedrooms}
-                            bath={property.bathrooms}
-                            area={property.area}
-                            pet={property.pet_friendly}
-                        />
-                        <AboutSection description={property?.description} />
-                        <LocationSection address={addressPrimary} />
-                    </div>
-                    <ContactCard login={login} role={role} />
-                </SectionProperty>
-            </ErrorBoundary>
-        </div>
-    );
+  return (
+    <div className="flex flex-column a-center">
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => {
+          console.log("hello");
+        }}
+      >
+        <SectionProperty>
+          <div className="flex flex-column">
+            <ImagesCarrousell images={property.urls} />
+            <HeadersSection
+              addressPrimary={addressPrimary}
+              addressSecundaty={addressSecundaty}
+              rent_value={property.rent_value}
+              maintenance_price={property.maintenance_price}
+            />
+            <DetailsSection
+              bed={property.bedrooms}
+              bath={property.bathrooms}
+              area={property.area}
+              pet={property.pet_friendly}
+            />
+            <AboutSection description={property?.description} />
+            <LocationSection address={addressPrimary} />
+          </div>
+          <ContactCard login={login} role={role} />
+        </SectionProperty>
+      </ErrorBoundary>
+    </div>
+  );
 };
 
 export default PropertyDetailsPage;

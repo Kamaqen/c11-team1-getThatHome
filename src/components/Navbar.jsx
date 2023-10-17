@@ -129,7 +129,12 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
                   >
                     My Properties
                   </Button>
-                  <Button variant="Primary" size="def" icon={userlineIcon}>
+                  <Button
+                    onClick={() => navigate("/profile")}
+                    variant="Primary"
+                    size="def"
+                    icon={userlineIcon}
+                  >
                     PROFILE
                   </Button>
                 </>
@@ -144,7 +149,12 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
                   >
                     SAVED PROPERTIES
                   </Button>
-                  <Button variant="Primary" size="def" icon={userlineIcon}>
+                  <Button
+                    variant="Primary"
+                    size="def"
+                    icon={userlineIcon}
+                    onClick={() => navigate("/profile")}
+                  >
                     PROFILE
                   </Button>
                 </>
