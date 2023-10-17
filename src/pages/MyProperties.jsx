@@ -14,7 +14,6 @@ const MainBackground = styled.div`
   height: calc(100vh - 160px);
   display: flex;
   flex-direction: column;
-  display: flex;
   padding: 0px 120px;
   align-items: flex-start;
   gap: 10px;

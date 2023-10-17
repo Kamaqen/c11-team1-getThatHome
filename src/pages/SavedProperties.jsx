@@ -1,57 +1,58 @@
-import Section from "../components/Section";
+import { useState } from "react";
 import styled from "@emotion/styled";
-import CardComponent from "../components/CardComponent";
-import { useEffect, useState } from "react";
-import { getSavedProperties } from "../services/user-properties-services";
+import Tab from "../components/Tab";
+import Favorites from "../components/SavedProperties_components.jsx/Favorites";
+import Contacted from "../components/SavedProperties_components.jsx/Contacted";
 
-const StyledDiv = styled.div`
+const MainBackground = styled.div`
+  width: 100%;
+  height: calc(100vh - 160px);
   display: flex;
-  padding: 32px;
+  flex-direction: column;
+  padding: 0px 120px;
+  align-items: flex-start;
+  gap: 10px;
 `;
-const CardContainer = styled.div`
+
+const MainContainer = styled.div`
+  margin-top: 72px;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  width: 100%;
   padding: 32px;
-  row-gap: 32px;
-  column-gap: 64px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
 `;
+
+const MenuTabs = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
 const SavedProperties = () => {
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    if (localStorage.getItem("savedPropertiesData")) {
-      setData(JSON.parse(localStorage.getItem("savedPropertiesData")));
-    }
-    getSavedProperties().then((res) => {
-      setData(res);
-      localStorage.setItem("savedPropertiesData", JSON.stringify(res));
-    });
-  }, []);
+  const [active, setActive] = useState(true);
 
   return (
-    <div className="flex flex-column a-center">
-      <Section>
-        <StyledDiv>
-          <CardContainer>
-            {data?.map((item) => (
-              <CardComponent
-                key={item.id}
-                img={item.urls}
-                price={item.rent_value}
-                operation={item.operation_type}
-                type={item.property_type}
-                address={item.address}
-                bed={item.bedrooms}
-                bath={item.bathrooms}
-                area={item.area}
-                pet={item.pet_friendly}
-              />
-            ))}
-          </CardContainer>
-        </StyledDiv>
-      </Section>
-    </div>
+    <MainBackground>
+      <MainContainer>
+        <MenuTabs>
+          <Tab
+            variant={active ? "Active" : "Inactive"}
+            onClick={() => setActive(true)}
+          >
+            favorites
+          </Tab>
+          <Tab
+            variant={active ? "Inactive" : "Active"}
+            onClick={() => setActive(false)}
+          >
+            contacted
+          </Tab>
+        </MenuTabs>
+        {active ? <Favorites /> : <Contacted />}
+      </MainContainer>
+    </MainBackground>
   );
 };
 
