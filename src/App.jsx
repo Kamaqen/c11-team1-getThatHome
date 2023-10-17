@@ -4,12 +4,13 @@ import PropertyDetailsPage from "./pages/PropertyDetailsPage";
 import ListViewPage from "./pages/ListViewPage";
 import SignupPage from "./pages/SignupPage.jsx";
 import Navbar from "./components/Navbar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import LoginModal from "./components/LoginModal";
 import Footer from "./components/Footer";
 import SavedProperties from "./pages/SavedProperties";
 import CreateProperty from "./pages/CreateProperty";
+import { logout } from "./services/auth-services";
 
 const App = () => {
   const [idUser, setIdUser] = useState(sessionStorage.getItem("userId"));
@@ -18,6 +19,17 @@ const App = () => {
   const modalRef = useRef(null);
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIdUser(sessionStorage.getItem("userId"));
+    setRole(sessionStorage.getItem("userRole"));
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setIdUser(null); 
+    setRole(null);
+  };
 
   const updateUser = (userId) => {
     setIdUser(userId);
@@ -30,9 +42,9 @@ const App = () => {
     <>
       <Navbar
         setShowModal={setShowModal}
-        setIdUser={setIdUser}
         id={idUser}
         role={role}
+        onLogout = {handleLogout}
       />
       <Routes>
         <Route path="/">

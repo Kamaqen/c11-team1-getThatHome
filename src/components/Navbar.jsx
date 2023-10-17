@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { logout } from "../services/auth-services";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
 import { BiLogOutCircle } from "react-icons/bi";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -93,17 +91,11 @@ const StyledMenuV = styled.div`
     text-transform: uppercase;
 `;
 
-const Navbar = ({ setShowModal, setIdUser, id, role }) => {
+const Navbar = ({ setShowModal, id, role, onLogout }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
         setShowModal(true);
-    };
-
-    const handleLogOut = () => {
-        logout().then(() => {
-            setIdUser(null);
-        });
     };
 
     return (
@@ -123,7 +115,7 @@ const Navbar = ({ setShowModal, setIdUser, id, role }) => {
                     {id ? (
                         <>
                             <Button
-                                onClick={handleLogOut}
+                                onClick={onLogout}
                                 variant="Secundary"
                                 size="def"
                                 icon={iconBiLogOutCircle}>
