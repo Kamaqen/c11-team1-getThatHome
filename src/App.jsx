@@ -10,29 +10,23 @@ import LoginModal from "./components/LoginModal";
 import Footer from "./components/Footer";
 import SavedProperties from "./pages/SavedProperties";
 import CreateProperty from "./pages/CreateProperty";
+import MyProperties from "./pages/MyProperties";
+import useAuth from "./services/useAuth";
 
 const App = () => {
-  const [idUser, setIdUser] = useState(sessionStorage.getItem("userId"));
-  const [role, setRole] = useState(sessionStorage.getItem("userRole"));
+  const { userId, userRole, updateUser, updateRole, logoutUser } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
 
   const { pathname } = useLocation();
 
-  const updateUser = (userId) => {
-    setIdUser(userId);
-  };
-  const updateRole = (userRole) => {
-    setRole(userRole);
-  };
-
   return (
     <>
       <Navbar
         setShowModal={setShowModal}
-        setIdUser={setIdUser}
-        id={idUser}
-        role={role}
+        id={userId}
+        role={userRole}
+        logoutUser={logoutUser}
       />
       <Routes>
         <Route path="/">
@@ -46,6 +40,7 @@ const App = () => {
           <Route path="signup" element={<SignupPage />} />
           <Route path="saved_properties" element={<SavedProperties />} />
           <Route path="create_property" element={<CreateProperty />} />
+          <Route path="my_properties" element={<MyProperties />} />
         </Route>
       </Routes>
       {showModal &&

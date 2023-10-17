@@ -46,9 +46,9 @@ const Signuplanding = ({ setRole }) => {
     <Mainbackground>
       <ContentContainer>
         <Text className="headline5">
-          Choose the profile that best represents you
+          Choose the profile that best suits you
         </Text>
-        <Text className="headline2">¿What are you looking for?</Text>
+        <Text className="headline2">What are you looking for?</Text>
         <ProfileContainer>
           <ProfileCard
             className="j-center Headline6"
