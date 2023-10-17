@@ -13,6 +13,7 @@ export function login(credentials) {
 
 export function logout() {
     return apiFetch("/logout", { method: "GET" }).then(() => {
-        sessionStorage.removeItem(tokenKey);
+        sessionStorage.clear();
+        localStorage.clear();
     });
 }

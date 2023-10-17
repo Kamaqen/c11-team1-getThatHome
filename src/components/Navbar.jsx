@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { logout } from "../services/auth-services";
 import { RiUserAddLine, RiUserLine, RiUserReceivedLine } from "react-icons/ri";
 import { BiLogOutCircle } from "react-icons/bi";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -92,90 +91,94 @@ const StyledMenuV = styled.div`
   text-transform: uppercase;
 `;
 
-const Navbar = ({ setShowModal, setIdUser, id, role }) => {
-  const navigate = useNavigate();
+const Navbar = ({ setShowModal, id, role, onLogout }) => {
+    const navigate = useNavigate();
 
   const handleClick = () => {
     setShowModal(true);
   };
 
-  const handleLogOut = () => {
-    logout().then(() => {
-      setIdUser(null);
-    });
-  };
-
-  return (
-    <MenuContainer>
-      <Navbarstyled>
-        <ContentImg>
-          <LogoImg src="src/assets/Logo.png" onClick={() => navigate("/")} />
-        </ContentImg>
-        <StyledMenuV>
-          <ButtonFindHome onClick={() => navigate("/list")}>
-            <Icon>{iconlusearch}</Icon>
-            FIND A HOME
-          </ButtonFindHome>
-          {id ? (
-            <>
-              <Button
-                onClick={handleLogOut}
-                variant="Secundary"
-                size="def"
-                icon={iconBiLogOutCircle}
-              >
-                LOGOUT
-              </Button>
-              {role === "landlord" && (
-                <>
-                  <Button variant="Primary" size="def" icon={iconTbHome2}>
-                    My Properties
-                  </Button>
-                  <Button variant="Primary" size="def" icon={userlineIcon}>
-                    PROFILE
-                  </Button>
-                </>
-              )}
-              {role === "home_seeker" && (
-                <>
-                  <Button
-                    onClick={() => navigate("/saved_properties")}
-                    variant="Primary"
-                    size="def"
-                    icon={iconBsFillHeartFill}
-                  >
-                    SAVED PROPERTIES
-                  </Button>
-                  <Button variant="Primary" size="def" icon={userlineIcon}>
-                    PROFILE
-                  </Button>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              <Button
-                onClick={() => navigate("/signup")}
-                variant="Secundary"
-                size="def"
-                icon={iconRiUserAddLine}
-              >
-                JOIN
-              </Button>
-              <Button
-                variant="Primary"
-                size="def"
-                onClick={handleClick}
-                icon={iconRiUserReceivedLine}
-              >
-                Login
-              </Button>
-            </>
-          )}
-        </StyledMenuV>
-      </Navbarstyled>
-    </MenuContainer>
-  );
+    return (
+        <MenuContainer>
+            <Navbarstyled>
+                <ContentImg>
+                    <LogoImg
+                        src="src/assets/Logo.png"
+                        onClick={() => navigate("/")}
+                    />
+                </ContentImg>
+                <StyledMenuV>
+                    <ButtonFindHome onClick={() => navigate("/list")}>
+                        <Icon>{iconlusearch}</Icon>
+                        FIND A HOME
+                    </ButtonFindHome>
+                    {id ? (
+                        <>
+                            <Button
+                                onClick={onLogout}
+                                variant="Secundary"
+                                size="def"
+                                icon={iconBiLogOutCircle}>
+                                LOGOUT
+                            </Button>
+                            {role === "landlord" && (
+                                <>
+                                    <Button
+                                        variant="Primary"
+                                        size="def"
+                                        icon={iconTbHome2}>
+                                        My Properties
+                                    </Button>
+                                    <Button
+                                        variant="Primary"
+                                        size="def"
+                                        icon={userlineIcon}>
+                                        PROFILE
+                                    </Button>
+                                </>
+                            )}
+                            {role === "home_seeker" && (
+                                <>
+                                    <Button
+                                        onClick={() =>
+                                            navigate("/saved_properties")
+                                        }
+                                        variant="Primary"
+                                        size="def"
+                                        icon={iconBsFillHeartFill}>
+                                        SAVED PROPERTIES
+                                    </Button>
+                                    <Button
+                                        variant="Primary"
+                                        size="def"
+                                        icon={userlineIcon}>
+                                        PROFILE
+                                    </Button>
+                                </>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <Button
+                                onClick={() => navigate("/signup")}
+                                variant="Secundary"
+                                size="def"
+                                icon={iconRiUserAddLine}>
+                                JOIN
+                            </Button>
+                            <Button
+                                variant="Primary"
+                                size="def"
+                                onClick={handleClick}
+                                icon={iconRiUserReceivedLine}>
+                                Login
+                            </Button>
+                        </>
+                    )}
+                </StyledMenuV>
+            </Navbarstyled>
+        </MenuContainer>
+    );
 };
 
 export default Navbar;
