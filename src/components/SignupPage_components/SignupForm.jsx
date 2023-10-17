@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import InputSignUp from "../InputSignUpForm";
 import Button from "../Button";
+import { useState } from "react";
+import { signUp } from "../../services/user-services";
 
 const MainBackground = styled.div`
   width: 100%;
@@ -38,17 +40,43 @@ const InputContainer = styled.div`
   gap: 8px;
 `;
 
-const Signupform = () => {
+const Signupform = ({ role }) => {
+  const initialRole = role === "landlord" ? 0 : 1;
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone_number: "",
+    password: "",
+    role: initialRole,
+  });
+  console.log(role);
+
+  async function handleSubmit(event) {
+    try {
+      event.preventDefault();
+      await signUp(formData);
+    } catch (error) {
+      console.error("Error al registrar:", error);
+    }
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
   return (
     <>
       <MainBackground>
-        <SignUpForm>
+        <SignUpForm onSubmit={handleSubmit}>
           <h5 className="headline5">Create your Account</h5>
           <InputContainer>
             <InputSignUp
               label="name"
               id="name"
               placeholder="John Doe"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
             <InputSignUp
@@ -56,13 +84,17 @@ const Signupform = () => {
               id="email"
               type="email"
               placeholder="user@mail.com"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
             <InputSignUp
               label="phone"
-              id="phone"
+              id="phone_number"
               type="phone"
               placeholder="999-999-999"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
             <div>
@@ -71,6 +103,8 @@ const Signupform = () => {
                 id="password"
                 type="password"
                 placeholder="*****"
+                value={formData.value}
+                onChange={handleChange}
                 required
               />
               <Caption>At least 6 characters</Caption>
@@ -80,11 +114,14 @@ const Signupform = () => {
               id="password confirmation"
               type="password"
               placeholder="*****"
+              value={formData.value}
               required
             />
-          </InputContainer>
 
-          <Button variant="Primary">Create account</Button>
+            <Button type="submit" variant="Primary">
+              Create account
+            </Button>
+          </InputContainer>
         </SignUpForm>
       </MainBackground>
     </>
