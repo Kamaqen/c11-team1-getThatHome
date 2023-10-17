@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import { FiPlusCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import Tab from "../components/Tab";
 
 const iconFiPlusCircle = <FiPlusCircle />;
 
@@ -35,21 +36,6 @@ const MenuTabs = styled.div`
   gap: 16px;
 `;
 
-const Tab = styled.div`
-  display: flex;
-  padding: 0px 4px;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-`;
-
-const Rectangle = styled.div`
-  height: 2px;
-  align-self: stretch;
-  background: var(--Pink, #f48fb1);
-  margin: 0px 24px;
-`;
-
 export const MyProperties = () => {
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
@@ -66,17 +52,17 @@ export const MyProperties = () => {
           new property
         </Button>
         <MenuTabs>
-          <Tab>
-            <Button variant="Ghost" size="def">
-              active
-            </Button>
-            <Rectangle />
+          <Tab
+            variant={active ? "Active" : "Inactive"}
+            onClick={() => setActive(true)}
+          >
+            active
           </Tab>
-          <Tab>
-            <Button variant="Ghost" size="def">
-              closed
-            </Button>
-            <Rectangle />
+          <Tab
+            variant={active ? "Inactive" : "Active"}
+            onClick={() => setActive(false)}
+          >
+            closed
           </Tab>
         </MenuTabs>
         {active ? <ActiveProperties /> : <ClosedProperties />}
