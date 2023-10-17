@@ -2,7 +2,6 @@ import Section from "../components/Section";
 import styled from "@emotion/styled";
 import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
-import FilterBar from "../components/listViewPage_components/FilterBar";
 import { getSavedProperties } from "../services/user-properties-services";
 
 const StyledDiv = styled.div`
@@ -33,7 +32,6 @@ const SavedProperties = () => {
   return (
     <div className="flex flex-column a-center">
       <Section>
-        <FilterBar />
         <StyledDiv>
           <CardContainer>
             {data?.map((item) => (
