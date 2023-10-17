@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { ActiveProperties } from "../components/MyProperties_components/ActiveProperties";
+import { ClosedProperties } from "../components/MyProperties_components/ClosedProperties";
+import Button from "../components/Button";
+import { FiPlusCircle } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Tab from "../components/Tab";
-import Favorites from "../components/SavedProperties_components.jsx/Favorites";
-import Contacted from "../components/SavedProperties_components.jsx/Contacted";
+
+const iconFiPlusCircle = <FiPlusCircle />;
 
 const MainBackground = styled.div`
   width: 100%;
@@ -30,30 +35,37 @@ const MenuTabs = styled.div`
   gap: 16px;
 `;
 
-const SavedProperties = () => {
+export const MyProperties = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState(true);
 
   return (
     <MainBackground>
       <MainContainer>
+        <Button
+          onClick={() => navigate("/create_property")}
+          variant="Primary"
+          size="def"
+          icon={iconFiPlusCircle}
+        >
+          new property
+        </Button>
         <MenuTabs>
           <Tab
             variant={active ? "Active" : "Inactive"}
             onClick={() => setActive(true)}
           >
-            favorites
+            active
           </Tab>
           <Tab
             variant={active ? "Inactive" : "Active"}
             onClick={() => setActive(false)}
           >
-            contacted
+            closed
           </Tab>
         </MenuTabs>
-        {active ? <Favorites /> : <Contacted />}
+        {active ? <ActiveProperties /> : <ClosedProperties />}
       </MainContainer>
     </MainBackground>
   );
 };
-
-export default SavedProperties;

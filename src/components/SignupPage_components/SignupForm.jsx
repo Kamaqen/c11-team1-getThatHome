@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import InputSignUp from "../InputSignUpForm";
 import Button from "../Button";
+import { useEffect, useState } from "react";
+import { signUp } from "../../services/user-services";
+import { useNavigate } from "react-router-dom";
 
 const MainBackground = styled.div`
   width: 100%;
@@ -38,17 +41,45 @@ const InputContainer = styled.div`
   gap: 8px;
 `;
 
-const Signupform = () => {
+const Signupform = ({ role }) => {
+  const navigate = useNavigate();
+  const userRole = role === "landlord" ? 0 : 1;
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone_number: "",
+    password: "",
+    role: userRole,
+  });
+
+  async function handleSubmit(event) {
+    try {
+      event.preventDefault();
+      await signUp(formData).then();
+      navigate("/profile");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error al registrar:", error);
+    }
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
   return (
     <>
       <MainBackground>
-        <SignUpForm>
+        <SignUpForm onSubmit={handleSubmit}>
           <h5 className="headline5">Create your Account</h5>
           <InputContainer>
             <InputSignUp
               label="name"
               id="name"
               placeholder="John Doe"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
             <InputSignUp
@@ -56,13 +87,17 @@ const Signupform = () => {
               id="email"
               type="email"
               placeholder="user@mail.com"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
             <InputSignUp
               label="phone"
-              id="phone"
+              id="phone_number"
               type="phone"
               placeholder="999-999-999"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
             <div>
@@ -71,6 +106,8 @@ const Signupform = () => {
                 id="password"
                 type="password"
                 placeholder="*****"
+                value={formData.value}
+                onChange={handleChange}
                 required
               />
               <Caption>At least 6 characters</Caption>
@@ -80,11 +117,15 @@ const Signupform = () => {
               id="password confirmation"
               type="password"
               placeholder="*****"
+              value={formData.value}
+              onChange={handleChange}
               required
             />
-          </InputContainer>
 
-          <Button variant="Primary">Create account</Button>
+            <Button type="submit" variant="Primary">
+              Create account
+            </Button>
+          </InputContainer>
         </SignUpForm>
       </MainBackground>
     </>
