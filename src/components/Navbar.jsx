@@ -93,18 +93,13 @@ const StyledMenuV = styled.div`
     text-transform: uppercase;
 `;
 
-const Navbar = ({ setShowModal, setIdUser, id, role }) => {
+const Navbar = ({ setShowModal, id, role, onLogout }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
         setShowModal(true);
     };
 
-    const handleLogOut = () => {
-        logout().then(() => {
-            setIdUser(null);
-        });
-    };
 
     return (
         <MenuContainer>
@@ -123,7 +118,7 @@ const Navbar = ({ setShowModal, setIdUser, id, role }) => {
                     {id ? (
                         <>
                             <Button
-                                onClick={handleLogOut}
+                                onClick={onLogout}
                                 variant="Secundary"
                                 size="def"
                                 icon={iconBiLogOutCircle}>
