@@ -27,6 +27,7 @@ const ProfileContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 54px;
+  margin-top: 57px;
 `;
 
 const ProfileCard = styled.div`
@@ -45,9 +46,9 @@ const Signuplanding = ({ setRole }) => {
     <Mainbackground>
       <ContentContainer>
         <Text className="headline5">
-          Selecciona el perfil con el que te identificas
+          Choose the profile that best represents you
         </Text>
-        <Text className="headline2">¿Qué estás buscando?</Text>
+        <Text className="headline2">¿What are you looking for?</Text>
         <ProfileContainer>
           <ProfileCard
             className="j-center Headline6"
