@@ -1,72 +1,16 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import CloudinaryUpload from './CloudinaryUpload';
-import { createProperty } from '../../services/property-services';
-
-import Button from '../Button';
-import Radiobox from '../Radiobox';
-import { InputPropertyFormAddress, InputPropertyFormFacilities, InputPropertyFormPricing, InputPropertyFormTextBox } from '../InputPropertyForm';
+import Radiobox from '../components/Radiobox';
 import { useNavigate } from 'react-router-dom';
+import { createProperty } from '../services/property-services';
+import Section from '../components/Section';
+import { InputPropertyFormAddress, InputPropertyFormFacilities, InputPropertyFormPricing, InputPropertyFormTextBox } from '../components/InputPropertyForm';
+import CloudinaryUpload from '../components/createProperty_components/CloudinaryUpload';
+import Button from '../components/Button';
+import { ButtonContainer, InputPropertyFormContainer, SignUpForm, SquareRadioInput, StyledDiv, StyledLabel } from '../components/createProperty_components/CreatePropertyStyles';
 
 
-const MainBackground = styled.div`
-  width: 1440px;
-  height: 1096px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const SignUpForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  background-color: #ffffff;
-  width: 1200px;
-  height: 1096px;
-  border-radius: 8px;
-  gap: 16px;
-`;
-const StyledLabel = styled.label`
-  font-family: var(--font-secondary);
-  line-height: 12.1px;
-  font-weight: 400;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-`;
-const InputPropertyFormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-`
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 356px;
-  gap: 10px;
-`
-const SquareRadioInput = styled.input`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 2px solid #f48fb1;
-  width: 16px;
-  height: 16px;
-  border-radius: 0;
-  outline: none;
-  &:checked {
-    background-color: #F48FB1;
-  }
-`;
 
-const PropertyForm = () => {
+const EditProperty = () => {
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({
@@ -128,13 +72,19 @@ const PropertyForm = () => {
 
   return (
     <>
-    <MainBackground>
+    <Section align="flex-start">
     {operationType === "rent" ?
-    <InputPropertyFormContainer style={{marginTop:'72px'}}>
+    <InputPropertyFormContainer>
     <h5 className="headline5" style={{fontSize: "36px"}}>Create Property Listing</h5>
     <SignUpForm onSubmit={handleSubmit}>
     <ButtonContainer>
     <StyledLabel>Operation Type</StyledLabel>
+    <Radiobox onClick={handleRent}>
+      Rent
+    </Radiobox>
+    <Radiobox onClick={handleSale}>
+      Sale
+    </Radiobox>
     <button type="button" onClick={handleRent}>Rent</button>
     <button type="button" onClick={handleSale}>Sale</button>
     </ButtonContainer>
@@ -240,7 +190,7 @@ const PropertyForm = () => {
       </InputPropertyFormContainer>
     : null}
    {operationType === "sale" ? (
-    <InputPropertyFormContainer style={{marginTop:'72px'}}>
+    <InputPropertyFormContainer>
     <h5 className="headline5" style={{fontSize: "36px"}}>Create Property Listing</h5>
     <SignUpForm onSubmit={handleSubmit}>
     <ButtonContainer>
@@ -330,9 +280,9 @@ const PropertyForm = () => {
       </SignUpForm>
       </InputPropertyFormContainer>
 ) : null}
-    </MainBackground>
+    </Section>
     </>
   );
 };
 
-export default PropertyForm;
+export default EditProperty;

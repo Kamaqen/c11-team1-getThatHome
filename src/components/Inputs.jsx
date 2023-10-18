@@ -77,13 +77,17 @@ const StyledTypography = styled.input`
 `;
 
 const StyledLabel = styled.label`
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
+    font-family: var(--font-secondary);
+  line-height: 12.1px;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
 `;
 
 const Input = ({
+    icon1,
     label,
     id,
     name,
@@ -95,10 +99,14 @@ const Input = ({
     icon2,
 }) => {
     return (
-        <BorderInput>
+        
+        <div className="flex flex-column">
             {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
+            <BorderInput>
             <LusearchIcon>
-                <div>{lusearchIcon}</div>
+            { icon1 ? <div>{icon1}</div>
+            : <div>{lusearchIcon}</div>
+            }
             </LusearchIcon>
             <StyledInput
                 type={type ? type : "text"}
@@ -112,7 +120,8 @@ const Input = ({
             <ArrowdownIconInput>
                 {icon2 && <div>{arrowdownIcon}</div>}
             </ArrowdownIconInput>
-        </BorderInput>
+            </BorderInput>
+        </div>
     );
 };
 

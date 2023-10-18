@@ -13,12 +13,12 @@ const Styledradiobox = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; / 142.857% */
+  line-height: 20px; /* 142.857% */
   letter-spacing: 0.25px;
   background: ${(props) =>
-    props.variant === "Active"
+    props.variant === "Inactive"
       ? "#FFFFFF"
-      : props.variant === "Inactive"
+      : props.variant === "Active"
       ? "#F48FB1"
       : "#FFFFFF"};
 
