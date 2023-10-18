@@ -20,6 +20,7 @@ const Text = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  text-align: center;
 `;
 
 const ProfileContainer = styled.div`
@@ -46,25 +47,25 @@ const Signuplanding = ({ setRole }) => {
     <Mainbackground>
       <ContentContainer>
         <Text className="headline5">
-          Choose the profile that best represents you
+          Choose the profile that best suits you
         </Text>
-        <Text className="headline2">¿What are you looking for?</Text>
+        <Text className="headline2">What are you looking for?</Text>
         <ProfileContainer>
           <ProfileCard
             className="j-center Headline6"
             onClick={() => setRole("landlord")}
           >
             <img src="src/assets/rafiki.svg" alt="rafiki" />
-            <Text>Landlord</Text>
-            <Text className="Subtitle2">You want to rent or sell a home</Text>
+            <Text className="headline6">Landlord</Text>
+            <Text className="subtitle2">You want to rent or sell a home</Text>
           </ProfileCard>
           <ProfileCard
             className="j-center Headline6"
             onClick={() => setRole("home_seeker")}
           >
             <img src="src/assets/pana.svg" alt="pana" />
-            <Text>Home seeker</Text>
-            <Text className="Subtitle2">You want to find a home</Text>
+            <Text className="headline6">Home seeker</Text>
+            <Text className="subtitle2">You want to find a home</Text>
           </ProfileCard>
         </ProfileContainer>
       </ContentContainer>

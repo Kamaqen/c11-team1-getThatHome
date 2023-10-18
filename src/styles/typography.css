@@ -70,6 +70,8 @@ caption,
     font-weight: 500;
     line-height: 28px;
     color: #373737;
+    letter-spacing: 0.15px;
+    font-style: normal;
 }
 
 .subtitle1 {
