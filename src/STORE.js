@@ -8,8 +8,8 @@ const teamMembers = [
     {
         photo: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png",
         name: "Dante Vásquez",
-        github: "https://github.com/",
-        linkedin: "https://www.linkedin.com/",
+        github: "https://github.com/jdantevc",
+        linkedin: "https://www.linkedin.com/in/jdantevc/",
     },
     {
         photo: "https://images.wikidexcdn.net/mwuploads/wikidex/thumb/f/fb/latest/20200411222755/Charmeleon.png/800px-Charmeleon.png",

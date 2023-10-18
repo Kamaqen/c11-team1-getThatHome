@@ -26,7 +26,7 @@ const StyledP = styled.p`
 const CreateProperty = () => {
 
   return (
-    <div>
+    <>
     <section>
       <StyledP
         font="36px"
@@ -36,7 +36,7 @@ const CreateProperty = () => {
       </StyledP>
       <PropertyForm/>
     </section>
-    </div>
+    </>
   )
 }
 

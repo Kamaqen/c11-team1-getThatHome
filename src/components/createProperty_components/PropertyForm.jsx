@@ -2,8 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import CloudinaryUpload from './CloudinaryUpload';
 import { createProperty } from '../../services/property-services';
-import InputSignUp from '../InputSignUpForm';
+
 import Button from '../Button';
+import Radiobox from '../Radiobox';
+import { InputPropertyFormAddress, InputPropertyFormFacilities, InputPropertyFormPricing, InputPropertyFormTextBox } from '../InputPropertyForm';
+import { useNavigate } from 'react-router-dom';
 
 
 const MainBackground = styled.div`
@@ -24,23 +27,47 @@ const SignUpForm = styled.form`
   border-radius: 8px;
   gap: 16px;
 `;
-const Caption = styled.p`
+const StyledLabel = styled.label`
   font-family: var(--font-secondary);
-  font-size: 12px;
+  line-height: 12.1px;
   font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.4000000059604645px;
-  text-align: left;
-  margin-top: 4px;
-  color: #8e8e8e;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
 `;
-const InputSignUpContainer = styled.div`
+const InputPropertyFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+`
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 356px;
+  gap: 10px;
+`
+const SquareRadioInput = styled.input`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid #f48fb1;
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+  outline: none;
+  &:checked {
+    background-color: #F48FB1;
+  }
+`;
 
 const PropertyForm = () => {
+  const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({
     rent_value: '',
@@ -96,29 +123,29 @@ const PropertyForm = () => {
     e.preventDefault();
     formData.urls = imageUrls;
     createProperty(formData);
-    console.log(formData);
+    navigate("/my_properties")
   };
 
   return (
     <>
     <MainBackground>
     {operationType === "rent" ?
-    <InputSignUpContainer>
-    <h5 className="headline5">Create Property Listing</h5>
+    <InputPropertyFormContainer style={{marginTop:'72px'}}>
+    <h5 className="headline5" style={{fontSize: "36px"}}>Create Property Listing</h5>
     <SignUpForm onSubmit={handleSubmit}>
-    <div>
-    <p>Operation Type</p>
-    <button onClick={handleRent}>Rent</button>
-    <button onClick={handleSale}>Sale</button>
-    </div>
-      <InputSignUp
+    <ButtonContainer>
+    <StyledLabel>Operation Type</StyledLabel>
+    <button type="button" onClick={handleRent}>Rent</button>
+    <button type="button" onClick={handleSale}>Sale</button>
+    </ButtonContainer>
+      <InputPropertyFormAddress
         label="Address"
         name="address"
         placeholder="start typing to autocomplete"
         value={formData.address}
         onChange={handleChange}
       />
-      <InputSignUp
+      <InputPropertyFormPricing
         label="Montly rent"
         name="rent_value"
         type= "number"
@@ -126,7 +153,7 @@ const PropertyForm = () => {
         value={formData.rent_value}
         onChange={handleChange}
       />
-      <InputSignUp
+      <InputPropertyFormPricing
         label="Maintenance"
         name="maintenance_price"
         type = "number"
@@ -134,9 +161,10 @@ const PropertyForm = () => {
         value={formData.maintenance_price}
         onChange={handleChange}
       />
-      <div className="flex flex-row" >
-      <label>Property type</label>
-      <InputSignUp
+      <StyledLabel>Property type</StyledLabel>
+      <StyledDiv>
+      <div>
+      <SquareRadioInput
         type="radio"
         name="property_type"
         value="apartment"
@@ -144,7 +172,9 @@ const PropertyForm = () => {
         onChange={handleChange}
       />
       <label htmlFor="property_type_apartment">Apartment</label>
-      <InputSignUp
+      </div>
+      <div>
+      <SquareRadioInput
         type="radio"
         name="property_type"
         value="house"
@@ -153,24 +183,23 @@ const PropertyForm = () => {
       />
       <label htmlFor="property_type_house">House</label>
       </div>
+      </StyledDiv>
       <div className="flex flex-row">
-        <InputSignUp
+        <InputPropertyFormFacilities
           label="Bedrooms"
           name="bedrooms"
           type="number"
           value={formData.bedrooms}
           onChange={handleChange}
-        >
-        </InputSignUp>
-        <InputSignUp
+        />
+        <InputPropertyFormFacilities
           label="Bathrooms"
           name="bathrooms"
           type="number"
           value={formData.bathrooms}
           onChange={handleChange}
-        >
-        </InputSignUp>
-        <InputSignUp
+        />
+        <InputPropertyFormFacilities
           label="Area in m2"
           name="area"
           type="number"
@@ -179,16 +208,18 @@ const PropertyForm = () => {
           onChange={handleChange}
         />
       </div>
-      <InputSignUp
-        label="Pet friendly"
+      <div style={{display:'flex', flexDirection:'row', alignItems: 'center'}}>
+      <SquareRadioInput
         name="pet_friendly"
         type="checkbox"
         checked={formData.pet_friendly}
         onChange={handleChange}
       />
-      <p>Allowing pets increases the likehood of renters liking the property by 9001%. <br/>
+      <label htmlFor="pet_friendly">Pets allowed</label>
+      </div>
+      <p style={{fontSize:"12px"}}>Allowing pets increases the likehood of renters liking the property by 9001%. <br/>
       It also makes you a better person</p>
-      <InputSignUp
+      <InputPropertyFormTextBox
         label="About this property"
         name="description"
         type="text"
@@ -196,35 +227,35 @@ const PropertyForm = () => {
         value={formData.description}
         onChange={handleChange}
       />
-      <p>Renter will read this first, so highlight any features or important information the apartment has.</p>
+      <p style={{fontSize:"12px"}}>Renter will read this first, so highlight any features or important information the apartment has.</p>
       <div>
-      <p>Photos</p>
-      <p>Upload as many photos as you wish</p>
+      <p style={{fontSize:"20px", fontWeight: "600", marginBottom:"15px"}}>Photos</p>
+      <p style={{fontSize:"12px", textTransform:"uppercase", fontWeight: "400", marginBottom:"15px"}}>Upload as many photos as you wish</p>
       <div>
         <CloudinaryUpload setImageUrls={setImageUrls}/>
       </div>
       </div>
-      <Button type="submit">Submit</Button>
+      <Button type="submit">Publish Property Listing</Button>
       </SignUpForm>
-      </InputSignUpContainer>
-    : ""}
+      </InputPropertyFormContainer>
+    : null}
    {operationType === "sale" ? (
-    <InputSignUpContainer>
-    <h5 className="headline5">Create Property Listing</h5>
+    <InputPropertyFormContainer style={{marginTop:'72px'}}>
+    <h5 className="headline5" style={{fontSize: "36px"}}>Create Property Listing</h5>
     <SignUpForm onSubmit={handleSubmit}>
-    <div>
-    <p>Operation Type</p>
-    <button onClick={handleRent}>Rent</button>
-    <button onClick={handleSale}>Sale</button>
-    </div>
-      <InputSignUp
+    <ButtonContainer>
+    <StyledLabel>Operation Type</StyledLabel>
+    <button type="button" onClick={handleRent}>Rent</button>
+    <button type="button" onClick={handleSale}>Sale</button>
+    </ButtonContainer>
+      <InputPropertyFormAddress
         label="Address"
         name="address"
         placeholder="start typing to autocomplete"
         value={formData.address}
         onChange={handleChange}
       />
-      <InputSignUp
+      <InputPropertyFormPricing
         label="Price"
         name="property_price"
         type="number"
@@ -232,41 +263,45 @@ const PropertyForm = () => {
         value={formData.property_price}
         onChange={handleChange}
       />
-      <div className="flex flex-row">
-        <label>Property type</label>
-        <InputSignUp
-          type="radio"
-          name="property_type"
-          value="apartment"
-          checked={formData.property_type === "apartment"}
-          onChange={handleChange}
-        />
-        <label htmlFor="property_type_apartment">Apartment</label>
-        <InputSignUp
-          type="radio"
-          name="property_type"
-          value="house"
-          checked={formData.property_type === "house"}
-          onChange={handleChange}
-        />
-        <label htmlFor="property_type_house">House</label>
+      <StyledLabel>Property type</StyledLabel>
+      <StyledDiv>
+      <div>
+      <SquareRadioInput
+        type="radio"
+        name="property_type"
+        value="apartment"
+        checked={formData.property_type === "apartment"}
+        onChange={handleChange}
+      />
+      <label htmlFor="property_type_apartment">Apartment</label>
       </div>
+      <div>
+      <SquareRadioInput
+        type="radio"
+        name="property_type"
+        value="house"
+        checked={formData.property_type === "house"}
+        onChange={handleChange}
+      />
+      <label htmlFor="property_type_house">House</label>
+      </div>
+      </StyledDiv>
       <div className="flex flex-row">
-        <InputSignUp
+        <InputPropertyFormFacilities
           label="Bedrooms"
           name="bedrooms"
           type="number"
           value={formData.bedrooms}
           onChange={handleChange}
         />
-        <InputSignUp
+        <InputPropertyFormFacilities
           label="Bathrooms"
           name="bathrooms"
           type="number"
           value={formData.bathrooms}
           onChange={handleChange}
         />
-        <InputSignUp
+        <InputPropertyFormFacilities
           label="Area in m2"
           name="area"
           type="number"
@@ -275,7 +310,7 @@ const PropertyForm = () => {
           onChange={handleChange}
         />
       </div>
-      <InputSignUp
+      <InputPropertyFormPricing
         label="About this property"
         name="description"
         type="text"
@@ -285,15 +320,15 @@ const PropertyForm = () => {
       />
       <p>Renter will read this first, so highlight any features or important information the apartment has.</p>
       <div>
-        <p>Photos</p>
-        <p>Upload as many photos as you wish</p>
-        <div>
-          <CloudinaryUpload setImageUrls={setImageUrls}/>
-        </div>
+      <p style={{fontSize:"20px", fontWeight: "600", marginBottom:"15px"}}>Photos</p>
+      <p style={{fontSize:"12px", textTransform:"uppercase", fontWeight: "400", marginBottom:"15px"}}>Upload as many photos as you wish</p>
+      <div>
+        <CloudinaryUpload setImageUrls={setImageUrls}/>
       </div>
-      <Button type="submit">Submit</Button>
-    </SignUpForm>
-  </InputSignUpContainer>
+      </div>
+      <Button type="submit">Publish Property Listing</Button>
+      </SignUpForm>
+      </InputPropertyFormContainer>
 ) : null}
     </MainBackground>
     </>
