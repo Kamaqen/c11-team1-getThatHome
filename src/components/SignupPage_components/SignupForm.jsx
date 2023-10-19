@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import InputSignUp from "../InputSignUpForm";
 import Button from "../Button";
-import { useEffect, useState } from "react";
 import { signUp } from "../../services/user-services";
 import { useNavigate } from "react-router-dom";
 
@@ -49,17 +48,22 @@ const Signupform = ({ role }) => {
     email: "",
     phone_number: "",
     password: "",
+    password_confirmation: "",
     role: userRole,
   });
 
   async function handleSubmit(event) {
     try {
       event.preventDefault();
+      if (formData.password !== formData.password_confirmation) {
+        console.error("Passwords do not match");
+        return;
+      }
       await signUp(formData).then();
-      navigate("/profile");
+      navigate("/list");
       window.location.reload();
     } catch (error) {
-      console.error("Error al registrar:", error);
+      console.error("Error in registry:", error);
     }
   }
 
@@ -113,8 +117,8 @@ const Signupform = ({ role }) => {
               <Caption>At least 6 characters</Caption>
             </div>
             <InputSignUp
-              label="password confirmation"
-              id="password confirmation"
+              label="password_confirmation"
+              id="password_confirmation"
               type="password"
               placeholder="*****"
               value={formData.value}
