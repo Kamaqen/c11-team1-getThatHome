@@ -49,6 +49,7 @@ export const ProfilePage = () => {
     phone_number: "",
     email: "",
     password: "",
+    password_confirmation: "",
     role: userRole,
   });
 
@@ -56,7 +57,7 @@ export const ProfilePage = () => {
     event.preventDefault();
     const userId = sessionStorage.getItem("userId");
     await updateUser(userId, formData);
-    navigate("/");
+    navigate("/profile");
   }
 
   function handleChange(event) {
@@ -130,7 +131,7 @@ export const ProfilePage = () => {
             </div>
             <InputSignUp
               label="password confirmation"
-              id="password confirmation"
+              id="password_confirmation"
               type="password"
               placeholder="*****"
               value={formData.value}
