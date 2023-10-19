@@ -7,6 +7,6 @@ const StyledDiv = styled.div`
   height: 600px;
 `;
 
-export const ActiveProperties = () => {
+export const ActiveProperties = ({ data }) => {
   return <StyledDiv>ActiveProperties</StyledDiv>;
 };

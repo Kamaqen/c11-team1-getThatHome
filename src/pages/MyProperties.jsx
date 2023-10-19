@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActiveProperties } from "../components/MyProperties_components/ActiveProperties";
 import { ClosedProperties } from "../components/MyProperties_components/ClosedProperties";
 import Button from "../components/Button";
@@ -36,8 +36,18 @@ const MenuTabs = styled.div`
 `;
 
 export const MyProperties = () => {
+  const [data, setData] = useState();
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let storedData = localStorage.getItem("propertiesData");
+      setData(JSON.parse(storedData));
+      console.log("Se cargaron datos del localStorage.");
+    };
+    fetchData();
+  }, []);
 
   return (
     <MainBackground>
@@ -64,7 +74,11 @@ export const MyProperties = () => {
             closed
           </Tab>
         </MenuTabs>
-        {active ? <ActiveProperties /> : <ClosedProperties />}
+        {active ? (
+          <ActiveProperties data={data} />
+        ) : (
+          <ClosedProperties data={data} />
+        )}
       </MainContainer>
     </MainBackground>
   );
