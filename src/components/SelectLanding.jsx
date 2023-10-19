@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "@emotion/styled";
 
 const StyledSelect = styled.select`
@@ -21,11 +22,16 @@ const StyledLabel = styled.label`
     letter-spacing: 1.5px;
 `;
 
-const SelectLanding = ({ type, label, options }) => {
+const SelectLanding = ({ type, label, options, onChange }) => {
+    const handleSelectChange = (event) => {
+        const selectedValue = event.target.value;
+        onChange(selectedValue);
+    };
+
     return (
         <div className="flex flex-column a-start">
             <StyledLabel htmlFor={type}>{label}</StyledLabel>
-            <StyledSelect name={type} id={type}>
+            <StyledSelect name={type} id={type} onChange={handleSelectChange}>
                 {options.map((option, index) => (
                     <StyledOption key={index} value={option}>
                         {option}

@@ -29,7 +29,7 @@ const MoreCard = ({ onRequestClose, handleSetParams }) => {
     };
     const handleClicked = (e) => {
         e.preventDefault();
-        handleSetParams("area", [minArea, maxArea]);
+        handleSetParams("area", [parseInt(minArea), parseInt(maxArea)]);
         onRequestClose();
     };
 

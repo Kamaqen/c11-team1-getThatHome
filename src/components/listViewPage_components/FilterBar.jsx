@@ -6,7 +6,7 @@ import Button from "../Button";
 import Input from "../Inputs";
 
 const StyledBar = styled.div`
-    width: 100%;
+    width: 518px;
     display: grid;
     grid-template-columns: repeat(4, auto);
     grid-template-rows: 40px;
@@ -16,7 +16,7 @@ const StyledBar = styled.div`
 const StyledSelect = styled.select`
     box-sizing: border-box;
     display: flex;
-    width: 356px;
+    width: 185px;
     height: 40px;
     padding: 8px;
     align-items: center;
@@ -41,18 +41,22 @@ const StyledDiv = styled.div`
     box-sizing: border-box;
     width: 100%;
     display: flex;
+    justify-content: space-between;
     padding: 0px;
+    gap: 16px;
 `;
 
 const FilterBar = ({ setFilter, filter }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCardType, setSelectedCardType] = useState(null);
     const [filterParams, setFilterParams] = useState({
-        price: [],
-        property_type: "",
+        area: "",
         bedrooms: "",
         bathrooms: "",
+        operation_type: "",
         pet_friendly: false,
+        price: [],
+        property_type: [],
     });
 
     useEffect(() => {
@@ -70,10 +74,64 @@ const FilterBar = ({ setFilter, filter }) => {
         setSelectedCardType(null);
         setIsModalOpen(false);
     };
+    const handleSelectChange = (e) => {
+        const selectedValue = e.target.value;
+        if (selectedValue === "sale") {
+            setFilterParams((prevFilter) => ({
+                ...prevFilter,
+                operation_type: "sale",
+            }));
+        } else if (selectedValue === "rent") {
+            setFilterParams((prevFilter) => ({
+                ...prevFilter,
+                operation_type: "rent",
+            }));
+        }
+    };
+
+    const { price, bedrooms, bathrooms, property_type } = filterParams;
+
+    const textButtonPrice = () => {
+        if (price.length === 0) {
+            return "Price";
+        }
+        const minPrice = price[0]
+            ? isNaN(price[0])
+                ? ">="
+                : `$${(price[0] / 1000).toFixed(1)}K`
+            : ">=";
+        const maxPrice = price[1]
+            ? isNaN(price[1])
+                ? ">="
+                : `$${(price[1] / 1000).toFixed(1)}K`
+            : ">=";
+        return `${minPrice} - ${maxPrice}`;
+    };
+
+    const textButtonProperty = () => {
+        if (property_type.length === 0) {
+            return "Property";
+        }
+        if (property_type.length === 1) {
+            return property_type[0] === "apartments" ? "Apartment" : "Houses";
+        }
+        if (property_type.length === 2) {
+            return "Houses & Apartments";
+        }
+    };
+
+    const textButtonBed = () => {
+        if (bedrooms.length === 0 && bathrooms.length === 0) {
+            return "Beds & Baths";
+        }
+        const beds = bedrooms ? bedrooms : "0";
+        const baths = bathrooms ? bathrooms : "0";
+        return `${beds}+ BD, ${baths}+ BA`;
+    };
 
     return (
         <StyledDiv>
-            <Input type="text" placeholder="Search by address" />
+            <Input type="text" placeholder="Search by address" width="240px" />
             <StyledBar>
                 <div className="flex a-center j-center">
                     <Button
@@ -81,7 +139,7 @@ const FilterBar = ({ setFilter, filter }) => {
                         id="PriceCard"
                         size="def"
                         onClick={() => openModal("PriceCard")}>
-                        Price
+                        {textButtonPrice()}
                     </Button>
                 </div>
 
@@ -91,7 +149,7 @@ const FilterBar = ({ setFilter, filter }) => {
                         id="PropCard"
                         size="def"
                         onClick={() => openModal("PropCard")}>
-                        Property
+                        {textButtonProperty()}
                     </Button>
                 </div>
                 <div className="flex a-center j-center">
@@ -100,7 +158,7 @@ const FilterBar = ({ setFilter, filter }) => {
                         id="BedCard"
                         size="def"
                         onClick={() => openModal("BedCard")}>
-                        Beds & Baths
+                        {textButtonBed()}
                     </Button>
                 </div>
                 <div className="flex a-center j-center">
@@ -128,12 +186,12 @@ const FilterBar = ({ setFilter, filter }) => {
                         document.body
                     )}
             </StyledBar>
-            <StyledSelect name="" id="">
+            <StyledSelect name="" id="" onChange={handleSelectChange}>
                 <option default value="all">
-                    Buying & Renting
+                    Select an option
                 </option>
-                <option value="">Buying</option>
-                <option value="">Renting</option>
+                <option value="sale">Buying</option>
+                <option value="rent">Renting</option>
             </StyledSelect>
         </StyledDiv>
     );

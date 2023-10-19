@@ -40,9 +40,9 @@ const BedCard = ({ onRequestClose, handleSetParams }) => {
     const handleButtonClick = (type, e) => {
         const value = e.target.id;
         if (type === "beds") {
-            handleSetParams("bedrooms", value);
-        } else if (type === "beth") {
-            handleSetParams("bathrooms", value);
+            handleSetParams("bedrooms", parseInt(value));
+        } else if (type === "baths") {
+            handleSetParams("bathrooms", parseInt(value));
         }
     };
 
