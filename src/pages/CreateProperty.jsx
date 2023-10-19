@@ -90,6 +90,9 @@ const PropertyForm = () => {
     formData.urls = imageUrls;
     console.log(formData);
     createProperty(formData);
+    const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
+    propertiesArray.push(formData)
+    localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
     navigate("/my_properties")
   };
 
