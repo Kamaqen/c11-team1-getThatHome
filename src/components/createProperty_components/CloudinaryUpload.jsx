@@ -54,9 +54,11 @@ const CloudinaryUpload = ({ setImageUrls }) => {
   return (
     <>
       <div>
+        <div style={{display:"flex", flexDirection:"row", alignItems:"center", gap:"8px"}}>
         <input type='file' name="files[]" multiple onChange={(event)=>{const filesArray = Array.from(event.target.files);
                                                                         setImageSelected(filesArray);}}/>
         <Button onClick={uploadImage}>Upload</Button>
+        </div>
         <p style={{fontSize:"12px", marginBottom:"15px"}}>Only images, max 5MB</p>
         <PhotoContainer>
           {secureUrls.length > 0 ? secureUrls.map((secureUrl, index) => (

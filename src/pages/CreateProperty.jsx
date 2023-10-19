@@ -4,7 +4,7 @@ import Radiobox from '../components/Radiobox';
 import { useNavigate } from 'react-router-dom';
 import { createProperty } from '../services/property-services';
 import Section from '../components/Section';
-import { InputPropertyFormAddress, InputPropertyFormFacilities, InputPropertyFormPricing, InputPropertyFormTextBox } from '../components/InputPropertyForm';
+import { InputPropertyFormFacilities, InputPropertyFormTextBox } from '../components/InputPropertyForm';
 import CloudinaryUpload from '../components/createProperty_components/CloudinaryUpload';
 import Button from '../components/Button';
 import { ButtonContainer, InputPropertyFormContainer, RadioBoxGroup, SignUpForm, SquareRadioInput, StyledDiv, StyledLabel } from '../components/createProperty_components/CreatePropertyStyles';
@@ -82,7 +82,7 @@ const PropertyForm = () => {
     handleChangeOperation("rent_value", "maintenance_price", "pet_friendly");
     setOperationType("sale");
     formData.operation_type = "sale";
-  }
+  };
   
 
   const handleSubmit = (e) => {
@@ -102,11 +102,19 @@ const PropertyForm = () => {
     <RadioBoxGroup>
     <div className='overline'>Operation Type</div>
     <ButtonContainer>
-    <Radiobox style={{padding:"8px"}} variant="Active" onClick={handleRent}>
+    <Radiobox
+      style={{ padding: "8px" }}
+      variant={operationType === "rent" ? "Active" : "Inactive"}
+      onClick={handleRent}
+    >
       Rent
     </Radiobox>
-    <Rectangle/>
-    <Radiobox variant="Inactive" onClick={handleSale}>
+    <Rectangle />
+    <Radiobox
+      style={{ padding: "8px", borderRadius: "0px 8px 8px 0px" }}
+      variant={operationType === "sale" ? "Active" : "Inactive"}
+      onClick={handleSale}
+    >
       Sale
     </Radiobox>
     </ButtonContainer>
@@ -127,6 +135,7 @@ const PropertyForm = () => {
         placeholder="2000"
         value={formData.rent_value}
         onChange={handleChange}
+        width={"356px"}
         icon1={MoneySymbol}
       />
       <Input
@@ -136,18 +145,23 @@ const PropertyForm = () => {
         placeholder="100"
         value={formData.maintenance_price}
         onChange={handleChange}
+        icon1={MoneySymbol}
+        width={"356px"}
       />
       </>
       : 
-      <InputPropertyFormPricing
+      <Input
         label="Price"
         name="property_price"
         type="number"
         placeholder="2000"
         value={formData.property_price}
         onChange={handleChange}
+        width={"356px"}
+        icon1={MoneySymbol}
       />
       } 
+      <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"4px"}}>
       <StyledLabel>Property type</StyledLabel>
       <StyledDiv>
       <div>
@@ -171,6 +185,7 @@ const PropertyForm = () => {
       <label htmlFor="property_type_house">House</label>
       </div>
       </StyledDiv>
+      </div>
       <div className="flex flex-row">
         <InputPropertyFormFacilities
           label="Bedrooms"
