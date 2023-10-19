@@ -13,7 +13,7 @@ const MainBackground = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const SignUpForm = styled.form`
+const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,7 +72,8 @@ export const ProfilePage = () => {
       name: user.name,
       email: user.email,
       phone_number: user.phone_number,
-      password: "", // Puedes elegir si quieres mostrar la contraseña del usuario
+      password: "",
+      password_confirmation: "",
     });
   }
 
@@ -85,7 +86,7 @@ export const ProfilePage = () => {
   return (
     <>
       <MainBackground>
-        <SignUpForm onSubmit={updatingUser}>
+        <FormContainer onSubmit={updatingUser}>
           <h5 className="headline5">Profile</h5>
           <InputContainer>
             <InputSignUp
@@ -133,6 +134,7 @@ export const ProfilePage = () => {
               type="password"
               placeholder="*****"
               value={formData.value}
+              onChange={handleChange}
               required
             />
 
@@ -140,7 +142,7 @@ export const ProfilePage = () => {
               UPDATE ACCOUNT
             </Button>
           </InputContainer>
-        </SignUpForm>
+        </FormContainer>
       </MainBackground>
     </>
   );

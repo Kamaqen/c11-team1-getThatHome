@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActiveProperties } from "../components/MyProperties_components/ActiveProperties";
 import { ClosedProperties } from "../components/MyProperties_components/ClosedProperties";
 import Button from "../components/Button";
@@ -36,8 +36,27 @@ const MenuTabs = styled.div`
 `;
 
 export const MyProperties = () => {
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const current_id = sessionStorage.getItem("userId");
+      const storedData = localStorage.getItem("propertiesData");
+
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        const filteredData = parsedData.filter(
+          (property) => property.user_id === Number.parseInt(current_id)
+        );
+
+        setData(filteredData);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <MainBackground>
@@ -64,7 +83,11 @@ export const MyProperties = () => {
             closed
           </Tab>
         </MenuTabs>
-        {active ? <ActiveProperties /> : <ClosedProperties />}
+        {active ? (
+          <ActiveProperties data={data} />
+        ) : (
+          <ClosedProperties data={data} />
+        )}
       </MainContainer>
     </MainBackground>
   );
