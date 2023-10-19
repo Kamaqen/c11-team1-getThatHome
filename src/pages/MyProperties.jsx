@@ -36,16 +36,25 @@ const MenuTabs = styled.div`
 `;
 
 export const MyProperties = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      let storedData = localStorage.getItem("propertiesData");
-      setData(JSON.parse(storedData));
-      console.log("Se cargaron datos del localStorage.");
+      const current_id = sessionStorage.getItem("userId");
+      const storedData = localStorage.getItem("propertiesData");
+
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        const filteredData = parsedData.filter(
+          (property) => property.user_id === Number.parseInt(current_id)
+        );
+
+        setData(filteredData);
+      }
     };
+
     fetchData();
   }, []);
 
