@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0px;
-    max-width: 1130px;
+    width: 1130px;
 `;
 const CardContainer = styled.div`
     display: flex;
@@ -27,7 +27,6 @@ const ListViewPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             let storedData = localStorage.getItem("propertiesData");
-
             if (storedData) {
                 setData(JSON.parse(storedData));
                 console.log("Se cargaron datos del localStorage.");
@@ -51,54 +50,52 @@ const ListViewPage = () => {
         fetchData();
     }, []);
 
-    console.log(filter);
+    useEffect(() => {
+        const filterLocal = JSON.parse(localStorage.getItem("filter"));
+        if (
+            filterLocal &&
+            JSON.stringify(filterLocal) !== JSON.stringify(filter)
+        ) {
+            setFilter(filterLocal);
+            console.log("Se cargó el filtro del localStorage");
+        }
+    }, []);
 
     useEffect(() => {
         if (data && filter) {
             const filteredData = data.filter((item) => {
-                const priceInRange =
-                    !filter.price.length ||
-                    ((filter.price[0] === "" ||
-                        item.rent_value >= parseInt(filter.price[0])) &&
-                        (filter.price[1] === "" ||
-                            item.rent_value <= parseInt(filter.price[1])));
-
-                const isPropertyTypeValid =
-                    !filter.property_type.length ||
-                    (filter.property_type.length === 1 &&
-                        filter.property_type.includes(item.property_type));
-
-                const bedroomsMatch =
-                    !filter.bedrooms ||
-                    item.bedrooms === parseInt(filter.bedrooms);
-                const bathroomsMatch =
-                    !filter.bathrooms ||
-                    item.bathrooms === parseInt(filter.bathrooms);
-                const petFriendlyMatch =
-                    !filter.pet_friendly ||
-                    item.pet_friendly === filter.pet_friendly;
-
-                const areaInRange =
-                    !filter.area ||
-                    ((!filter.area.min ||
-                        item.area >= parseInt(filter.area.min)) &&
-                        (!filter.area.max ||
-                            item.area <= parseInt(filter.area.max)));
-
-                return (
-                    priceInRange &&
-                    isPropertyTypeValid &&
-                    bedroomsMatch &&
-                    bathroomsMatch &&
-                    petFriendlyMatch &&
-                    areaInRange
-                );
+                let result = true;
+                if (filter.operation_type) {
+                    result =
+                        result && item.operation_type === filter.operation_type;
+                }
+                if (filter.property_type.length) {
+                    result =
+                        result &&
+                        filter.property_type.includes(item.property_type);
+                }
+                if (filter.bedrooms) {
+                    result = result && item.bedrooms >= filter.bedrooms;
+                }
+                if (filter.bathrooms) {
+                    result = result && item.bathrooms >= filter.bathrooms;
+                }
+                if (filter.pet_friendly) {
+                    result =
+                        result && item.pet_friendly === filter.pet_friendly;
+                }
+                if (filter.price.length) {
+                    result =
+                        result &&
+                        item.rent_value >= filter.price[0] &&
+                        item.rent_value <= filter.price[1];
+                }
+                return result;
             });
-
             setData(filteredData);
-            console.log("Se filtraron los datos:", filteredData);
         }
     }, [filter]);
+
     const DataLength = data?.length;
 
     return (

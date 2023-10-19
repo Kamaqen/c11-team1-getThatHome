@@ -36,11 +36,11 @@ const PropCard = ({ onRequestClose, handleSetParams }) => {
                     <input
                         className="check"
                         type="checkbox"
-                        id="department"
+                        id="apartments"
                         onChange={handleCheck}
                     />
                     <label className="gray" htmlFor="apartments">
-                        Department
+                        Apartment
                     </label>
                 </div>
             </div>

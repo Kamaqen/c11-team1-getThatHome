@@ -33,7 +33,7 @@ const ArrowdownIconInput = styled.div`
 const BorderInput = styled.div`
     box-sizing: border-box;
     display: flex;
-    width: 356px;
+    width: ${(props) => (props.width ? props.width : "100%")};
     height: 40px;
     padding: 8px;
     align-items: center;
@@ -61,7 +61,7 @@ const StyledInput = styled.input`
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
-    width: 284px;
+    width: ${(props) => (props.width ? props.width : "100%")};
     letter-spacing: 0.5px;
     border: none;
     outline: none;
@@ -96,19 +96,20 @@ const Input = ({
     required = false,
     value,
     onChange,
+    icon1,
     icon2,
+    width,
 }) => {
     return (
-        
-        <div className="flex flex-column">
+
+        <BorderInput width={width}>
             {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
             <BorderInput>
             <LusearchIcon>
-            { icon1 ? <div>{icon1}</div>
-            : <div>{lusearchIcon}</div>
-            }
+                <div>{icon1 ? icon1 : lusearchIcon}</div>
             </LusearchIcon>
             <StyledInput
+                width={width}
                 type={type ? type : "text"}
                 placeholder={placeholder}
                 id={id}

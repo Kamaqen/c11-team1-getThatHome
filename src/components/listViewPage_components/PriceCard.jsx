@@ -1,14 +1,10 @@
 import styled from "@emotion/styled";
 import FilterCardContainer from "./FilterCardContainer";
 import Button from "../Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Input from "../Inputs";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 
-const StyledInput = styled.input`
-    width: 102px;
-    height: 36px;
-    border-radius: 8px;
-    border: 1px solid var(--Pink, #f48fb1);
-`;
 const PriceCard = ({ onRequestClose, handleSetParams, filter }) => {
     const [minValue, setMinValue] = useState("");
     const [maxValue, setMaxValue] = useState("");
@@ -21,27 +17,31 @@ const PriceCard = ({ onRequestClose, handleSetParams, filter }) => {
     };
     const handleClicked = (e) => {
         e.preventDefault();
-        handleSetParams("price", [minValue, maxValue]);
+        if (minValue !== "" && maxValue !== "") {
+            handleSetParams("price", [parseInt(minValue), parseInt(maxValue)]);
+        }
         onRequestClose();
     };
 
     return (
         <FilterCardContainer type="PriceCard">
             <p className="overline">PRICE Range</p>{" "}
-            <form onSubmit={handleClicked}>
+            <form onSubmit={handleClicked} className="flex flex-column">
                 <div className="flex gap-sm a-center mb-md">
-                    <StyledInput
+                    <Input
                         type="text"
                         placeholder="Min"
                         value={minValue}
                         onChange={handleMinInputChange}
+                        icon1={<RiMoneyDollarCircleFill />}
                     />
                     <p> - </p>
-                    <StyledInput
+                    <Input
                         type="text"
                         placeholder="Max"
                         value={maxValue}
                         onChange={handleMaxInputChange}
+                        icon1={<RiMoneyDollarCircleFill />}
                     />
                 </div>
                 <Button
