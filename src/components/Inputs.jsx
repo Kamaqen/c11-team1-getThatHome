@@ -77,13 +77,17 @@ const StyledTypography = styled.input`
 `;
 
 const StyledLabel = styled.label`
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
+    font-family: var(--font-secondary);
+  line-height: 12.1px;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
 `;
 
 const Input = ({
+    icon1,
     label,
     id,
     name,
@@ -97,8 +101,10 @@ const Input = ({
     width,
 }) => {
     return (
+
         <BorderInput width={width}>
             {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
+            <BorderInput>
             <LusearchIcon>
                 <div>{icon1 ? icon1 : lusearchIcon}</div>
             </LusearchIcon>
@@ -115,7 +121,8 @@ const Input = ({
             <ArrowdownIconInput>
                 {icon2 && <div>{arrowdownIcon}</div>}
             </ArrowdownIconInput>
-        </BorderInput>
+            </BorderInput>
+        </div>
     );
 };
 

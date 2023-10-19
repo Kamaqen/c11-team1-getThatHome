@@ -56,6 +56,8 @@ caption,
     font-weight: 400;
     line-height: 48px;
     color: #373737;
+    font-style: normal;
+    letter-spacing: 0.25px;
 }
 
 .headline5 {
@@ -70,6 +72,8 @@ caption,
     font-weight: 500;
     line-height: 28px;
     color: #373737;
+    letter-spacing: 0.15px;
+    font-style: normal;
 }
 
 .subtitle1 {
@@ -116,12 +120,13 @@ caption {
     color: #373737;
 }
 .overline {
+    font-family: 'Inter';
     font-size: 10px;
-    font-weight: 300;
-    line-height: 24px;
-    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 160% */
     letter-spacing: 1.5px;
-    color: #373737;
+    text-transform: uppercase;
 }
 .gray {
     color: var(--Gray, #616161);
