@@ -6,6 +6,7 @@ import { TbHome2 } from "react-icons/tb";
 import { LuSearch } from "react-icons/lu";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const iconRiUserAddLine = <RiUserAddLine />;
 const iconRiUserReceivedLine = <RiUserReceivedLine />;
@@ -91,9 +92,9 @@ const StyledMenuV = styled.div`
   text-transform: uppercase;
 `;
 
-const Navbar = ({ setShowModal, id, role, onLogout }) => {
+const Navbar = ({ setShowModal, onLogout }) => {
   const navigate = useNavigate();
-
+  const { idUser, role } = useAuth();
   const handleClick = () => {
     setShowModal(true);
   };
@@ -109,7 +110,7 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
             <Icon>{iconlusearch}</Icon>
             FIND A HOME
           </ButtonFindHome>
-          {id ? (
+          {idUser ? (
             <>
               <Button
                 onClick={onLogout}

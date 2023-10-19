@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { login } from "../services/auth-services";
 import Input from "./Inputlau";
 import Button from "./Button";
 import { RiUserReceivedLine } from "react-icons/ri";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const iconRiUserReceivedLine = <RiUserReceivedLine />;
 const iconRiCloseLine = <RiCloseLine />;
@@ -65,6 +65,7 @@ const CloseButton = styled.button`
 `;
 
 const LoginModal = ({ onClose }) => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
