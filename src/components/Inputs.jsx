@@ -86,6 +86,14 @@ const StyledLabel = styled.label`
   margin-bottom: 4px;
 `;
 
+const TextInput = styled.div`
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+`
+
 const Input = ({
     icon1,
     label,
@@ -96,15 +104,14 @@ const Input = ({
     required = false,
     value,
     onChange,
-    icon1,
     icon2,
     width,
 }) => {
     return (
-
+        <>
+        <TextInput>
+        {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
         <BorderInput width={width}>
-            {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
-            <BorderInput>
             <LusearchIcon>
                 <div>{icon1 ? icon1 : lusearchIcon}</div>
             </LusearchIcon>
@@ -121,8 +128,9 @@ const Input = ({
             <ArrowdownIconInput>
                 {icon2 && <div>{arrowdownIcon}</div>}
             </ArrowdownIconInput>
-            </BorderInput>
-        </div>
+        </BorderInput>
+        </TextInput>
+        </>
     );
 };
 
