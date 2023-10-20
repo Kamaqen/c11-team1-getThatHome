@@ -38,6 +38,12 @@ const ContactCard = ({ userId, propertyId }) => {
   const [favorite, setFavorite] = useState(false);
   const logged = sessionStorage.getItem("userId") !== null ? true : false;
 
+  const contactedProperties =
+    JSON.parse(localStorage.getItem("contactedPropertiesData")) || [];
+  const alreadyContacted = contactedProperties.find(
+    (property) => property.id === propertyId
+  );
+
   const handleContacted = async () => {
     setContacted(!contacted);
     const contactedProperties =
@@ -45,17 +51,9 @@ const ContactCard = ({ userId, propertyId }) => {
     const alreadyContacted = contactedProperties.find(
       (property) => property.id === propertyId
     );
-
-    const savedProperties =
-      JSON.parse(localStorage.getItem("savedPropertiesData")) || [];
-    const alreadySaved = savedProperties.find(
-      (property) => property.id === propertyId
-    );
-
-    if (alreadyContacted && alreadySaved) {
+    if (alreadyContacted) {
       return;
     }
-    await createSaved({ property_id: propertyId });
     await createContacted({ property_id: propertyId });
     setContacted(true);
   };
