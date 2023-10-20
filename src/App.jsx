@@ -19,6 +19,7 @@ import CreateProperty from "./pages/CreateProperty";
 import { logout } from "./services/auth-services";
 import { MyProperties } from "./pages/MyProperties";
 import { ProfilePage } from "./pages/ProfilePage";
+import EditForm from "./pages/EditProperty";
 
 const App = () => {
   const [idUser, setIdUser] = useState(sessionStorage.getItem("userId"));
@@ -72,6 +73,7 @@ const App = () => {
           <Route path="saved_properties" element={<SavedProperties />} />
           <Route path="create_property" element={<CreateProperty />} />
           <Route path="my_properties" element={<MyProperties />} />
+          <Route path="edit_property" element={<EditForm/>} />
         </Route>
       </Routes>
       {showModal &&
