@@ -130,6 +130,8 @@ const PropertyForm = () => {
         placeholder={"start typing to autocomplete"}
         value={formData.address}
         onChange={handleChange}
+        setFormData={setFormData}
+        formData={formData}
       />
       { operationType === "rent" ?
       <>

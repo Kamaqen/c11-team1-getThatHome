@@ -111,11 +111,17 @@ const InputGeoLocation = ({
     onChange,
     icon2,
     width,
+    setFormData
 }) => {
   const { ref } = usePlacesWidget({
     apiKey:"AIzaSyC-XK_toLGkrpJQKKITRbRrTVRi_RoDBmE",
     options: {
-      types: ["geocode"],
+     types: ["geocode"]},
+    onPlaceSelected: (place) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            address: place.formatted_address,
+        }));
     }
   });
 
