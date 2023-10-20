@@ -4,12 +4,20 @@ const IconContainer = styled.div`
     font-size: 24px;
     margin-right: 8px;
 `;
-const IconLabel = ({ icon, label }) => {
+const LinkStyle = styled.a`
+    text-decoration: none;
+    color: #000;
+    :hover {
+        color: #bf5f82;
+        font-weight: 600;
+    }
+`;
+const IconLabel = ({ icon, label, url }) => {
     return (
-        <div className="flex a-center">
+        <LinkStyle target="_blank" href={url} className="flex a-center">
             <IconContainer>{icon}</IconContainer>
             <p>{label}</p>
-        </div>
+        </LinkStyle>
     );
 };
 
