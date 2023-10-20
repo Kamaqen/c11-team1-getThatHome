@@ -1,45 +1,56 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import Radiobox from '../components/Radiobox';
-import { useNavigate } from 'react-router-dom';
-import { createProperty } from '../services/property-services';
-import Section from '../components/Section';
-import { InputPropertyFormFacilities, InputPropertyFormTextBox } from '../components/InputPropertyForm';
-import CloudinaryUpload from '../components/createProperty_components/CloudinaryUpload';
-import Button from '../components/Button';
-import { ButtonContainer, InputPropertyFormContainer, RadioBoxGroup, SignUpForm, SquareRadioInput, StyledDiv, StyledLabel } from '../components/createProperty_components/CreatePropertyStyles';
-import Input from '../components/Inputs';
-import { RiMoneyDollarCircleLine } from "react-icons/ri"
-import InputGeoLocation from '../components/InputGeoLocation';
+import React from "react";
+import styled from "@emotion/styled";
+import Radiobox from "../components/Radiobox";
+import { useNavigate } from "react-router-dom";
+import { createProperty } from "../services/property-services";
+import Section from "../components/Section";
+import {
+  InputPropertyFormFacilities,
+  InputPropertyFormTextBox,
+} from "../components/InputPropertyForm";
+import CloudinaryUpload from "../components/createProperty_components/CloudinaryUpload";
+import Button from "../components/Button";
+import {
+  ButtonContainer,
+  InputPropertyFormContainer,
+  RadioBoxGroup,
+  SignUpForm,
+  SquareRadioInput,
+  StyledDiv,
+  StyledLabel,
+} from "../components/createProperty_components/CreatePropertyStyles";
+import Input from "../components/Inputs";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import InputGeoLocation from "../components/InputGeoLocation";
 
-const MoneySymbol = <RiMoneyDollarCircleLine/>
+const MoneySymbol = <RiMoneyDollarCircleLine />;
 
 const Rectangle = styled.div`
   width: 1px;
   align-self: stretch;
-  background: var(--LightGray, #8E8E8E);
-`
+  background: var(--LightGray, #8e8e8e);
+`;
 
 const PropertyForm = () => {
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({
-    rent_value: '',
-    bedrooms: '',
-    bathrooms: '',
-    property_type: '',
-    operation_type: 'rent',
+    rent_value: "",
+    bedrooms: "",
+    bathrooms: "",
+    property_type: "",
+    operation_type: "rent",
     urls: "",
-    description: '',
-    address: '',
+    description: "",
+    address: "",
     pet_friendly: false,
-    area: '',
-    property_price: '',
-    maintenance_price: '',
+    area: "",
+    property_price: "",
+    maintenance_price: "",
     is_active: true,
-    longitude: '',
-    latitude: '',
-    user_id: userID
+    longitude: "",
+    latitude: "",
+    user_id: userID,
   });
   const [imageUrls, setImageUrls] = React.useState([]);
   const [operationType, setOperationType] = React.useState("rent");
@@ -71,7 +82,7 @@ const PropertyForm = () => {
         [name3]: false,
       };
     });
-  }
+  };
 
   const handleRent = () => {
     handleChangeOperation("property_price");
@@ -84,7 +95,6 @@ const PropertyForm = () => {
     setOperationType("sale");
     formData.operation_type = "sale";
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,9 +102,10 @@ const PropertyForm = () => {
     console.log(formData);
     createProperty(formData);
     const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
-    propertiesArray.push(formData)
+    propertiesArray.push(formData);
+    localStorage.clear();
     localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
-    navigate("/my_properties")
+    navigate("/my_properties");
   };
 
   return (
