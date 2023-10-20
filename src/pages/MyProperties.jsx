@@ -41,21 +41,17 @@ export const MyProperties = () => {
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const current_id = sessionStorage.getItem("userId");
-      const storedData = localStorage.getItem("propertiesData");
-
-      if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        const filteredData = parsedData.filter(
-          (property) => property.user_id === Number.parseInt(current_id)
-        );
-
-        setData(filteredData);
-      }
-    };
-
-    fetchData();
+    const current_id = sessionStorage.getItem("userId");
+    const storedData = localStorage.getItem("propertiesData");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      console.log(parsedData);
+      const filteredData = parsedData.filter(
+        (property) => property.user_id === Number.parseInt(current_id)
+      );
+      console.log(filteredData);
+      setData(filteredData);
+    }
   }, []);
 
   return (
