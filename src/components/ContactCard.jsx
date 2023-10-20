@@ -8,7 +8,10 @@ import {
   createSaved,
 } from "../services/user-properties-services";
 import { getAllUsers } from "../services/user-services";
+import { FaRegEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
+const iconEdit = <FaRegEdit />;
 const StyledDiv = styled.div`
   grid-column: 2 / 3;
   grid-row: 1 / 2;
@@ -32,6 +35,7 @@ const IconFav = styled(AiFillHeart)`
 `;
 
 const ContactCard = ({ role, userId, propertyId }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [contacted, setContacted] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -100,7 +104,7 @@ const ContactCard = ({ role, userId, propertyId }) => {
           </div>
         ) : (
           currentId === userId ? (
-            <Button variant="Primary">Edit Property</Button>
+            <Button variant="Primary" icon={iconEdit} size="def" onClick={()=>navigate(`/edit_property/${propertyId}`)}>Edit Property</Button>
           ) : (
             <div className="flex flex-column a-center j-center gap-md">
               <Button variant="Primary" onClick={handleContacted}>

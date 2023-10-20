@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Radiobox from '../components/Radiobox';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createProperty } from '../services/property-services';
 import Section from '../components/Section';
 import { InputPropertyFormFacilities, InputPropertyFormTextBox } from '../components/InputPropertyForm';
@@ -20,6 +20,7 @@ const Rectangle = styled.div`
 `
 
 const EditForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({

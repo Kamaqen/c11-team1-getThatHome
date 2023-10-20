@@ -73,7 +73,7 @@ const App = () => {
           <Route path="saved_properties" element={<SavedProperties />} />
           <Route path="create_property" element={<CreateProperty />} />
           <Route path="my_properties" element={<MyProperties />} />
-          <Route path="edit_property" element={<EditForm/>} />
+          <Route path="edit_property/:id" element={<EditForm/>} />
         </Route>
       </Routes>
       {showModal &&
