@@ -26,9 +26,7 @@ const PropertyDetailsPage = () => {
   const role = sessionStorage.getItem("userRole");
   const data = JSON.parse(localStorage.getItem("propertiesData"));
   const id = parseInt(window.location.pathname.split("/")[2]);
-  const propertyCorrect = data?.find((item) => item.id === id);
-  const property = propertyCorrect || singleProperty;
-  console.log(property);
+  const property = data?.find((item) => item.id === id);
 
   const [addressPrimary = "", address1 = "", address2 = ""] = (
     property?.address || ""

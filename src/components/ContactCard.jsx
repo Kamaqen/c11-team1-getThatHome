@@ -31,11 +31,11 @@ const IconFav = styled(AiFillHeart)`
   color: #ff4b96;
 `;
 
-const ContactCard = ({ userId, propertyId }) => {
+const ContactCard = ({ role, userId, propertyId }) => {
   const [user, setUser] = useState(null);
   const [contacted, setContacted] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const logged = sessionStorage.getItem("userId") !== null ? true : false;
+  const logged = sessionStorage.getItem("userId") === null ? false : true;
 
   const handleContacted = async () => {
     setContacted(!contacted);
@@ -93,13 +93,18 @@ const ContactCard = ({ userId, propertyId }) => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-column a-center j-center gap-md ">
-            <Button variant="Primary" onClick={handleContacted}>
-              Contact Advertiser
-            </Button>
-            {favorite ? <IconFav /> : <Icon onClick={handleFavorite} />}
-            <p> Add to favorites</p>
-          </div>
+          !role || role === "landlord" ? (
+            // Render nothing for landlords
+            null
+          ) : (
+            <div className="flex flex-column a-center j-center gap-md">
+              <Button variant="Primary" onClick={handleContacted}>
+                Contact Advertiser
+              </Button>
+              {favorite ? <IconFav /> : <Icon onClick={handleFavorite} />}
+              <p> Add to favorites</p>
+            </div>
+          )
         )
       ) : (
         <div className="flex flex-column gap-md">
