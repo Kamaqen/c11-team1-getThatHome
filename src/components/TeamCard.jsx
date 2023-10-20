@@ -17,6 +17,10 @@ const TeamCardImg = styled.img`
     height: 100%;
     object-fit: cover;
 `;
+const TeamCardName = styled.h3`
+    font-size: 24px;
+    gap: 32px;
+`;
 const TeamCardWrapper = styled.div`
     width: 240px;
     height: 273px;
@@ -26,11 +30,10 @@ const TeamCardWrapper = styled.div`
     justify-content: center;
     align-items: center;
     gap: 16px;
-`;
-
-const TeamCardName = styled.h3`
-    font-size: 24px;
-    gap: 32px;
+    :hover {
+        transform: scale(1.1);
+        transition: 0.2s ease-in-out;
+    }
 `;
 
 const TeamILink = styled.a`

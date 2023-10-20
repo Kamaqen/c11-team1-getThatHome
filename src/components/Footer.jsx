@@ -4,6 +4,7 @@ import { DiRubyRough } from "react-icons/di";
 import { DiReact } from "react-icons/di";
 import { AiFillGithub } from "react-icons/ai";
 import PropTypes from "prop-types";
+import { teamMembers } from "../STORE";
 
 const rubyIcon = <DiRubyRough />;
 const reactIcon = <DiReact />;
@@ -53,12 +54,14 @@ const Footer = ({ location }) => {
                             Built with <span>❤</span> by:
                         </p>
                         <TeamDiv className="flex flex-column">
-                            <IconLabel icon={ghIcon} label="Alonso Pérez" />
-                            <IconLabel icon={ghIcon} label="Dante Vásquez" />
-                            <IconLabel icon={ghIcon} label="Jimmy Cahuas" />
-                            <IconLabel icon={ghIcon} label="Jorge Capcha" />
-                            <IconLabel icon={ghIcon} label="Jorge Estrada" />
-                            <IconLabel icon={ghIcon} label="Laura Lugo" />
+                            {teamMembers.map((member) => (
+                                <IconLabel
+                                    key={member.name}
+                                    icon={ghIcon}
+                                    label={member.name}
+                                    url={member.github}
+                                />
+                            ))}
                         </TeamDiv>
                     </StyledDiv>
                     <StyledDiv className="flex flex-column text-left">
@@ -66,10 +69,12 @@ const Footer = ({ location }) => {
                         <IconLabel
                             icon={rubyIcon}
                             label="Ruby on Rails REST API"
+                            url="https://guides.rubyonrails.org/api_app.html"
                         />
                         <IconLabel
                             icon={reactIcon}
                             label="React Responsive SPA"
+                            url="https://es.react.dev/"
                         />
                     </StyledDiv>
                 </FooterContainer>
@@ -82,10 +87,12 @@ const Footer = ({ location }) => {
                             <IconLabel
                                 icon={rubyIcon}
                                 label="Ruby on Rails REST API"
+                                url="https://guides.rubyonrails.org/api_app.html"
                             />
                             <IconLabel
                                 icon={reactIcon}
                                 label="React Responsive SPA"
+                                url="https://es.react.dev/"
                             />
                         </StyledDiv>
                     </StyledDiv>

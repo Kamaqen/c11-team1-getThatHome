@@ -5,7 +5,7 @@ import { teamMembers } from "../../STORE";
 const TeamSection = () => {
     return (
         <Section>
-            <p className="headline3 pink">Meet the team</p>
+            <p className="headline3 pink mb-xl">Meet the team</p>
             <br />
             <div className="flex flex-row container">
                 {teamMembers.map((member, index) => (
