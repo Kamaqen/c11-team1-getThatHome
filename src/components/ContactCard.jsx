@@ -8,14 +8,17 @@ import {
   createSaved,
 } from "../services/user-properties-services";
 import { getAllUsers } from "../services/user-services";
+import { FaRegEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
+const iconEdit = <FaRegEdit />;
 const StyledDiv = styled.div`
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   width: 258px;
   height: 148px;
   border-radius: 8px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: ${(props) => (props.isLandlord ? "none" : "0px 5px 10px 0px rgba(0, 0, 0, 0.2)")};
   right: calc(20%);
   display: flex;
   flex-direction: column;
@@ -31,11 +34,12 @@ const IconFav = styled(AiFillHeart)`
   color: #ff4b96;
 `;
 
-const ContactCard = ({ userId, propertyId }) => {
+const ContactCard = ({ role, userId, propertyId }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [contacted, setContacted] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const logged = sessionStorage.getItem("userId") !== null ? true : false;
+  const currentId = Number.parseInt(sessionStorage.getItem("userId"));
 
   const handleContacted = async () => {
     setContacted(!contacted);
@@ -78,36 +82,47 @@ const ContactCard = ({ userId, propertyId }) => {
   }, []);
 
   return (
-    <StyledDiv>
-      {logged ? (
-        contacted ? (
-          <div className="flex flex-column a-center j-center gap-sm">
-            <p className="headline6">Contact information</p>
-            <div className="flex flex-column a-center j-center">
-              <p className="subtitle2 pink">Email:</p>
-              <p className="subtitle2">{user.email}</p>
-            </div>
-            <div className="flex flex-column a-center j-center">
-              <p className="subtitle2 pink">Phone:</p>
-              <p className="subtitle2">{user.phone_number}</p>
-            </div>
+    <StyledDiv isLandlord={role === "landlord"}>
+      {currentId ? (
+      contacted ? (
+        <div className="flex flex-column a-center j-center gap-sm">
+          <p className="headline6">Contact information</p>
+          <div className="flex flex-column a-center j-center">
+            <p className="subtitle2 pink">Email:</p>
+            <p className="subtitle2">{user.email}</p>
+          </div>
+          <div className="flex flex-column a-center j-center">
+            <p className="subtitle2 pink">Phone:</p>
+            <p className="subtitle2">{user.phone_number}</p>
+          </div>
+        </div>
+      ) : (
+        role === "landlord" && currentId !== userId ? (
+          // Render an empty card for landlords who are not the property owner
+          <div className="empty-card">
+            {/* Add any styling or content for the empty card */}
           </div>
         ) : (
-          <div className="flex flex-column a-center j-center gap-md ">
-            <Button variant="Primary" onClick={handleContacted}>
-              Contact Advertiser
-            </Button>
-            {favorite ? <IconFav /> : <Icon onClick={handleFavorite} />}
-            <p> Add to favorites</p>
-          </div>
+          currentId === userId ? (
+            <Button variant="Primary" icon={iconEdit} size="def" onClick={()=>navigate(`/edit_property/${propertyId}`)}>Edit Property</Button>
+          ) : (
+            <div className="flex flex-column a-center j-center gap-md">
+              <Button variant="Primary" onClick={handleContacted}>
+                Contact Advertiser
+              </Button>
+              {favorite ? <IconFav /> : <Icon onClick={handleFavorite} />}
+              <p> Add to favorites</p>
+            </div>
+          )
         )
-      ) : (
-        <div className="flex flex-column gap-md">
-          <p>Log in or Join to contact the advertiser</p>
-          <Button variant="Primary">Login</Button>
-        </div>
-      )}
-    </StyledDiv>
+      )
+    ) : (
+      <div className="flex flex-column gap-md">
+        <p>Log in or Join to contact the advertiser</p>
+        <Button variant="Primary">Login</Button>
+      </div>
+    )}
+  </StyledDiv>
   );
 };
 
