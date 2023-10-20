@@ -6,6 +6,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Tab from "../components/Tab";
+import { getProperties } from "../services/property-services";
 
 const iconFiPlusCircle = <FiPlusCircle />;
 
@@ -42,16 +43,15 @@ export const MyProperties = () => {
 
   useEffect(() => {
     const current_id = sessionStorage.getItem("userId");
-    const storedData = localStorage.getItem("propertiesData");
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
-      console.log(parsedData);
-      const filteredData = parsedData.filter(
+    const fetchProperties = async () => {
+      const properties = await getProperties();
+      const filteredProperties = properties.filter(
         (property) => property.user_id === Number.parseInt(current_id)
       );
-      console.log(filteredData);
-      setData(filteredData);
-    }
+      console.log(filteredProperties);
+      setData(filteredProperties);
+    };
+    fetchProperties();
   }, []);
 
   return (
