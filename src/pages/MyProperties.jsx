@@ -6,6 +6,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Tab from "../components/Tab";
+import Section from "../components/Section";
 
 const iconFiPlusCircle = <FiPlusCircle />;
 
@@ -59,8 +60,8 @@ export const MyProperties = () => {
   }, []);
 
   return (
-    <MainBackground>
-      <MainContainer>
+    <Section align="flex-start">
+      <div className="flex flex-column a-start">
         <Button
           onClick={() => navigate("/create_property")}
           variant="Primary"
@@ -88,7 +89,7 @@ export const MyProperties = () => {
         ) : (
           <ClosedProperties data={data} />
         )}
-      </MainContainer>
-    </MainBackground>
+      </div>
+    </Section>
   );
 };
