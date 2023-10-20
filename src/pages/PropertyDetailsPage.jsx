@@ -61,7 +61,12 @@ const PropertyDetailsPage = () => {
             <AboutSection description={property?.description} />
             <LocationSection address={addressPrimary} />
           </div>
-          <ContactCard login={login} role={role} />
+          <ContactCard
+            login={login}
+            role={role}
+            userId={property.user_id}
+            propertyId={property.id}
+          />
         </SectionProperty>
       </ErrorBoundary>
     </div>
