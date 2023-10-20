@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
   width: 258px;
   height: 148px;
   border-radius: 8px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: ${(props) => (props.isLandlord ? "none" : "0px 5px 10px 0px rgba(0, 0, 0, 0.2)")};
   right: calc(20%);
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@ const ContactCard = ({ role, userId, propertyId }) => {
   const [user, setUser] = useState(null);
   const [contacted, setContacted] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const logged = sessionStorage.getItem("userId") === null ? false : true;
+  const currentId = Number.parseInt(sessionStorage.getItem("userId"));
 
   const handleContacted = async () => {
     setContacted(!contacted);
@@ -78,24 +78,29 @@ const ContactCard = ({ role, userId, propertyId }) => {
   }, []);
 
   return (
-    <StyledDiv>
-      {logged ? (
-        contacted ? (
-          <div className="flex flex-column a-center j-center gap-sm">
-            <p className="headline6">Contact information</p>
-            <div className="flex flex-column a-center j-center">
-              <p className="subtitle2 pink">Email:</p>
-              <p className="subtitle2">{user.email}</p>
-            </div>
-            <div className="flex flex-column a-center j-center">
-              <p className="subtitle2 pink">Phone:</p>
-              <p className="subtitle2">{user.phone_number}</p>
-            </div>
+    <StyledDiv isLandlord={role === "landlord"}>
+      {currentId ? (
+      contacted ? (
+        <div className="flex flex-column a-center j-center gap-sm">
+          <p className="headline6">Contact information</p>
+          <div className="flex flex-column a-center j-center">
+            <p className="subtitle2 pink">Email:</p>
+            <p className="subtitle2">{user.email}</p>
+          </div>
+          <div className="flex flex-column a-center j-center">
+            <p className="subtitle2 pink">Phone:</p>
+            <p className="subtitle2">{user.phone_number}</p>
+          </div>
+        </div>
+      ) : (
+        role === "landlord" && currentId !== userId ? (
+          // Render an empty card for landlords who are not the property owner
+          <div className="empty-card">
+            {/* Add any styling or content for the empty card */}
           </div>
         ) : (
-          !role || role === "landlord" ? (
-            // Render nothing for landlords
-            null
+          currentId === userId ? (
+            <Button variant="Primary">Edit Property</Button>
           ) : (
             <div className="flex flex-column a-center j-center gap-md">
               <Button variant="Primary" onClick={handleContacted}>
@@ -106,13 +111,14 @@ const ContactCard = ({ role, userId, propertyId }) => {
             </div>
           )
         )
-      ) : (
-        <div className="flex flex-column gap-md">
-          <p>Log in or Join to contact the advertiser</p>
-          <Button variant="Primary">Login</Button>
-        </div>
-      )}
-    </StyledDiv>
+      )
+    ) : (
+      <div className="flex flex-column gap-md">
+        <p>Log in or Join to contact the advertiser</p>
+        <Button variant="Primary">Login</Button>
+      </div>
+    )}
+  </StyledDiv>
   );
 };
 
