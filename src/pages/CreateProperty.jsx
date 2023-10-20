@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import { ButtonContainer, InputPropertyFormContainer, RadioBoxGroup, SignUpForm, SquareRadioInput, StyledDiv, StyledLabel } from '../components/createProperty_components/CreatePropertyStyles';
 import Input from '../components/Inputs';
 import { RiMoneyDollarCircleLine } from "react-icons/ri"
+import InputGeoLocation from '../components/InputGeoLocation';
 
 const MoneySymbol = <RiMoneyDollarCircleLine/>
 
@@ -122,8 +123,9 @@ const PropertyForm = () => {
     </Radiobox>
     </ButtonContainer>
     </RadioBoxGroup>
-      <Input
+      <InputGeoLocation
         label={"Address"}
+        type={"address"}
         name={"address"}
         placeholder={"start typing to autocomplete"}
         value={formData.address}
