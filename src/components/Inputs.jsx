@@ -86,6 +86,14 @@ const StyledLabel = styled.label`
   margin-bottom: 4px;
 `;
 
+const TextInput = styled.div`
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+`
+
 const Input = ({
   icon1,
   label,

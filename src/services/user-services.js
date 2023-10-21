@@ -1,6 +1,10 @@
 import { tokenKey } from "../config";
 import apiFetch from "./api-fetch";
 
+export function getAllUsers(){
+  return apiFetch("/users")
+}
+
 export function signUp(userData){
   return apiFetch("/users", {body: userData}).then(u=>{
     const {token, ...user} = u;

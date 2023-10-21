@@ -1,44 +1,56 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import Radiobox from '../components/Radiobox';
-import { useNavigate } from 'react-router-dom';
-import { createProperty } from '../services/property-services';
-import Section from '../components/Section';
-import { InputPropertyFormAddress, InputPropertyFormFacilities, InputPropertyFormPricing, InputPropertyFormTextBox } from '../components/InputPropertyForm';
-import CloudinaryUpload from '../components/createProperty_components/CloudinaryUpload';
-import Button from '../components/Button';
-import { ButtonContainer, InputPropertyFormContainer, RadioBoxGroup, SignUpForm, SquareRadioInput, StyledDiv, StyledLabel } from '../components/createProperty_components/CreatePropertyStyles';
-import Input from '../components/Inputs';
-import { RiMoneyDollarCircleLine } from "react-icons/ri"
+import React from "react";
+import styled from "@emotion/styled";
+import Radiobox from "../components/Radiobox";
+import { useNavigate } from "react-router-dom";
+import { createProperty } from "../services/property-services";
+import Section from "../components/Section";
+import {
+  InputPropertyFormFacilities,
+  InputPropertyFormTextBox,
+} from "../components/InputPropertyForm";
+import CloudinaryUpload from "../components/createProperty_components/CloudinaryUpload";
+import Button from "../components/Button";
+import {
+  ButtonContainer,
+  InputPropertyFormContainer,
+  RadioBoxGroup,
+  SignUpForm,
+  SquareRadioInput,
+  StyledDiv,
+  StyledLabel,
+} from "../components/createProperty_components/CreatePropertyStyles";
+import Input from "../components/Inputs";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import InputGeoLocation from "../components/InputGeoLocation";
 
-const MoneySymbol = <RiMoneyDollarCircleLine/>
+const MoneySymbol = <RiMoneyDollarCircleLine />;
 
 const Rectangle = styled.div`
   width: 1px;
   align-self: stretch;
-  background: var(--LightGray, #8E8E8E);
-`
+  background: var(--LightGray, #8e8e8e);
+`;
 
 const PropertyForm = () => {
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({
-    rent_value: '',
-    bedrooms: '',
-    bathrooms: '',
-    property_type: '',
-    operation_type: 'rent',
+    rent_value: "",
+    bedrooms: "",
+    bathrooms: "",
+    property_type: "",
+    operation_type: "rent",
     urls: "",
-    description: '',
-    address: '',
+    description: "",
+    address: "",
     pet_friendly: false,
-    area: '',
-    property_price: '',
-    maintenance_price: '',
+    area: "",
+    property_price: "",
+    maintenance_price: "",
     is_active: true,
-    longitude: '',
-    latitude: '',
-    user_id: userID
+    longitude: "",
+    latitude: "",
+    user_id: userID,
   });
   const [imageUrls, setImageUrls] = React.useState([]);
   const [operationType, setOperationType] = React.useState("rent");
@@ -70,7 +82,7 @@ const PropertyForm = () => {
         [name3]: false,
       };
     });
-  }
+  };
 
   const handleRent = () => {
     handleChangeOperation("property_price");
@@ -82,15 +94,18 @@ const PropertyForm = () => {
     handleChangeOperation("rent_value", "maintenance_price", "pet_friendly");
     setOperationType("sale");
     formData.operation_type = "sale";
-  }
-  
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     formData.urls = imageUrls;
     console.log(formData);
     createProperty(formData);
-    navigate("/my_properties")
+    const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
+    propertiesArray.push(formData);
+    localStorage.clear();
+    localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
+    navigate("/my_properties");
   };
 
   return (
@@ -102,21 +117,32 @@ const PropertyForm = () => {
     <RadioBoxGroup>
     <div className='overline'>Operation Type</div>
     <ButtonContainer>
-    <Radiobox style={{padding:"8px"}} variant="Active" onClick={handleRent}>
+    <Radiobox
+      style={{ padding: "8px" }}
+      variant={operationType === "rent" ? "Active" : "Inactive"}
+      onClick={handleRent}
+    >
       Rent
     </Radiobox>
-    <Rectangle/>
-    <Radiobox variant="Inactive" onClick={handleSale}>
+    <Rectangle />
+    <Radiobox
+      style={{ padding: "8px", borderRadius: "0px 8px 8px 0px" }}
+      variant={operationType === "sale" ? "Active" : "Inactive"}
+      onClick={handleSale}
+    >
       Sale
     </Radiobox>
     </ButtonContainer>
     </RadioBoxGroup>
-      <Input
+      <InputGeoLocation
         label={"Address"}
+        type={"address"}
         name={"address"}
         placeholder={"start typing to autocomplete"}
         value={formData.address}
         onChange={handleChange}
+        setFormData={setFormData}
+        formData={formData}
       />
       { operationType === "rent" ?
       <>
@@ -127,6 +153,7 @@ const PropertyForm = () => {
         placeholder="2000"
         value={formData.rent_value}
         onChange={handleChange}
+        width={"356px"}
         icon1={MoneySymbol}
       />
       <Input
@@ -136,18 +163,23 @@ const PropertyForm = () => {
         placeholder="100"
         value={formData.maintenance_price}
         onChange={handleChange}
+        icon1={MoneySymbol}
+        width={"356px"}
       />
       </>
       : 
-      <InputPropertyFormPricing
+      <Input
         label="Price"
         name="property_price"
         type="number"
         placeholder="2000"
         value={formData.property_price}
         onChange={handleChange}
+        width={"356px"}
+        icon1={MoneySymbol}
       />
       } 
+      <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"4px"}}>
       <StyledLabel>Property type</StyledLabel>
       <StyledDiv>
       <div>
@@ -171,6 +203,7 @@ const PropertyForm = () => {
       <label htmlFor="property_type_house">House</label>
       </div>
       </StyledDiv>
+      </div>
       <div className="flex flex-row">
         <InputPropertyFormFacilities
           label="Bedrooms"

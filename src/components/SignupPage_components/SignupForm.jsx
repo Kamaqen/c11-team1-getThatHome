@@ -49,6 +49,7 @@ const Signupform = ({ role }) => {
     email: "",
     phone_number: "",
     password: "",
+    password_confirmation: "",
     role: userRole,
   });
 
@@ -56,7 +57,7 @@ const Signupform = ({ role }) => {
     try {
       event.preventDefault();
       await signUp(formData).then();
-      navigate("/profile");
+      navigate("/list");
       window.location.reload();
     } catch (error) {
       console.error("Error al registrar:", error);
@@ -114,7 +115,7 @@ const Signupform = ({ role }) => {
             </div>
             <InputSignUp
               label="password confirmation"
-              id="password confirmation"
+              id="password_confirmation"
               type="password"
               placeholder="*****"
               value={formData.value}

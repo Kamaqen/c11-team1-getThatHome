@@ -9,6 +9,7 @@ import AboutSection from "../components/propertyDetailsPage_components/AboutSect
 import DetailsSection from "../components/propertyDetailsPage_components/DetailsSection";
 import { singleProperty } from "../STORE";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const SectionProperty = styled.section`
   box-sizing: border-box;
@@ -25,10 +26,8 @@ const PropertyDetailsPage = () => {
   const login = sessionStorage.getItem("userId");
   const role = sessionStorage.getItem("userRole");
   const data = JSON.parse(localStorage.getItem("propertiesData"));
-  const id = parseInt(window.location.pathname.split("/")[2]);
-  const propertyCorrect = data?.find((item) => item.id === id);
-  const property = propertyCorrect || singleProperty;
-  console.log(property);
+  const {id} = useParams();
+  const property = data?.find((item) => item.id === Number.parseInt(id));
 
   const [addressPrimary = "", address1 = "", address2 = ""] = (
     property?.address || ""
@@ -61,7 +60,12 @@ const PropertyDetailsPage = () => {
             <AboutSection description={property?.description} />
             <LocationSection address={addressPrimary} />
           </div>
-          <ContactCard login={login} role={role} />
+          <ContactCard
+            login={login}
+            role={role}
+            userId={property.user_id}
+            propertyId={property.id}
+          />
         </SectionProperty>
       </ErrorBoundary>
     </div>

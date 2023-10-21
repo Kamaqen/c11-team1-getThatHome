@@ -28,6 +28,7 @@ const Styledradiobox = styled.div`
       : props.variant === "Inactive"
       ? "#8E8E8E"
       : "#373737"};
+  cursor: pointer;
 `;
 
 const Radiobox = ({ children, ...props }) => {

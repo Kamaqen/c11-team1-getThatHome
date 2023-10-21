@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Tab from "../components/Tab";
 import Section from "../components/Section";
+import { getProperties } from "../services/property-services";
 
 const iconFiPlusCircle = <FiPlusCircle />;
 
@@ -42,21 +43,16 @@ export const MyProperties = () => {
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const current_id = sessionStorage.getItem("userId");
-      const storedData = localStorage.getItem("propertiesData");
-
-      if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        const filteredData = parsedData.filter(
-          (property) => property.user_id === Number.parseInt(current_id)
-        );
-
-        setData(filteredData);
-      }
+    const current_id = sessionStorage.getItem("userId");
+    const fetchProperties = async () => {
+      const properties = await getProperties();
+      const filteredProperties = properties.filter(
+        (property) => property.user_id === Number.parseInt(current_id)
+      );
+      console.log(filteredProperties);
+      setData(filteredProperties);
     };
-
-    fetchData();
+    fetchProperties();
   }, []);
 
   return (
