@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import CardComponent from "../CardComponent";
 import styled from "@emotion/styled";
+import CardList from "../Cardlist";
 
 const CardContainer = styled.div`
   display: flex;
@@ -15,9 +16,12 @@ export const ClosedProperties = ({ data }) => {
   const activeProperties = data.filter(
     (property) => property.is_active === false
   );
+
+  const DataLength = activeProperties?.length;
+
   return (
     <div>
-      <CardContainer>
+      <CardList length={DataLength}>
         {activeProperties?.map((item) => (
           <Link
             key={item.id}
@@ -37,7 +41,7 @@ export const ClosedProperties = ({ data }) => {
             />
           </Link>
         ))}
-      </CardContainer>
+      </CardList>
     </div>
   );
 };
