@@ -3,11 +3,9 @@ import SelectLanding from "./SelectLanding";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "./Button";
-import Input from "./Inputs";
 
 const StyledDiv = styled.div`
     border-radius: 8px;
-    border-right: 1px solid #e1e2e1;
     text-align: center;
     position: absolute;
     top: 320px;
@@ -15,7 +13,6 @@ const StyledDiv = styled.div`
     transform: translateX(-50%);
     width: 800px;
     height: 72px;
-    background: #ffffff;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
 

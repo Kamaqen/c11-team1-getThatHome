@@ -3,14 +3,14 @@ import Section from "../Section";
 import SearchLanding from "../SearchLanding";
 
 const StyledImg = styled.img`
-    margin-top: -72px;
-    width: 130%;
+    margin-top: -50px;
+    width: 100%;
     object-fit: cover;
 `;
 const TextDiv = styled.div`
     text-align: center;
     position: absolute;
-    top: 120px;
+    top: 150px;
     left: 50%;
     transform: translateX(-50%);
 `;

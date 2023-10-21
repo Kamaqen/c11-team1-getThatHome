@@ -21,6 +21,14 @@ const StyledLabel = styled.label`
     font-size: 10px;
     letter-spacing: 1.5px;
 `;
+const StyledDiv = styled.div`
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-right: 2px solid #e1e2e1;
+    margin-right: 4px;
+`;
 
 const SelectLanding = ({ type, label, options, onChange }) => {
     const handleSelectChange = (event) => {
@@ -29,7 +37,7 @@ const SelectLanding = ({ type, label, options, onChange }) => {
     };
 
     return (
-        <div className="flex flex-column a-start">
+        <StyledDiv>
             <StyledLabel htmlFor={type}>{label}</StyledLabel>
             <StyledSelect name={type} id={type} onChange={handleSelectChange}>
                 {options.map((option, index) => (
@@ -38,7 +46,7 @@ const SelectLanding = ({ type, label, options, onChange }) => {
                     </StyledOption>
                 ))}
             </StyledSelect>
-        </div>
+        </StyledDiv>
     );
 };
 
