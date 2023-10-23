@@ -99,7 +99,10 @@ export const MyProperties = () => {
               onClose={() => handleCloseProperty()}
             />
           ) : (
-            <ClosedProperties data={data} />
+            <ClosedProperties
+              data={data}
+              onClose={() => handleCloseProperty()}
+            />
           )}
         </StyledDiv>
       </div>

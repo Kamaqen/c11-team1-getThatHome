@@ -11,7 +11,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { updateProperty } from "../services/property-services";
+import { deleteProperty, updateProperty } from "../services/property-services";
 
 const CardContainer = styled.div`
   border-radius: 10px;
@@ -115,10 +115,13 @@ const CardComponent = ({
     }));
   }, [active]);
 
-  async function handleClick() {
+  async function handleActive() {
     await updateProperty(id, propertyData);
     localStorage.clear();
     onClose();
+  }
+  async function handleDelete() {
+    await deleteProperty(id, propertyData);
   }
   return (
     <CardContainer className="flex flex-column gap-sm" footer={footer}>
@@ -157,7 +160,7 @@ const CardComponent = ({
             <StyledLink onClick={() => navigate(`/edit_property/${id}`)}>
               <BiEdit /> Edit
             </StyledLink>
-            <StyledLink onClick={handleClick}>
+            <StyledLink onClick={active ? handleActive : handleDelete}>
               <AiOutlineCloseCircle /> Close
             </StyledLink>
           </>
