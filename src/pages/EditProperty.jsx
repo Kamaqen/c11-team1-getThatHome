@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Radiobox from '../components/Radiobox';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createProperty } from '../services/property-services';
+import { showProperty, updateProperty } from '../services/property-services';
 import Section from '../components/Section';
 import { InputPropertyFormFacilities, InputPropertyFormTextBox } from '../components/InputPropertyForm';
 import CloudinaryUpload from '../components/createProperty_components/CloudinaryUpload';
@@ -21,30 +21,26 @@ const Rectangle = styled.div`
 
 const EditForm = () => {
   const { id } = useParams();
+  const propertyId = id;
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
-  const [formData, setFormData] = React.useState({
+  const [propertyData, setPropertyData] = useState({});
+  const [formData, setFormData] = useState({
     rent_value: '',
-    bedrooms: '',
-    bathrooms: '',
     property_type: '',
-    operation_type: 'rent',
+    operation_type: "rent",
     urls: "",
     description: '',
-    address: '',
     pet_friendly: false,
     area: '',
     property_price: '',
     maintenance_price: '',
     is_active: true,
-    longitude: '',
-    latitude: '',
-    user_id: userID
   });
   const [imageUrls, setImageUrls] = React.useState([]);
   const [operationType, setOperationType] = React.useState("rent");
 
-  const handleChange = (e) => {
+    const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
     setFormData((prevFormData) => {
@@ -62,13 +58,12 @@ const EditForm = () => {
     });
   };
 
-  const handleChangeOperation = (name, name2, name3) => {
+  const handleChangeOperation = (name, name2) => {
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
         [name]: "",
         [name2]: "",
-        [name3]: false,
       };
     });
   }
@@ -80,28 +75,80 @@ const EditForm = () => {
   };
 
   const handleSale = () => {
-    handleChangeOperation("rent_value", "maintenance_price", "pet_friendly");
+    handleChangeOperation("rent_value", "maintenance_price");
     setOperationType("sale");
     formData.operation_type = "sale";
   };
   
+  async function handleShowProperty() {
+    try {
+    const property = await showProperty(propertyId);
+    setPropertyData(property);
+    } catch (error) {
+      console.error("Error fetching property:", error);
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    formData.urls = imageUrls;
+    if (imageUrls.length !== 0){
+      formData.urls = imageUrls
+    }
     console.log(formData);
-    //createProperty(formData);
-    //const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
-    //propertiesArray.push(formData)
-    //localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
-    //navigate("/my_properties")
+    updateProperty(propertyId, formData)
+    // Esta parte funciona (llenar la nueva data en el localStorage)
+      .then(response => {
+        const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
+        const propertyIndex = propertiesArray.findIndex(property => Number.parseInt(property.id) === Number.parseInt(propertyId));
+        if (propertyIndex !== -1) {
+          propertiesArray[propertyIndex] = {
+            ...propertiesArray[propertyIndex],
+            ...formData,
+        };
+        console.log(propertiesArray);
+        localStorage.clear();
+        localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
+      } else {
+        console.error(`Property with id ${propertyId} not found.`);
+      }
+        console.log("Property updated successfully:", response);
+        navigate("/my_properties");
+      })
+      .catch(error => {
+        console.error("Error updating property:", error);
+      });
   };
+
+
+  useEffect(() => {
+    handleShowProperty();
+  }, []);
+
+  useEffect(() => {
+    setFormData({
+      rent_value: propertyData.rent_value,
+      property_type: propertyData.property_type,
+      operation_type: propertyData.operation_type,
+      urls: propertyData.urls,
+      description: propertyData.description,
+      pet_friendly: propertyData.pet_friendly,
+      area: propertyData.area,
+      property_price: propertyData.property_price,
+      maintenance_price: propertyData.maintenance_price,
+      is_active: propertyData.is_active,
+    });
+  }, [propertyData]);
+
 
   return (
     <>
     <Section align="flex-start">
     <InputPropertyFormContainer>
     <div className="headline4">Edit your property listing</div>
+    {formData.area === "" ? (
+            // Display a loading indicator while data is being fetched
+            <div>Loading...</div>
+    ) : (
     <SignUpForm onSubmit={handleSubmit}>
     <RadioBoxGroup>
     <div className='overline'>Operation Type</div>
@@ -229,6 +276,7 @@ const EditForm = () => {
       </div>
       <Button type="submit">Publish Property Listing</Button>
       </SignUpForm>
+    )}
       </InputPropertyFormContainer>
     </Section>
     </>
