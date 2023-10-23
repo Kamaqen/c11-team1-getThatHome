@@ -89,7 +89,9 @@ const CardComponent = ({
   area,
   pet,
   userId,
+  active,
   footer,
+  onClose,
 }) => {
   const navigate = useNavigate();
   const [propertyData, setPropertyData] = useState({});
@@ -108,14 +110,15 @@ const CardComponent = ({
       area: area,
       property_price: property_price,
       maintenance_price: maintenance,
-      is_active: false,
+      is_active: !active,
       user_id: userId,
     }));
-  }, [propertyData]);
+  }, [active]);
 
-  function handleClick() {
-    updateProperty(id, propertyData);
+  async function handleClick() {
+    await updateProperty(id, propertyData);
     localStorage.clear();
+    onClose();
   }
   return (
     <CardContainer className="flex flex-column gap-sm" footer={footer}>

@@ -12,7 +12,7 @@ const CardContainer = styled.div`
   column-gap: 64px;
 `;
 
-export const ActiveProperties = ({ data }) => {
+export const ActiveProperties = ({ data, onClose }) => {
   const activeProperties = data.filter(
     (property) => property.is_active === true
   );
@@ -39,7 +39,9 @@ export const ActiveProperties = ({ data }) => {
             area={item.area}
             pet={item.pet_friendly}
             userId={item.user_id}
+            active={item.is_active}
             footer={"footer"}
+            onClose={onClose}
           />
         ))}
       </CardList>

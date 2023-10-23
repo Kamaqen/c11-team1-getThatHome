@@ -49,6 +49,11 @@ export const MyProperties = () => {
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
 
+  const handleCloseProperty = async () => {
+    const updatedProperties = await getProperties();
+    setData(updatedProperties);
+  };
+
   useEffect(() => {
     const current_id = sessionStorage.getItem("userId");
     const fetchProperties = async () => {
@@ -89,7 +94,10 @@ export const MyProperties = () => {
         </MenuTabs>
         <StyledDiv>
           {active ? (
-            <ActiveProperties data={data} />
+            <ActiveProperties
+              data={data}
+              onClose={() => handleCloseProperty()}
+            />
           ) : (
             <ClosedProperties data={data} />
           )}
