@@ -17,6 +17,12 @@ export async function updateProperty(id, data) {
   });
 }
 
+export async function deleteProperty(id) {
+  return await apiFetch(`/properties/${id}`, {
+    method: "DELETE",
+  });
+}
+
 export function showProperty(id) {
   return apiFetch(`/properties/${id}`)
     .then((response) => {
