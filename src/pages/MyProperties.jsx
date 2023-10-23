@@ -31,6 +31,13 @@ const MainContainer = styled.div`
   gap: 16px;
 `;
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  width: 1130px;
+`;
+
 const MenuTabs = styled.div`
   display: flex;
   align-items: center;
@@ -41,6 +48,11 @@ export const MyProperties = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
+
+  const handleCloseProperty = async () => {
+    const updatedProperties = await getProperties();
+    setData(updatedProperties);
+  };
 
   useEffect(() => {
     const current_id = sessionStorage.getItem("userId");
@@ -80,11 +92,16 @@ export const MyProperties = () => {
             closed
           </Tab>
         </MenuTabs>
-        {active ? (
-          <ActiveProperties data={data} />
-        ) : (
-          <ClosedProperties data={data} />
-        )}
+        <StyledDiv>
+          {active ? (
+            <ActiveProperties
+              data={data}
+              onClose={() => handleCloseProperty()}
+            />
+          ) : (
+            <ClosedProperties data={data} />
+          )}
+        </StyledDiv>
       </div>
     </Section>
   );
