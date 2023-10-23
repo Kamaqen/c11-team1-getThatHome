@@ -122,6 +122,8 @@ const CardComponent = ({
   }
   async function handleDelete() {
     await deleteProperty(id, propertyData);
+    localStorage.clear();
+    onClose();
   }
   return (
     <CardContainer className="flex flex-column gap-sm" footer={footer}>
@@ -157,11 +159,15 @@ const CardComponent = ({
       <CardFooter footer={footer}>
         {footer && (
           <>
-            <StyledLink onClick={() => navigate(`/edit_property/${id}`)}>
-              <BiEdit /> Edit
+            <StyledLink
+              onClick={
+                active ? () => navigate(`/edit_property/${id}`) : handleActive
+              }
+            >
+              <BiEdit /> {active ? "Edit" : "restore"}
             </StyledLink>
             <StyledLink onClick={active ? handleActive : handleDelete}>
-              <AiOutlineCloseCircle /> Close
+              <AiOutlineCloseCircle /> {active ? "Close" : "delete"}
             </StyledLink>
           </>
         )}
