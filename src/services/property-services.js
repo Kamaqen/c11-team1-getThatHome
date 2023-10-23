@@ -4,7 +4,7 @@ export function getProperties() {
     return apiFetch("/properties");
 }
 export async function createProperty(data = { address, area, bathrooms, bedrooms, description, is_active, latitude, longitude, maintenance_price, operation_type, pet_friendly, property_price, property_type, rent_value, urls, user_id }) {
-    return await apiFetch(`/properties`, {
+    return await apiFetch("/properties", {
       body: data,
       method: "POST",
     });
