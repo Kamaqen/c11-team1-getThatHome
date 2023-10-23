@@ -9,6 +9,8 @@ import { MdPets } from "react-icons/md";
 import { RiCoinsLine } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { RiUploadLine } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { deleteProperty, updateProperty } from "../services/property-services";
@@ -164,10 +166,12 @@ const CardComponent = ({
                 active ? () => navigate(`/edit_property/${id}`) : handleActive
               }
             >
-              <BiEdit /> {active ? "Edit" : "restore"}
+              {active ? <BiEdit /> : <RiUploadLine />}{" "}
+              {active ? "Edit" : "restore"}
             </StyledLink>
             <StyledLink onClick={active ? handleActive : handleDelete}>
-              <AiOutlineCloseCircle /> {active ? "Close" : "delete"}
+              {active ? <AiOutlineCloseCircle /> : <RiDeleteBin6Line />}{" "}
+              {active ? "Close" : "delete"}
             </StyledLink>
           </>
         )}
