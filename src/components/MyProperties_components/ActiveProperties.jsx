@@ -38,6 +38,7 @@ export const ActiveProperties = ({ data }) => {
               bath={item.bathrooms}
               area={item.area}
               pet={item.pet_friendly}
+              footer={"footer"}
             />
           </Link>
         ))}
