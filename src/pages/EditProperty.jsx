@@ -107,42 +107,15 @@ const EditForm = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (imageUrls.length !== 0) {
       formData.urls = imageUrls;
     }
     console.log(formData);
-    updateProperty(propertyId, formData)
-      // Esta parte funciona (llenar la nueva data en el localStorage)
-      .then((response) => {
-        const propertiesArray = JSON.parse(
-          localStorage.getItem("propertiesData")
-        );
-        const propertyIndex = propertiesArray.findIndex(
-          (property) =>
-            Number.parseInt(property.id) === Number.parseInt(propertyId)
-        );
-        if (propertyIndex !== -1) {
-          propertiesArray[propertyIndex] = {
-            ...propertiesArray[propertyIndex],
-            ...formData,
-          };
-          console.log(propertiesArray);
-          localStorage.clear();
-          localStorage.setItem(
-            "propertiesData",
-            JSON.stringify(propertiesArray)
-          );
-        } else {
-          console.error(`Property with id ${propertyId} not found.`);
-        }
-        console.log("Property updated successfully:", response);
-        navigate("/my_properties");
-      })
-      .catch((error) => {
-        console.error("Error updating property:", error);
-      });
+    await updateProperty(propertyId, formData);
+    localStorage.clear();
+    navigate("/my_properties");
   };
 
   useEffect(() => {
