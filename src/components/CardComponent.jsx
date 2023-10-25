@@ -130,14 +130,14 @@ const CardComponent = ({
   return (
     <CardContainer className="flex flex-column gap-sm" footer={footer}>
       <CardImgObject onClick={() => navigate(`/property_details/${id}`)}>
-        <CardImg src={img} />
+        <CardImg src={img[0]} />
       </CardImgObject>
       <CardTag className="flex a-center j-center">
         <RiCoinsLine /> For {operation}
       </CardTag>
       <div className="flex j-between margin-md">
         <IconTextContainer className="flex j-center a-center" text="24px">
-          <RiMoneyDollarCircleLine /> {rent}
+          <RiMoneyDollarCircleLine /> {rent || property_price}
         </IconTextContainer>
         <IconTextContainer className="flex j-center a-center">
           <PiBuildings /> {type}

@@ -26,7 +26,7 @@ const PropertyDetailsPage = () => {
   const role = sessionStorage.getItem("userRole");
   const data = JSON.parse(localStorage.getItem("propertiesData"));
   const { id } = useParams();
-  const property = data?.find((item) => item.id === Number.parseInt(id));
+  const property = data?.find((item) => item.id == id);
 
   const [addressPrimary = "", address1 = "", address2 = ""] = (
     property?.address || ""
@@ -43,7 +43,7 @@ const PropertyDetailsPage = () => {
       >
         <SectionProperty>
           <div className="flex flex-column">
-            <ImagesCarousel images={property.urls} />
+            <ImagesCarousel images={property?.urls} />
             <HeadersSection
               addressPrimary={addressPrimary}
               addressSecundaty={addressSecundaty}
