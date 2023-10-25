@@ -31,7 +31,7 @@ const Rectangle = styled.div`
   background: var(--LightGray, #8e8e8e);
 `;
 
-const PropertyForm = () => {
+const CreateProperty = () => {
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({
@@ -101,10 +101,10 @@ const PropertyForm = () => {
     formData.urls = imageUrls;
     console.log(formData);
     await createProperty(formData);
-    // const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
-    // propertiesArray.push(formData);
+    const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
+    propertiesArray.push(formData);
     localStorage.clear();
-    // localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
+    localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
     navigate("/my_properties");
   };
 
@@ -303,4 +303,4 @@ const PropertyForm = () => {
   );
 };
 
-export default PropertyForm;
+export default CreateProperty;
