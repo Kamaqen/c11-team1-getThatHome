@@ -101,10 +101,10 @@ const PropertyForm = () => {
     formData.urls = imageUrls;
     console.log(formData);
     await createProperty(formData);
-    const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
-    propertiesArray.push(formData);
+    // const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
+    // propertiesArray.push(formData);
     localStorage.clear();
-    localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
+    // localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
     navigate("/my_properties");
   };
 
