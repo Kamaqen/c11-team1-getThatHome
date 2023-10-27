@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Radiobox from "../components/Radiobox";
 import { useNavigate } from "react-router-dom";
-import { createProperty } from "../services/property-services";
+import { createProperty, getProperties } from "../services/property-services";
 import Section from "../components/Section";
 import {
   InputPropertyFormFacilities,
@@ -31,7 +31,7 @@ const Rectangle = styled.div`
   background: var(--LightGray, #8e8e8e);
 `;
 
-const CreateProperty = () => {
+const CreateProperty = ({ setData }) => {
   const navigate = useNavigate();
   const userID = sessionStorage.getItem("userId");
   const [formData, setFormData] = React.useState({
@@ -96,15 +96,21 @@ const CreateProperty = () => {
     formData.operation_type = "sale";
   };
 
+  const handleCreateProperty = async () => {
+    const updatedProperties = await getProperties();
+    setData(updatedProperties);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     formData.urls = imageUrls;
     console.log(formData);
     await createProperty(formData);
-    const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
-    propertiesArray.push(formData);
-    localStorage.clear();
-    localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
+    handleCreateProperty();
+    // const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
+    // propertiesArray.push(formData);
+    // localStorage.clear();
+    // localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
     navigate("/my_properties");
   };
 
