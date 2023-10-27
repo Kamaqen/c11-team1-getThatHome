@@ -44,8 +44,8 @@ const MenuTabs = styled.div`
   gap: 16px;
 `;
 
-export const MyProperties = () => {
-  const [data, setData] = useState([]);
+const MyProperties = ({ data, setData }) => {
+  const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
   const [active, setActive] = useState(true);
 
@@ -56,16 +56,12 @@ export const MyProperties = () => {
 
   useEffect(() => {
     const current_id = sessionStorage.getItem("userId");
-    const fetchProperties = async () => {
-      const properties = await getProperties();
-      const filteredProperties = properties.filter(
-        (property) => property.user_id === Number.parseInt(current_id)
-      );
-      console.log(filteredProperties);
-      setData(filteredProperties);
-    };
-    fetchProperties();
-  }, []);
+    const filteredProperties = data.filter(
+      (property) => property.user_id === Number.parseInt(current_id)
+    );
+    console.log(filteredProperties);
+    setProperties(filteredProperties);
+  }, [data]);
 
   return (
     <Section align="flex-start">
@@ -95,12 +91,12 @@ export const MyProperties = () => {
         <StyledDiv>
           {active ? (
             <ActiveProperties
-              data={data}
+              data={properties}
               onClose={() => handleCloseProperty()}
             />
           ) : (
             <ClosedProperties
-              data={data}
+              data={properties}
               onClose={() => handleCloseProperty()}
             />
           )}
@@ -109,3 +105,5 @@ export const MyProperties = () => {
     </Section>
   );
 };
+
+export default MyProperties;

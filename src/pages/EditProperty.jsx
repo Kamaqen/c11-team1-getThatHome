@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Radiobox from "../components/Radiobox";
 import { useNavigate, useParams } from "react-router-dom";
-import { showProperty, updateProperty } from "../services/property-services";
+import {
+  getProperties,
+  showProperty,
+  updateProperty,
+} from "../services/property-services";
 import Section from "../components/Section";
 import {
   InputPropertyFormFacilities,
@@ -30,7 +34,7 @@ const Rectangle = styled.div`
   background: var(--LightGray, #8e8e8e);
 `;
 
-const EditForm = () => {
+const EditForm = ({ setData }) => {
   const { id } = useParams();
   const propertyId = id;
   const navigate = useNavigate();
@@ -107,6 +111,11 @@ const EditForm = () => {
     }
   }
 
+  const handleUpdateProperty = async () => {
+    const updatedProperties = await getProperties();
+    setData(updatedProperties);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (imageUrls.length !== 0) {
@@ -114,7 +123,7 @@ const EditForm = () => {
     }
     console.log(formData);
     await updateProperty(propertyId, formData);
-    localStorage.clear();
+    handleUpdateProperty();
     navigate("/my_properties");
   };
 

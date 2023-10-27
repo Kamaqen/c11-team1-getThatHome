@@ -107,10 +107,6 @@ const CreateProperty = ({ setData }) => {
     console.log(formData);
     await createProperty(formData);
     handleCreateProperty();
-    // const propertiesArray = JSON.parse(localStorage.getItem("propertiesData"));
-    // propertiesArray.push(formData);
-    // localStorage.clear();
-    // localStorage.setItem("propertiesData", JSON.stringify(propertiesArray));
     navigate("/my_properties");
   };
 
