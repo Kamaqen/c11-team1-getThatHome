@@ -17,17 +17,29 @@ import Footer from "./components/Footer";
 import SavedProperties from "./pages/SavedProperties";
 import CreateProperty from "./pages/CreateProperty";
 import { logout } from "./services/auth-services";
-import { MyProperties } from "./pages/MyProperties";
+import MyProperties from "./pages/MyProperties";
 import { ProfilePage } from "./pages/ProfilePage";
 import EditForm from "./pages/EditProperty";
+import { getProperties } from "./services/property-services";
 
 const App = () => {
   const [idUser, setIdUser] = useState(sessionStorage.getItem("userId"));
   const [role, setRole] = useState(sessionStorage.getItem("userRole"));
   const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState([]);
   const modalRef = useRef(null);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const properties = await getProperties();
+      setData(properties);
+      console.log(properties);
+      localStorage.setItem("propertiesData", JSON.stringify(properties));
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setIdUser(sessionStorage.getItem("userId"));
@@ -39,6 +51,10 @@ const App = () => {
     setIdUser(null);
     setRole(null);
     navigate("/");
+  };
+
+  const updateData = (newData) => {
+    setData(newData);
   };
 
   const updateUser = (userId) => {
@@ -71,9 +87,18 @@ const App = () => {
             element={<SignupPage setIdUser={setIdUser} setRole={setRole} />}
           />
           <Route path="saved_properties" element={<SavedProperties />} />
-          <Route path="create_property" element={<CreateProperty />} />
-          <Route path="my_properties" element={<MyProperties />} />
-          <Route path="edit_property/:id" element={<EditForm/>} />
+          <Route
+            path="create_property"
+            element={<CreateProperty setData={updateData} />}
+          />
+          <Route
+            path="my_properties"
+            element={data && <MyProperties data={data} setData={setData} />}
+          />
+          <Route
+            path="edit_property/:id"
+            element={<EditForm setData={updateData} />}
+          />
         </Route>
       </Routes>
       {showModal &&
