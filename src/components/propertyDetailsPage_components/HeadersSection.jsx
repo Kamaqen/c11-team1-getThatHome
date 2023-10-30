@@ -26,6 +26,7 @@ const HeadersSection = ({
   rent_value,
   maintenance_price,
   property_price,
+  operation_type,
 }) => {
   return (
     <DivRow>
@@ -36,10 +37,10 @@ const HeadersSection = ({
       <div className="flex flex-column a-end gap-sm">
         <ProPrice>
           <RiMoneyDollarCircleLine />
-          {rent_value || property_price}
+          {operation_type === "rent" ? rent_value : property_price}
         </ProPrice>
         <ProDetails>
-          {maintenance_price ? `+ ${maintenance_price}` : ""}
+          {operation_type === "rent" ? `+ ${maintenance_price}` : ""}
         </ProDetails>
       </div>
     </DivRow>

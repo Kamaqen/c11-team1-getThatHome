@@ -137,7 +137,8 @@ const CardComponent = ({
       </CardTag>
       <div className="flex j-between margin-md">
         <IconTextContainer className="flex j-center a-center" text="24px">
-          <RiMoneyDollarCircleLine /> {rent || property_price}
+          <RiMoneyDollarCircleLine />{" "}
+          {operation === "rent" ? rent : property_price}
         </IconTextContainer>
         <IconTextContainer className="flex j-center a-center">
           <PiBuildings /> {type}

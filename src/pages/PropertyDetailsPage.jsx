@@ -50,6 +50,7 @@ const PropertyDetailsPage = () => {
               rent_value={property.rent_value}
               maintenance_price={property.maintenance_price}
               property_price={property.property_price}
+              operation_type={property.operation_type}
             />
             <DetailsSection
               bed={property.bedrooms}
