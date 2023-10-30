@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Section from "../Section";
 import SearchLanding from "../SearchLanding";
-import landingUrl from "src/assets/landing-img.svg";
+import landingUrl from "/src/assets/landing-img.svg";
 
 const StyledImg = styled.img`
   margin-top: -72px;
