@@ -23,7 +23,7 @@ const Contacted = () => {
       <CardList length={DataLength}>
         {data?.map((item) => (
           <CardComponent
-            key={item.id}
+            key={crypto.randomUUID()}
             id={item.id}
             img={item.urls}
             rent={item.rent_value}
