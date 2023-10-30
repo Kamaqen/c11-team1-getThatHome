@@ -49,6 +49,7 @@ const PropertyDetailsPage = () => {
               addressSecundaty={addressSecundaty}
               rent_value={property.rent_value}
               maintenance_price={property.maintenance_price}
+              property_price={property.property_price}
             />
             <DetailsSection
               bed={property.bedrooms}
