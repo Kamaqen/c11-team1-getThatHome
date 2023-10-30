@@ -13,24 +13,20 @@ const HomesSection = ({ data }) => {
       </p>
       <div className="flex flex-row gap-xl">
         {threeFirst.map((item, index) => (
-          <Link
+          <CardComponent
             key={index}
-            to={`/property_details/${item.id}`}
-            style={{ textDecoration: "none" }}
-          >
-            <CardComponent
-              img={item.urls}
-              rent={item.rent_value}
-              property_price={item.property_price}
-              operation={item.operation_type}
-              type={item.property_type}
-              address={item.address}
-              bed={item.bedrooms}
-              bath={item.bathrooms}
-              area={item.area}
-              pet={item.pet_friendly}
-            />
-          </Link>
+            id={item.id}
+            img={item.urls}
+            rent={item.rent_value}
+            property_price={item.property_price}
+            operation={item.operation_type}
+            type={item.property_type}
+            address={item.address}
+            bed={item.bedrooms}
+            bath={item.bathrooms}
+            area={item.area}
+            pet={item.pet_friendly}
+          />
         ))}
       </div>
     </Section>

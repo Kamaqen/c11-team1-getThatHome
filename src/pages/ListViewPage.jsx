@@ -98,25 +98,21 @@ const ListViewPage = () => {
           </p>
 
           <CardContainer>
-            {data?.map((item) => (
-              <Link
-                key={item.id}
-                to={`/property_details/${item.id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <CardComponent
-                  img={item.urls}
-                  rent={item.rent_value}
-                  property_price={item.property_price}
-                  operation={item.operation_type}
-                  type={item.property_type}
-                  address={item.address}
-                  bed={item.bedrooms}
-                  bath={item.bathrooms}
-                  area={item.area}
-                  pet={item.pet_friendly}
-                />
-              </Link>
+            {data?.map((item, index) => (
+              <CardComponent
+                key={-index}
+                id={item.id}
+                img={item.urls}
+                rent={item.rent_value}
+                property_price={item.property_price}
+                operation={item.operation_type}
+                type={item.property_type}
+                address={item.address}
+                bed={item.bedrooms}
+                bath={item.bathrooms}
+                area={item.area}
+                pet={item.pet_friendly}
+              />
             ))}
           </CardContainer>
         </StyledDiv>
