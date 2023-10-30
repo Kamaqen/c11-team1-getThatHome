@@ -25,8 +25,10 @@ const Favorites = () => {
         {data?.map((item) => (
           <CardComponent
             key={item.id}
+            id={item.id}
             img={item.urls}
-            price={item.rent_value}
+            rent={item.rent_value}
+            property_price={item.property_price}
             operation={item.operation_type}
             type={item.property_type}
             address={item.address}
