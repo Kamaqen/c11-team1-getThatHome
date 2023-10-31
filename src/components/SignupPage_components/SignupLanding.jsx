@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import rafikiUrl from "/src/assets/rafiki.svg";
+import panaUrl from "/src/assets/pana.svg";
 
 const Mainbackground = styled.div`
   width: 100%;
@@ -55,7 +57,7 @@ const Signuplanding = ({ setRole }) => {
             className="j-center Headline6"
             onClick={() => setRole("landlord")}
           >
-            <img src="src/assets/rafiki.svg" alt="rafiki" />
+            <img src={rafikiUrl} alt="rafiki" />
             <Text className="headline6">Landlord</Text>
             <Text className="subtitle2">You want to rent or sell a home</Text>
           </ProfileCard>
@@ -63,7 +65,7 @@ const Signuplanding = ({ setRole }) => {
             className="j-center Headline6"
             onClick={() => setRole("home_seeker")}
           >
-            <img src="src/assets/pana.svg" alt="pana" />
+            <img src={panaUrl} alt="pana" />
             <Text className="headline6">Home seeker</Text>
             <Text className="subtitle2">You want to find a home</Text>
           </ProfileCard>
