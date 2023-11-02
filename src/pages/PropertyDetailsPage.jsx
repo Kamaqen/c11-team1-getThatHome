@@ -6,7 +6,6 @@ import LocationSection from "../components/propertyDetailsPage_components/Locati
 import ErrorFallback from "../components/ErrorFallback";
 import AboutSection from "../components/propertyDetailsPage_components/AboutSection";
 import DetailsSection from "../components/propertyDetailsPage_components/DetailsSection";
-// import { useState } from "react";
 import { useParams } from "react-router-dom";
 import ImagesCarousel from "../components/ImagesCarousel";
 

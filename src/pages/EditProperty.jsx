@@ -156,7 +156,6 @@ const EditForm = ({ setData }) => {
         <InputPropertyFormContainer>
           <div className="headline4">Edit your property listing</div>
           {formData.area === "" ? (
-            // Display a loading indicator while data is being fetched
             <div>Loading...</div>
           ) : (
             <SignUpForm onSubmit={handleSubmit}>
