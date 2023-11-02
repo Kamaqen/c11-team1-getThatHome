@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Section from "../Section";
 import SearchLanding from "../SearchLanding";
+import landingUrl from "/src/assets/landing-img.svg";
 
 const StyledImg = styled.img`
     margin-top: -72px;
@@ -29,7 +30,7 @@ const StyledP = styled.p`
 const SearchSection = () => {
     return (
         <Section isImageSection="true">
-            <StyledImg src="src/assets/landing-img.svg" />
+            <StyledImg src={landingUrl} />
             <TextDiv className="flex flex-column a-center gap-md">
                 <StyledP font="64px" top="50px">
                     Meet your new Home

@@ -4,7 +4,8 @@ import { DiRubyRough } from "react-icons/di";
 import { DiReact } from "react-icons/di";
 import { AiFillGithub } from "react-icons/ai";
 import PropTypes from "prop-types";
-import { teamMembers } from "../STORE";
+import teamMembers from "../STORE";
+import logoUrl from "/src/assets/Logo.png";
 
 const rubyIcon = <DiRubyRough />;
 const reactIcon = <DiReact />;
@@ -46,7 +47,7 @@ const Footer = ({ location }) => {
             {location !== "/main" ? (
                 <FooterContainer className="flex container">
                     <StyledDiv className="flex flex-column text-left">
-                        <FooterLogo src="src/assets/Logo.png" />
+                        <FooterLogo src={logoUrl} />
                         <p>© 2023 - Find That Home</p>
                         <p>Codeable - Cohort 11 Final Project</p>
                     </StyledDiv>

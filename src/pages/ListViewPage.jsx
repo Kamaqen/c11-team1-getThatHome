@@ -4,7 +4,6 @@ import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import FilterBar from "../components/listViewPage_components/FilterBar";
-import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
     display: flex;
@@ -21,28 +20,49 @@ const CardContainer = styled.div`
     column-gap: 64px;
 `;
 const ListViewPage = () => {
-    const [originalData, setOriginalData] = useState([]);
-    const [data, setData] = useState([]);
-    const [filter, setFilter] = useState({});
+    const [data, setData] = useState();
+    const [filter, setFilter] = useState();
 
     useEffect(() => {
-        getProperties().then((res) => {
-            setOriginalData(res);
-            setData(res);
-            console.log("Se cargó el data del servicio");
-        });
+        const fetchData = async () => {
+            let storedData = localStorage.getItem("propertiesData");
+            if (storedData) {
+                setData(JSON.parse(storedData));
+                console.log("Se cargaron datos del localStorage.");
+            } else {
+                try {
+                    const apiData = await getProperties();
+                    setData(apiData);
+                    localStorage.setItem(
+                        "propertiesData",
+                        JSON.stringify(apiData)
+                    );
+                    console.log(
+                        "Se cargaron datos desde la API y se almacenaron en el localStorage."
+                    );
+                } catch (error) {
+                    console.error("Error al obtener datos de la API: ", error);
+                }
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
         const filterLocal = JSON.parse(localStorage.getItem("filter"));
-        if (filterLocal) {
+        if (
+            filterLocal &&
+            JSON.stringify(filterLocal) !== JSON.stringify(filter)
+        ) {
             setFilter(filterLocal);
-            console.log("Se cargó el filter del localStorage");
+            console.log("Se cargó el filtro del localStorage");
         }
     }, []);
 
     useEffect(() => {
-        let filteredData = originalData;
-
-        if (filter && Object.keys(filter).length > 0) {
-            filteredData = originalData.filter((item) => {
+        if (data && filter) {
+            const filteredData = data.filter((item) => {
                 let result = true;
                 if (filter.operation_type) {
                     result =
@@ -52,13 +72,6 @@ const ListViewPage = () => {
                     result =
                         result &&
                         filter.property_type.includes(item.property_type);
-                }
-                if (filter.address) {
-                    result =
-                        result &&
-                        item.address
-                            .toLowerCase()
-                            .includes(filter.address.toLowerCase());
                 }
                 if (filter.bedrooms) {
                     result = result && item.bedrooms >= filter.bedrooms;
@@ -78,9 +91,9 @@ const ListViewPage = () => {
                 }
                 return result;
             });
+            setData(filteredData);
         }
-        setData(filteredData);
-    }, [filter, originalData]);
+    }, [filter]);
 
     const DataLength = data?.length;
 
@@ -88,29 +101,31 @@ const ListViewPage = () => {
         <Section align="flex-start">
             <div className="flex flex-column a-center">
                 <StyledDiv>
-                    <FilterBar setFilter={setFilter} />
+                    <FilterBar filter={filter} setFilter={setFilter} />
                     <p className="headline6 mt-md self-start ">
                         {DataLength} Properties found
                     </p>
 
                     <CardContainer>
-                        {data?.map((item) => (
-                            <Link
-                                key={item.id}
-                                to={`/property_details/${item.id}`}
-                                style={{ textDecoration: "none" }}>
-                                <CardComponent
-                                    img={item.urls}
-                                    price={item.rent_value}
-                                    operation={item.operation_type}
-                                    type={item.property_type}
-                                    address={item.address}
-                                    bed={item.bedrooms}
-                                    bath={item.bathrooms}
-                                    area={item.area}
-                                    pet={item.pet_friendly}
-                                />
-                            </Link>
+                        {data?.map((item, index) => (
+                            <CardComponent
+                                key={-index}
+                                id={item.id}
+                                img={item.urls}
+                                rent={new Intl.NumberFormat().format(
+                                    item.rent_value
+                                )}
+                                property_price={new Intl.NumberFormat().format(
+                                    item.property_price
+                                )}
+                                operation={item.operation_type}
+                                type={item.property_type}
+                                address={item.address}
+                                bed={item.bedrooms}
+                                bath={item.bathrooms}
+                                area={item.area}
+                                pet={item.pet_friendly}
+                            />
                         ))}
                     </CardContainer>
                 </StyledDiv>

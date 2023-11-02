@@ -3,26 +3,7 @@ import styled from "@emotion/styled";
 import Tab from "../components/Tab";
 import Favorites from "../components/SavedProperties_components.jsx/Favorites";
 import Contacted from "../components/SavedProperties_components.jsx/Contacted";
-
-const MainBackground = styled.div`
-  width: 100%;
-  height: calc(100vh - 160px);
-  display: flex;
-  flex-direction: column;
-  padding: 0px 120px;
-  align-items: flex-start;
-  gap: 10px;
-`;
-
-const MainContainer = styled.div`
-  margin-top: 72px;
-  display: flex;
-  width: 100%;
-  padding: 32px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-`;
+import Section from "../components/Section";
 
 const MenuTabs = styled.div`
   display: flex;
@@ -30,12 +11,19 @@ const MenuTabs = styled.div`
   gap: 16px;
 `;
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  width: 1130px;
+`;
+
 const SavedProperties = () => {
   const [active, setActive] = useState(true);
 
   return (
-    <MainBackground>
-      <MainContainer>
+    <Section align="flex-start">
+      <div className="flex flex-column a-start">
         <MenuTabs>
           <Tab
             variant={active ? "Active" : "Inactive"}
@@ -50,9 +38,9 @@ const SavedProperties = () => {
             contacted
           </Tab>
         </MenuTabs>
-        {active ? <Favorites /> : <Contacted />}
-      </MainContainer>
-    </MainBackground>
+        <StyledDiv>{active ? <Favorites /> : <Contacted />}</StyledDiv>
+      </div>
+    </Section>
   );
 };
 

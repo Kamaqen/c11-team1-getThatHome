@@ -1,15 +1,13 @@
 import styled from "@emotion/styled";
 import { ErrorBoundary } from "react-error-boundary";
-import ImagesCarrousell from "../components/ImagesCarrousell";
 import HeadersSection from "../components/propertyDetailsPage_components/HeadersSection";
 import ContactCard from "../components/ContactCard";
 import LocationSection from "../components/propertyDetailsPage_components/LocationSection";
 import ErrorFallback from "../components/ErrorFallback";
 import AboutSection from "../components/propertyDetailsPage_components/AboutSection";
 import DetailsSection from "../components/propertyDetailsPage_components/DetailsSection";
-import { singleProperty } from "../STORE";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
+import ImagesCarousel from "../components/ImagesCarousel";
 
 const SectionProperty = styled.section`
   box-sizing: border-box;
@@ -26,8 +24,8 @@ const PropertyDetailsPage = () => {
   const login = sessionStorage.getItem("userId");
   const role = sessionStorage.getItem("userRole");
   const data = JSON.parse(localStorage.getItem("propertiesData"));
-  const {id} = useParams();
-  const property = data?.find((item) => item.id === Number.parseInt(id));
+  const { id } = useParams();
+  const property = data?.find((item) => item.id == id);
 
   const [addressPrimary = "", address1 = "", address2 = ""] = (
     property?.address || ""
@@ -44,12 +42,18 @@ const PropertyDetailsPage = () => {
       >
         <SectionProperty>
           <div className="flex flex-column">
-            <ImagesCarrousell images={property.urls} />
+            <ImagesCarousel images={property?.urls} />
             <HeadersSection
               addressPrimary={addressPrimary}
               addressSecundaty={addressSecundaty}
-              rent_value={property.rent_value}
-              maintenance_price={property.maintenance_price}
+              rent_value={new Intl.NumberFormat().format(property.rent_value)}
+              maintenance_price={new Intl.NumberFormat().format(
+                property.maintenance_price
+              )}
+              property_price={new Intl.NumberFormat().format(
+                property.property_price
+              )}
+              operation_type={property.operation_type}
             />
             <DetailsSection
               bed={property.bedrooms}

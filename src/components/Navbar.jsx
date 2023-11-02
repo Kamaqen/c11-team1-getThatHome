@@ -6,6 +6,7 @@ import { TbHome2 } from "react-icons/tb";
 import { LuSearch } from "react-icons/lu";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import logoUrl from "/src/assets/Logo.png";
 
 const iconRiUserAddLine = <RiUserAddLine />;
 const iconRiUserReceivedLine = <RiUserReceivedLine />;
@@ -103,10 +104,7 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
         <MenuContainer>
             <Navbarstyled>
                 <ContentImg>
-                    <LogoImg
-                        src="src/assets/Logo.png"
-                        onClick={() => navigate("/")}
-                    />
+                    <LogoImg src={logoUrl} onClick={() => navigate("/")} />
                 </ContentImg>
                 <StyledMenuV>
                     <ButtonFindHome onClick={() => navigate("/list")}>

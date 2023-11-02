@@ -1,21 +1,8 @@
-import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { getContactedProperties } from "../../services/user-properties-services";
-import Section from "../Section";
 import CardComponent from "../CardComponent";
+import CardList from "../Cardlist";
 
-const StyledDiv = styled.div`
-  display: flex;
-  padding: 32px;
-`;
-const CardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 32px;
-  row-gap: 32px;
-  column-gap: 64px;
-`;
 const Contacted = () => {
   const [data, setData] = useState();
 
@@ -29,29 +16,29 @@ const Contacted = () => {
     });
   }, []);
 
+  const DataLength = data?.length;
+
   return (
-    <div className="flex flex-column a-center">
-      <Section>
-        <StyledDiv>
-          <CardContainer>
-            {data?.map((item) => (
-              <CardComponent
-                key={item.id}
-                img={item.urls}
-                price={item.rent_value}
-                operation={item.operation_type}
-                type={item.property_type}
-                address={item.address}
-                bed={item.bedrooms}
-                bath={item.bathrooms}
-                area={item.area}
-                pet={item.pet_friendly}
-              />
-            ))}
-          </CardContainer>
-        </StyledDiv>
-      </Section>
-    </div>
+    <>
+      <CardList length={DataLength}>
+        {data?.map((item) => (
+          <CardComponent
+            key={crypto.randomUUID()}
+            id={item.id}
+            img={item.urls}
+            rent={new Intl.NumberFormat().format(item.rent_value)}
+            property_price={new Intl.NumberFormat().format(item.property_price)}
+            operation={item.operation_type}
+            type={item.property_type}
+            address={item.address}
+            bed={item.bedrooms}
+            bath={item.bathrooms}
+            area={item.area}
+            pet={item.pet_friendly}
+          />
+        ))}
+      </CardList>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import Section from "../Section";
 import TeamCard from "../TeamCard";
-import { teamMembers } from "../../STORE";
+import teamMembers from "../../STORE";
 
 const TeamSection = () => {
     return (
