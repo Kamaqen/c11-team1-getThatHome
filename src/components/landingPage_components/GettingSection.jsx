@@ -8,7 +8,7 @@ const GettingSection = () => {
   return (
     <Section color="rgba(244, 143, 177,  0.15)">
       <p className="headline4 mb-xl text-center">
-        Getting someone to rent your property has
+        Getting someone to buy or rent your property has
         <br /> never been this easy
       </p>
       {userId ? (

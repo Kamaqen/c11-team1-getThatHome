@@ -4,7 +4,6 @@ import CardComponent from "../components/CardComponent";
 import { useEffect, useState } from "react";
 import { getProperties } from "../services/property-services";
 import FilterBar from "../components/listViewPage_components/FilterBar";
-import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
   display: flex;

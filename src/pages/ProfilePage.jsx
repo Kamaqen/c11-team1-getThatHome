@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { getUser, signUp, updateUser } from "../services/user-services";
+import { getUser, updateUser } from "../services/user-services";
 import { useNavigate } from "react-router-dom";
 import InputSignUp from "../components/InputSignUpForm";
 import Button from "../components/Button";
