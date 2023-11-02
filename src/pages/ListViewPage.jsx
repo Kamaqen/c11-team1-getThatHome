@@ -21,49 +21,28 @@ const CardContainer = styled.div`
     column-gap: 64px;
 `;
 const ListViewPage = () => {
-    const [data, setData] = useState();
-    const [filter, setFilter] = useState();
+    const [originalData, setOriginalData] = useState([]);
+    const [data, setData] = useState([]);
+    const [filter, setFilter] = useState({});
 
     useEffect(() => {
-        const fetchData = async () => {
-            let storedData = localStorage.getItem("propertiesData");
-            if (storedData) {
-                setData(JSON.parse(storedData));
-                console.log("Se cargaron datos del localStorage.");
-            } else {
-                try {
-                    const apiData = await getProperties();
-                    setData(apiData);
-                    localStorage.setItem(
-                        "propertiesData",
-                        JSON.stringify(apiData)
-                    );
-                    console.log(
-                        "Se cargaron datos desde la API y se almacenaron en el localStorage."
-                    );
-                } catch (error) {
-                    console.error("Error al obtener datos de la API: ", error);
-                }
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
+        getProperties().then((res) => {
+            setOriginalData(res);
+            setData(res);
+            console.log("Se cargó el data del servicio");
+        });
         const filterLocal = JSON.parse(localStorage.getItem("filter"));
-        if (
-            filterLocal &&
-            JSON.stringify(filterLocal) !== JSON.stringify(filter)
-        ) {
+        if (filterLocal) {
             setFilter(filterLocal);
-            console.log("Se cargó el filtro del localStorage");
+            console.log("Se cargó el filter del localStorage");
         }
     }, []);
 
     useEffect(() => {
-        if (data && filter) {
-            const filteredData = data.filter((item) => {
+        let filteredData = originalData;
+
+        if (filter && Object.keys(filter).length > 0) {
+            filteredData = originalData.filter((item) => {
                 let result = true;
                 if (filter.operation_type) {
                     result =
@@ -73,6 +52,13 @@ const ListViewPage = () => {
                     result =
                         result &&
                         filter.property_type.includes(item.property_type);
+                }
+                if (filter.address) {
+                    result =
+                        result &&
+                        item.address
+                            .toLowerCase()
+                            .includes(filter.address.toLowerCase());
                 }
                 if (filter.bedrooms) {
                     result = result && item.bedrooms >= filter.bedrooms;
@@ -92,9 +78,9 @@ const ListViewPage = () => {
                 }
                 return result;
             });
-            setData(filteredData);
         }
-    }, [filter]);
+        setData(filteredData);
+    }, [filter, originalData]);
 
     const DataLength = data?.length;
 
@@ -102,7 +88,7 @@ const ListViewPage = () => {
         <Section align="flex-start">
             <div className="flex flex-column a-center">
                 <StyledDiv>
-                    <FilterBar filter={filter} setFilter={setFilter} />
+                    <FilterBar setFilter={setFilter} />
                     <p className="headline6 mt-md self-start ">
                         {DataLength} Properties found
                     </p>

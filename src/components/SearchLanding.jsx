@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
     border-right: 1px solid #e1e2e1;
     text-align: center;
     position: absolute;
-    top: 320px;
+    top: 350px;
     left: 50%;
     transform: translateX(-50%);
     width: 800px;

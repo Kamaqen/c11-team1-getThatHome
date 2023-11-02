@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import PropTypes from "prop-types";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { LuSearch } from "react-icons/lu";
 
@@ -78,12 +77,12 @@ const StyledTypography = styled.input`
 
 const StyledLabel = styled.label`
     font-family: var(--font-secondary);
-  line-height: 12.1px;
-  font-weight: 400;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
+    line-height: 12.1px;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
 `;
 
 const TextInput = styled.div`
@@ -92,7 +91,7 @@ const TextInput = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-`
+`;
 
 const Input = ({
     icon1,
@@ -109,40 +108,29 @@ const Input = ({
 }) => {
     return (
         <>
-        <TextInput>
-        {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
-        <BorderInput width={width}>
-            <LusearchIcon>
-                <div>{icon1 ? icon1 : lusearchIcon}</div>
-            </LusearchIcon>
-            <StyledInput
-                width={width}
-                type={type ? type : "text"}
-                placeholder={placeholder}
-                id={id}
-                name={name ? name : id}
-                value={value}
-                required={required ? "required" : ""}
-                onChange={onChange}
-            />
-            <ArrowdownIconInput>
-                {icon2 && <div>{arrowdownIcon}</div>}
-            </ArrowdownIconInput>
-        </BorderInput>
-        </TextInput>
+            <TextInput>
+                {label ? <StyledLabel htmlFor={id}>{label}</StyledLabel> : ""}
+                <BorderInput width={width}>
+                    <LusearchIcon>
+                        <div>{icon1 ? icon1 : lusearchIcon}</div>
+                    </LusearchIcon>
+                    <StyledInput
+                        width={width}
+                        type={type ? type : "text"}
+                        placeholder={placeholder}
+                        id={id}
+                        name={name ? name : id}
+                        value={value}
+                        required={required ? "required" : ""}
+                        onChange={onChange}
+                    />
+                    <ArrowdownIconInput>
+                        {icon2 && <div>{arrowdownIcon}</div>}
+                    </ArrowdownIconInput>
+                </BorderInput>
+            </TextInput>
         </>
     );
-};
-
-Input.propTypes = {
-    label: PropTypes.string,
-    id: PropTypes.string,
-    name: PropTypes.string,
-    placeholder: PropTypes.string,
-    type: PropTypes.string,
-    required: PropTypes.bool,
-    value: PropTypes.string,
-    onChange: PropTypes.func,
 };
 
 export default Input;

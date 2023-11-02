@@ -25,6 +25,7 @@ const TeamCardWrapper = styled.div`
     width: 240px;
     height: 273px;
     margin: auto;
+    margin-bottom: 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;

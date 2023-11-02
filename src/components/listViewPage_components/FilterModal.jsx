@@ -16,10 +16,16 @@ const StyledBar = styled.div`
     position: absolute;
     top: 180px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-25%);
 `;
 
-const FilterModal = ({ card, onRequestClose, handleSetParams, filter }) => {
+const FilterModal = ({
+    card,
+    onRequestClose,
+    handleSetParams,
+    filterParams,
+    setFilterParams,
+}) => {
     return (
         <>
             <StyledBar>
@@ -27,28 +33,29 @@ const FilterModal = ({ card, onRequestClose, handleSetParams, filter }) => {
                     <PriceCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
-                        filter={filter}
+                        filterParams={filterParams}
+                        setFilterParams={setFilterParams}
                     />
                 )}
                 {card === "PropCard" && (
                     <PropCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
-                        filter={filter}
+                        filterParams={filterParams}
                     />
                 )}
                 {card === "BedCard" && (
                     <BedCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
-                        filter={filter}
+                        filterParams={filterParams}
                     />
                 )}
                 {card === "MoreCard" && (
                     <MoreCard
                         onRequestClose={onRequestClose}
                         handleSetParams={handleSetParams}
-                        filter={filter}
+                        filterParams={filterParams}
                     />
                 )}
             </StyledBar>

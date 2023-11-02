@@ -10,12 +10,13 @@ const StyledImg = styled.img`
 const TextDiv = styled.div`
     text-align: center;
     position: absolute;
-    top: 120px;
+    top: 140px;
     left: 50%;
     transform: translateX(-50%);
 `;
 
 const StyledP = styled.p`
+    margin-top: ${(props) => props.top};
     width: 823px;
     text-align: center;
     margin-bottom: 32px;

@@ -17,7 +17,8 @@ const FooterWrapper = styled.footer`
     justify-content: center;
     height: ${(props) => (props.page === "home" ? "73px" : "124px")};
     background: #f5f5f6;
-    position: fixed-bottom;
+    margin-top: auto;
+    position: relative;
 `;
 const FooterContainer = styled.div`
     width: 100%;

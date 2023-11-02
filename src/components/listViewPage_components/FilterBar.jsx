@@ -46,7 +46,8 @@ const StyledDiv = styled.div`
     gap: 16px;
 `;
 
-const FilterBar = ({ setFilter, filter }) => {
+const FilterBar = ({ setFilter }) => {
+    const [search, setSearch] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCardType, setSelectedCardType] = useState(null);
     const [filterParams, setFilterParams] = useState({
@@ -57,15 +58,32 @@ const FilterBar = ({ setFilter, filter }) => {
         pet_friendly: false,
         price: [],
         property_type: [],
+        address: "",
     });
 
     useEffect(() => {
         setFilter(filterParams);
+        localStorage.setItem("filter", JSON.stringify(filterParams));
     }, [filterParams, setFilter]);
 
     const handleSetParams = (type, value) => {
         setFilterParams({ ...filterParams, [type]: value });
     };
+
+    const handleSearchFilter = (e) => {
+        const updatedAddress = e.target.value || "";
+        setFilterParams((prevParams) => {
+            return { ...prevParams, address: updatedAddress };
+        });
+        setSearch(updatedAddress);
+    };
+    const handleSelectFilter = (e) => {
+        const selectedValue = e.target.value;
+        setFilterParams((prevParams) => {
+            return { ...prevParams, operation_type: selectedValue };
+        });
+    };
+
     const openModal = (type) => {
         setSelectedCardType(type);
         setIsModalOpen(true);
@@ -73,20 +91,6 @@ const FilterBar = ({ setFilter, filter }) => {
     const closeModal = () => {
         setSelectedCardType(null);
         setIsModalOpen(false);
-    };
-    const handleSelectChange = (e) => {
-        const selectedValue = e.target.value;
-        if (selectedValue === "sale") {
-            setFilterParams((prevFilter) => ({
-                ...prevFilter,
-                operation_type: "sale",
-            }));
-        } else if (selectedValue === "rent") {
-            setFilterParams((prevFilter) => ({
-                ...prevFilter,
-                operation_type: "rent",
-            }));
-        }
     };
 
     const { price, bedrooms, bathrooms, property_type } = filterParams;
@@ -131,7 +135,13 @@ const FilterBar = ({ setFilter, filter }) => {
 
     return (
         <StyledDiv>
-            <Input type="text" placeholder="Search by address" width="240px" />
+            <Input
+                type="text"
+                value={search}
+                onChange={handleSearchFilter}
+                placeholder="Search by address"
+                width="240px"
+            />
             <StyledBar>
                 <div className="flex a-center j-center">
                     <Button
@@ -177,18 +187,17 @@ const FilterBar = ({ setFilter, filter }) => {
                         <FilterModal
                             isOpen={isModalOpen}
                             onRequestClose={closeModal}
-                            contentLabel="Filter Modal"
-                            ariaHideApp={false}
                             card={selectedCardType}
                             handleSetParams={handleSetParams}
-                            filter={filter}
+                            filterParams={filterParams}
+                            setFilterParams={setFilterParams}
                         />,
                         document.body
                     )}
             </StyledBar>
-            <StyledSelect name="" id="" onChange={handleSelectChange}>
+            <StyledSelect name="" id="" onChange={handleSelectFilter}>
                 <option default value="all">
-                    Select an option
+                    Buy & Rent
                 </option>
                 <option value="sale">Buying</option>
                 <option value="rent">Renting</option>

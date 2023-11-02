@@ -5,9 +5,9 @@ import { useState } from "react";
 import Input from "../Inputs";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 
-const PriceCard = ({ onRequestClose, handleSetParams, filter }) => {
-    const [minValue, setMinValue] = useState("");
-    const [maxValue, setMaxValue] = useState("");
+const PriceCard = ({ onRequestClose, handleSetParams, filterParams }) => {
+    const [minValue, setMinValue] = useState(filterParams.price[0]);
+    const [maxValue, setMaxValue] = useState(filterParams.price[1]);
 
     const handleMinInputChange = (e) => {
         setMinValue(e.target.value);
@@ -17,7 +17,8 @@ const PriceCard = ({ onRequestClose, handleSetParams, filter }) => {
     };
     const handleClicked = (e) => {
         e.preventDefault();
-        if (minValue !== "" && maxValue !== "") {
+        console.log(minValue, maxValue);
+        if (minValue !== undefined && maxValue !== undefined) {
             handleSetParams("price", [parseInt(minValue), parseInt(maxValue)]);
         }
         onRequestClose();
@@ -52,6 +53,7 @@ const PriceCard = ({ onRequestClose, handleSetParams, filter }) => {
                     done
                 </Button>
             </form>
+            <p>clear</p>
         </FilterCardContainer>
     );
 };
