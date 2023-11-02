@@ -1,15 +1,5 @@
 import CardComponent from "../CardComponent";
-import styled from "@emotion/styled";
 import CardList from "../Cardlist";
-
-const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 16px 0px;
-  row-gap: 32px;
-  column-gap: 64px;
-`;
 
 export const ClosedProperties = ({ data, onClose }) => {
   const activeProperties = data.filter(
@@ -27,9 +17,9 @@ export const ClosedProperties = ({ data, onClose }) => {
             id={item.id}
             img={item.urls}
             description={item.description}
-            property_price={item.property_price}
+            property_price={new Intl.NumberFormat().format(item.property_price)}
             maintenance={item.maintenance_price}
-            rent={item.rent_value}
+            rent={new Intl.NumberFormat().format(item.rent_value)}
             operation={item.operation_type}
             type={item.property_type}
             address={item.address}

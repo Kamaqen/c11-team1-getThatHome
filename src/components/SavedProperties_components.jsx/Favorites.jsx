@@ -26,8 +26,8 @@ const Favorites = () => {
             key={crypto.randomUUID()}
             id={item.id}
             img={item.urls}
-            rent={item.rent_value}
-            property_price={item.property_price}
+            rent={new Intl.NumberFormat().format(item.rent_value)}
+            property_price={new Intl.NumberFormat().format(item.property_price)}
             operation={item.operation_type}
             type={item.property_type}
             address={item.address}
