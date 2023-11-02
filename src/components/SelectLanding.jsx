@@ -4,15 +4,15 @@ import styled from "@emotion/styled";
 const StyledSelect = styled.select`
     width: 200px;
     padding: 8px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     border-radius: 5px;
     background-color: white;
-    color: #333;
+    color: #8d8b8b;
+    letter-spacing: 1.2px;
 `;
 
 const StyledOption = styled.option`
-    color: red;
     font-size: 16px;
     font-weight: 300px;
 `;

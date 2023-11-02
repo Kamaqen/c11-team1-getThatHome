@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import FilterCardContainer from "./FilterCardContainer";
 import Button from "../Button";
 import { useState } from "react";

@@ -71,6 +71,9 @@
 .margin-md {
     margin: 0 16px;
 }
+.mb-sm {
+    margin-bottom: 8px;
+}
 .mb-md {
     margin-bottom: 16px;
 }
