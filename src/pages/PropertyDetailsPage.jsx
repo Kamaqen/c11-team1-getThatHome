@@ -46,9 +46,13 @@ const PropertyDetailsPage = () => {
             <HeadersSection
               addressPrimary={addressPrimary}
               addressSecundaty={addressSecundaty}
-              rent_value={property.rent_value}
-              maintenance_price={property.maintenance_price}
-              property_price={property.property_price}
+              rent_value={new Intl.NumberFormat().format(property.rent_value)}
+              maintenance_price={new Intl.NumberFormat().format(
+                property.maintenance_price
+              )}
+              property_price={new Intl.NumberFormat().format(
+                property.property_price
+              )}
               operation_type={property.operation_type}
             />
             <DetailsSection
