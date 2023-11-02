@@ -4,7 +4,7 @@ import { DiRubyRough } from "react-icons/di";
 import { DiReact } from "react-icons/di";
 import { AiFillGithub } from "react-icons/ai";
 import PropTypes from "prop-types";
-import { teamMembers } from "../STORE";
+import teamMembers from "../STORE";
 import logoUrl from "/src/assets/Logo.png";
 
 const rubyIcon = <DiRubyRough />;

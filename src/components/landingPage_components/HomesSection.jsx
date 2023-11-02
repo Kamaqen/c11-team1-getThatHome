@@ -1,10 +1,8 @@
 import Section from "../Section";
-import { Link } from "react-router-dom";
 import CardComponent from "../CardComponent";
-import { datafake } from "../../STORE";
 
 const HomesSection = ({ data }) => {
-  const threeFirst = data ? data.slice(0, 3) : datafake.slice(0, 3);
+  const threeFirst = data ? data.slice(0, 3) : [];
   return (
     <Section>
       <p className="mb-md">Find an Apartment you Love</p>
