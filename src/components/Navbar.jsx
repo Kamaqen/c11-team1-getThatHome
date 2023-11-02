@@ -97,6 +97,7 @@ const Navbar = ({ setShowModal, id, role, onLogout }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
+        console.log("lediste click");
         setShowModal(true);
     };
 
