@@ -23,7 +23,7 @@ const SearchLanding = () => {
         bedrooms: "",
         bathrooms: "",
         operation_type: "",
-        pet_friendly: false,
+        pet_friendly: "",
         price: [],
         property_type: [],
     });
@@ -34,7 +34,7 @@ const SearchLanding = () => {
             setFilter((prevFilter) => ({
                 ...prevFilter,
                 property_type:
-                    value === "An appartment" ? ["apartment"] : ["house"],
+                    value === "An apartment" ? ["apartment"] : ["house"],
             }));
         } else if (type === "operation") {
             console.log("Se cambió el filtro", type, value);
@@ -42,11 +42,12 @@ const SearchLanding = () => {
                 ...prevFilter,
                 operation_type: value === "Rent" ? "rent" : "sale",
             }));
+            console.log(filter);
         }
     };
 
     const handleSubmit = (e) => {
-        console.log("Se envió el filtro", filter);
+        console.log("Se envió el filtro:", filter);
         localStorage.setItem("filter", JSON.stringify(filter));
     };
     return (
@@ -54,7 +55,7 @@ const SearchLanding = () => {
             <SelectLanding
                 type="type"
                 label="I’m Looking for"
-                options={["An appartment", "An House"]}
+                options={["An apartment", "A House"]}
                 onChange={(value) => handleSelectChange("type", value)}
             />
             <SelectLanding

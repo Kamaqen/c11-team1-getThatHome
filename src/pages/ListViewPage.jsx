@@ -23,44 +23,7 @@ const ListViewPage = () => {
     const [data, setData] = useState();
     const [filter, setFilter] = useState();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            let storedData = localStorage.getItem("propertiesData");
-            if (storedData) {
-                setData(JSON.parse(storedData));
-                console.log("Se cargaron datos del localStorage.");
-            } else {
-                try {
-                    const apiData = await getProperties();
-                    setData(apiData);
-                    localStorage.setItem(
-                        "propertiesData",
-                        JSON.stringify(apiData)
-                    );
-                    console.log(
-                        "Se cargaron datos desde la API y se almacenaron en el localStorage."
-                    );
-                } catch (error) {
-                    console.error("Error al obtener datos de la API: ", error);
-                }
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        const filterLocal = JSON.parse(localStorage.getItem("filter"));
-        if (
-            filterLocal &&
-            JSON.stringify(filterLocal) !== JSON.stringify(filter)
-        ) {
-            setFilter(filterLocal);
-            console.log("Se cargó el filtro del localStorage");
-        }
-    }, []);
-
-    useEffect(() => {
+    function filterProperties(data, filter) {
         if (data && filter) {
             const filteredData = data.filter((item) => {
                 let result = true;
@@ -85,14 +48,90 @@ const ListViewPage = () => {
                 }
                 if (filter.price.length) {
                     result =
-                        result &&
-                        item.rent_value >= filter.price[0] &&
-                        item.rent_value <= filter.price[1];
+                        (result && item.rent_value) ||
+                        (item.property_price >= filter.price[0] &&
+                            item.rent_value) ||
+                        item.property_price <= filter.price[1];
                 }
                 return result;
             });
             setData(filteredData);
         }
+    }
+    useEffect(() => {
+        const filterLocal = JSON.parse(localStorage.getItem("filter"));
+        if (
+            filterLocal &&
+            JSON.stringify(filterLocal) !== JSON.stringify(filter)
+        ) {
+            setFilter(filterLocal);
+            console.log("Se cargó el filtro del localStorage");
+        }
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let storedData = localStorage.getItem("propertiesData");
+            if (storedData) {
+                console.log("Se cargaron datos del localStorage.");
+                filter
+                    ? filterProperties(JSON.parse(storedData), filter)
+                    : setData(JSON.parse(storedData));
+            } else {
+                try {
+                    const apiData = await getProperties();
+                    setData(apiData);
+                    localStorage.setItem(
+                        "propertiesData",
+                        JSON.stringify(apiData)
+                    );
+                    console.log(
+                        "Se cargaron datos desde la API y se almacenaron en el localStorage."
+                    );
+                } catch (error) {
+                    console.error("Error al obtener datos de la API: ", error);
+                }
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        filterProperties(data, filter);
+        // if (data && filter) {
+        //     const filteredData = data.filter((item) => {
+        //         let result = true;
+        //         if (filter.operation_type) {
+        //             result =
+        //                 result && item.operation_type === filter.operation_type;
+        //         }
+        //         if (filter.property_type.length) {
+        //             result =
+        //                 result &&
+        //                 filter.property_type.includes(item.property_type);
+        //         }
+        //         if (filter.bedrooms) {
+        //             result = result && item.bedrooms >= filter.bedrooms;
+        //         }
+        //         if (filter.bathrooms) {
+        //             result = result && item.bathrooms >= filter.bathrooms;
+        //         }
+        //         if (filter.pet_friendly) {
+        //             result =
+        //                 result && item.pet_friendly === filter.pet_friendly;
+        //         }
+        //         if (filter.price.length) {
+        //             result =
+        //                 (result && item.rent_value) ||
+        //                 (item.property_price >= filter.price[0] &&
+        //                     item.rent_value) ||
+        //                 item.property_price <= filter.price[1];
+        //         }
+        //         return result;
+        //     });
+        //     setData(filteredData);
+        // }
     }, [filter]);
 
     const DataLength = data?.length;
