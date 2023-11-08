@@ -80,7 +80,7 @@ const ContactCard = ({ role, userId, propertyId, handleClick }) => {
                 }
             })
             .catch((error) => {
-                console.log("Error al obtener datos del usuario:", error);
+                console.log("Error al obtener datos del usuario:");
             });
     }, []);
 
