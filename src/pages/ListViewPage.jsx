@@ -99,39 +99,6 @@ const ListViewPage = () => {
 
     useEffect(() => {
         filterProperties(data, filter);
-        // if (data && filter) {
-        //     const filteredData = data.filter((item) => {
-        //         let result = true;
-        //         if (filter.operation_type) {
-        //             result =
-        //                 result && item.operation_type === filter.operation_type;
-        //         }
-        //         if (filter.property_type.length) {
-        //             result =
-        //                 result &&
-        //                 filter.property_type.includes(item.property_type);
-        //         }
-        //         if (filter.bedrooms) {
-        //             result = result && item.bedrooms >= filter.bedrooms;
-        //         }
-        //         if (filter.bathrooms) {
-        //             result = result && item.bathrooms >= filter.bathrooms;
-        //         }
-        //         if (filter.pet_friendly) {
-        //             result =
-        //                 result && item.pet_friendly === filter.pet_friendly;
-        //         }
-        //         if (filter.price.length) {
-        //             result =
-        //                 (result && item.rent_value) ||
-        //                 (item.property_price >= filter.price[0] &&
-        //                     item.rent_value) ||
-        //                 item.property_price <= filter.price[1];
-        //         }
-        //         return result;
-        //     });
-        //     setData(filteredData);
-        // }
     }, [filter]);
 
     const DataLength = data?.length;

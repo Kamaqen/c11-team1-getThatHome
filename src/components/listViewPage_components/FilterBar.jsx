@@ -50,7 +50,14 @@ const FilterBar = ({ setFilter }) => {
     const [search, setSearch] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCardType, setSelectedCardType] = useState(null);
-    const filterLocal = JSON.parse(localStorage.getItem("filter"));
+    const filterLocal = JSON.parse(localStorage.getItem("filter")) || {
+        bedrooms: "",
+        bathrooms: "",
+        operation_type: "",
+        pet_friendly: "",
+        price: [],
+        property_type: [],
+    };
     const [filterParams, setFilterParams] = useState(filterLocal);
 
     useEffect(() => {
