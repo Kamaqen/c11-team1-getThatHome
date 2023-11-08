@@ -52,7 +52,6 @@ const PriceCard = ({ onRequestClose, handleSetParams, filterParams }) => {
                     done
                 </Button>
             </form>
-            <p>clear</p>
         </FilterCardContainer>
     );
 };

@@ -83,6 +83,12 @@
 .mb-xl {
     margin-bottom: 48px;
 }
+.mr-2 {
+    margin-right: 16px;
+}
+.mr-4 {
+    margin-right: 32px;
+}
 .check {
     width: 20px;
     height: 20px;
@@ -97,4 +103,12 @@
 }
 .self-start {
     align-self: flex-start;
+}
+.size24 {
+    font-size: 24px;
+    color: rgb(142, 142, 142);
+    cursor: pointer;
+}
+.size24:hover {
+    color: #f48fb1;
 }

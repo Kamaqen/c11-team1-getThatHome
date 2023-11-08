@@ -34,7 +34,7 @@ const LandingPage = () => {
     return (
         <StyledSection>
             <SearchSection />
-            <HomesSection data={data} />
+            {data && <HomesSection data={data} />}
             <GettingSection />
             <TeamSection />
         </StyledSection>

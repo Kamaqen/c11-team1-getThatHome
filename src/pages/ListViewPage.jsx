@@ -48,10 +48,11 @@ const ListViewPage = () => {
                 }
                 if (filter.price.length) {
                     result =
-                        (result && item.rent_value) ||
-                        (item.property_price >= filter.price[0] &&
-                            item.rent_value) ||
-                        item.property_price <= filter.price[1];
+                        result &&
+                        (item.rent_value || item.property_price) >=
+                            filter.price[0] &&
+                        (item.rent_value || item.property_price) <=
+                            filter.price[1];
                 }
                 return result;
             });
@@ -101,13 +102,31 @@ const ListViewPage = () => {
         filterProperties(data, filter);
     }, [filter]);
 
+    const handleResetFilter = () => {
+        console.log("Se reseteó el filtro.");
+        localStorage.removeItem("filter");
+        setFilter({
+            bedrooms: "",
+            bathrooms: "",
+            operation_type: "",
+            pet_friendly: "",
+            price: [],
+            property_type: [],
+        });
+        setData(JSON.parse(localStorage.getItem("propertiesData")));
+    };
+
     const DataLength = data?.length;
 
     return (
         <Section align="flex-start">
             <div className="flex flex-column a-center">
                 <StyledDiv>
-                    <FilterBar filter={filter} setFilter={setFilter} />
+                    <FilterBar
+                        filter={filter}
+                        setFilter={setFilter}
+                        handleResetFilter={handleResetFilter}
+                    />
                     <p className="headline6 mt-md self-start ">
                         {DataLength} Properties found
                     </p>
@@ -118,12 +137,8 @@ const ListViewPage = () => {
                                 key={-index}
                                 id={item.id}
                                 img={item.urls}
-                                rent={new Intl.NumberFormat().format(
-                                    item.rent_value
-                                )}
-                                property_price={new Intl.NumberFormat().format(
-                                    item.property_price
-                                )}
+                                rent={item.rent_value}
+                                property_price={item.property_price}
                                 operation={item.operation_type}
                                 type={item.property_type}
                                 address={item.address}
