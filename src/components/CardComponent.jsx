@@ -141,7 +141,9 @@ const CardComponent = ({
                     className="flex j-center a-center"
                     text="24px">
                     <RiMoneyDollarCircleLine />{" "}
-                    {operation === "rent" ? rent : property_price}
+                    {operation === "rent"
+                        ? new Intl.NumberFormat().format(rent)
+                        : new Intl.NumberFormat().format(property_price)}
                 </IconTextContainer>
                 <IconTextContainer className="flex j-center a-center">
                     <PiBuildings /> {type}

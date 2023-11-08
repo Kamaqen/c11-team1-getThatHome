@@ -30,7 +30,6 @@ const LandingPage = () => {
       });
     }
   }, []);
-
   return (
     <StyledSection>
       <SearchSection />

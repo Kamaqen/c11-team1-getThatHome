@@ -4,6 +4,7 @@ import FilterModal from "./FilterModal";
 import { createPortal } from "react-dom";
 import Button from "../Button";
 import Input from "../Inputs";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const StyledBar = styled.div`
     width: 518px;
@@ -12,6 +13,7 @@ const StyledBar = styled.div`
     grid-template-rows: 40px;
     gap: 8px;
     justify-content: center;
+    margin-right: 48px;
 `;
 const StyledSelect = styled.select`
     box-sizing: border-box;
@@ -46,12 +48,20 @@ const StyledDiv = styled.div`
     gap: 16px;
 `;
 
-const FilterBar = ({ setFilter }) => {
+const FilterBar = ({ setFilter, handleResetFilter }) => {
     const [search, setSearch] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCardType, setSelectedCardType] = useState(null);
-    const filterLocal = JSON.parse(localStorage.getItem("filter"));
+    const filterLocal = JSON.parse(localStorage.getItem("filter")) || {
+        bedrooms: "",
+        bathrooms: "",
+        operation_type: "",
+        pet_friendly: "",
+        price: [],
+        property_type: [],
+    };
     const [filterParams, setFilterParams] = useState(filterLocal);
+    const [reset, setReset] = useState(false);
 
     useEffect(() => {
         setFilter(filterParams);
@@ -77,6 +87,7 @@ const FilterBar = ({ setFilter }) => {
     };
 
     const openModal = (type) => {
+        setReset(false);
         setSelectedCardType(type);
         setIsModalOpen(true);
     };
@@ -101,15 +112,15 @@ const FilterBar = ({ setFilter }) => {
                 ? ">="
                 : `$${(price[1] / 1000).toFixed(1)}K`
             : ">=";
-        return `${minPrice} - ${maxPrice}`;
+        return reset ? "Price" : `${minPrice} - ${maxPrice}`;
     };
 
     const textButtonProperty = () => {
-        if (property_type.length === 0) {
-            return "Property";
+        if (property_type.length === 0 || reset === true) {
+            return "Property Type";
         }
         if (property_type.length === 1) {
-            return property_type[0] === "apartments" ? "Apartment" : "Houses";
+            return property_type[0] === "apartment" ? "Apartment" : "Houses";
         }
         if (property_type.length === 2) {
             return "Houses & Apartments";
@@ -122,7 +133,11 @@ const FilterBar = ({ setFilter }) => {
         }
         const beds = bedrooms ? bedrooms : "0";
         const baths = bathrooms ? bathrooms : "0";
-        return `${beds}+ BD, ${baths}+ BA`;
+        return reset ? "Beds & Baths" : `${beds}+ BD, ${baths}+ BA`;
+    };
+    const handleReset = () => {
+        handleResetFilter();
+        setReset(true);
     };
 
     return (
@@ -136,6 +151,11 @@ const FilterBar = ({ setFilter }) => {
             />
             <StyledBar>
                 <div className="flex a-center j-center">
+                    <AiOutlineCloseCircle
+                        className="mr-2 size24"
+                        onClick={handleReset}
+                    />
+
                     <Button
                         variant="Primary"
                         id="PriceCard"

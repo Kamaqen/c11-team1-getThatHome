@@ -28,7 +28,7 @@ const PropCard = ({ onRequestClose, handleSetParams }) => {
                         id="house"
                         onChange={handleCheck}
                     />
-                    <label className="gray" htmlFor="houses">
+                    <label className="gray" htmlFor="house">
                         House
                     </label>
                 </div>
@@ -39,7 +39,7 @@ const PropCard = ({ onRequestClose, handleSetParams }) => {
                         id="apartment"
                         onChange={handleCheck}
                     />
-                    <label className="gray" htmlFor="apartments">
+                    <label className="gray" htmlFor="apartment">
                         Apartment
                     </label>
                 </div>

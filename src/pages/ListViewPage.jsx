@@ -48,10 +48,11 @@ const ListViewPage = () => {
                 }
                 if (filter.price.length) {
                     result =
-                        (result && item.rent_value) ||
-                        (item.property_price >= filter.price[0] &&
-                            item.rent_value) ||
-                        item.property_price <= filter.price[1];
+                        result &&
+                        (item.rent_value || item.property_price) >=
+                            filter.price[0] &&
+                        (item.rent_value || item.property_price) <=
+                            filter.price[1];
                 }
                 return result;
             });
@@ -99,40 +100,21 @@ const ListViewPage = () => {
 
     useEffect(() => {
         filterProperties(data, filter);
-        // if (data && filter) {
-        //     const filteredData = data.filter((item) => {
-        //         let result = true;
-        //         if (filter.operation_type) {
-        //             result =
-        //                 result && item.operation_type === filter.operation_type;
-        //         }
-        //         if (filter.property_type.length) {
-        //             result =
-        //                 result &&
-        //                 filter.property_type.includes(item.property_type);
-        //         }
-        //         if (filter.bedrooms) {
-        //             result = result && item.bedrooms >= filter.bedrooms;
-        //         }
-        //         if (filter.bathrooms) {
-        //             result = result && item.bathrooms >= filter.bathrooms;
-        //         }
-        //         if (filter.pet_friendly) {
-        //             result =
-        //                 result && item.pet_friendly === filter.pet_friendly;
-        //         }
-        //         if (filter.price.length) {
-        //             result =
-        //                 (result && item.rent_value) ||
-        //                 (item.property_price >= filter.price[0] &&
-        //                     item.rent_value) ||
-        //                 item.property_price <= filter.price[1];
-        //         }
-        //         return result;
-        //     });
-        //     setData(filteredData);
-        // }
     }, [filter]);
+
+    const handleResetFilter = () => {
+        console.log("Se reseteó el filtro.");
+        localStorage.removeItem("filter");
+        setFilter({
+            bedrooms: "",
+            bathrooms: "",
+            operation_type: "",
+            pet_friendly: "",
+            price: [],
+            property_type: [],
+        });
+        setData(JSON.parse(localStorage.getItem("propertiesData")));
+    };
 
     const DataLength = data?.length;
 
@@ -140,7 +122,11 @@ const ListViewPage = () => {
         <Section align="flex-start">
             <div className="flex flex-column a-center">
                 <StyledDiv>
-                    <FilterBar filter={filter} setFilter={setFilter} />
+                    <FilterBar
+                        filter={filter}
+                        setFilter={setFilter}
+                        handleResetFilter={handleResetFilter}
+                    />
                     <p className="headline6 mt-md self-start ">
                         {DataLength} Properties found
                     </p>
@@ -151,12 +137,8 @@ const ListViewPage = () => {
                                 key={-index}
                                 id={item.id}
                                 img={item.urls}
-                                rent={new Intl.NumberFormat().format(
-                                    item.rent_value
-                                )}
-                                property_price={new Intl.NumberFormat().format(
-                                    item.property_price
-                                )}
+                                rent={item.rent_value}
+                                property_price={item.property_price}
                                 operation={item.operation_type}
                                 type={item.property_type}
                                 address={item.address}

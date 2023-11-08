@@ -67,7 +67,7 @@ const SearchLanding = () => {
             <SelectLanding
                 type="address"
                 label="Where"
-                options={["Favorite district"]}
+                options={["USA", "Mexico", "Peru", "Venezuela"]}
             />
             <Link
                 to="/list"

@@ -4,42 +4,47 @@ import CardComponent from "../CardComponent";
 import CardList from "../Cardlist";
 
 const Contacted = () => {
-  const [data, setData] = useState();
+    const [data, setData] = useState();
 
-  useEffect(() => {
-    if (localStorage.getItem("contactedPropertiesData")) {
-      setData(JSON.parse(localStorage.getItem("contactedPropertiesData")));
-    }
-    getContactedProperties().then((res) => {
-      setData(res);
-      localStorage.setItem("contactedPropertiesData", JSON.stringify(res));
-    });
-  }, []);
+    useEffect(() => {
+        if (localStorage.getItem("contactedPropertiesData")) {
+            setData(
+                JSON.parse(localStorage.getItem("contactedPropertiesData"))
+            );
+        }
+        getContactedProperties().then((res) => {
+            setData(res);
+            localStorage.setItem(
+                "contactedPropertiesData",
+                JSON.stringify(res)
+            );
+        });
+    }, []);
 
-  const DataLength = data?.length;
+    const DataLength = data?.length;
 
-  return (
-    <>
-      <CardList length={DataLength}>
-        {data?.map((item) => (
-          <CardComponent
-            key={crypto.randomUUID()}
-            id={item.id}
-            img={item.urls}
-            rent={new Intl.NumberFormat().format(item.rent_value)}
-            property_price={new Intl.NumberFormat().format(item.property_price)}
-            operation={item.operation_type}
-            type={item.property_type}
-            address={item.address}
-            bed={item.bedrooms}
-            bath={item.bathrooms}
-            area={item.area}
-            pet={item.pet_friendly}
-          />
-        ))}
-      </CardList>
-    </>
-  );
+    return (
+        <>
+            <CardList length={DataLength}>
+                {data?.map((item) => (
+                    <CardComponent
+                        key={crypto.randomUUID()}
+                        id={item.id}
+                        img={item.urls}
+                        rent={item.rent_value}
+                        property_price={item.property_price}
+                        operation={item.operation_type}
+                        type={item.property_type}
+                        address={item.address}
+                        bed={item.bedrooms}
+                        bath={item.bathrooms}
+                        area={item.area}
+                        pet={item.pet_friendly}
+                    />
+                ))}
+            </CardList>
+        </>
+    );
 };
 
 export default Contacted;
