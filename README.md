@@ -16,7 +16,46 @@ GetThatHome is a web application built with Vite.js and React, designed to conne
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/your-username/c11-team1-getthathome.git
+2. **Install dependencies:**
+
+   ```bash
+   cd c11-team1-getthathome
+   npm install
+## Usage
+
+  1. **Development:** Start the development server:
+
+     ```bash
+     npm run dev
+     ```
+
+  2. **Production Build:** Generate a production build:
+
+     ```bash
+     npm run build
+     ```
+
+  3. **Linting:** Run ESLint for code linting:
+
+     ```bash
+     npm run lint
+     ```
+
+  4. **Preview:** Preview the production build locally:
+
+     ```bash
+     npm run preview
+     ```
+
+## Contributing:
+
+  Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+
+## License:
+
+  This project is licensed under the MIT License.
+
